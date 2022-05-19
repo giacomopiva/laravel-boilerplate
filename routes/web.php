@@ -14,10 +14,6 @@ use Illuminate\Routing\Router;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 
@@ -38,4 +34,15 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function (Rout
     });
 
     /*Route::prefix('name')->name('name.')->group(function () { ... }); */
+});
+
+Route::middleware('auth')->group(function (Router $router) {
+    Route::get('/home', function () {
+        return view('home');
+    });    
+});
+
+
+Route::get('/', function () {
+    return view('welcome');
 });
