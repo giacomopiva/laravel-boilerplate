@@ -15,11 +15,6 @@ class CreateRolesAndUsers extends Migration
      */
     public function up()
     {
-        $rolesNames = [
-            'admin',
-            'user',
-        ];
-
         foreach (User::$roles as $role => $name) {
             Role::create(['name' => $role]);
         }
