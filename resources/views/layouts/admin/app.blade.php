@@ -58,8 +58,7 @@
 
     <!-- AdminBSB Theme -->
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/admin/style.css') }}">
-	<link rel="stylesheet" type="text/css" href="{{ asset('css/themes/theme-white.css') }}">
-	<link rel="stylesheet" type="text/css" href="{{ asset('css/admin/custom.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('css/themes/theme-custom.css') }}">
 
     <!-- Custom Css -->
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/admin/custom.css') }}">

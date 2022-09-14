@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use Illuminate\Routing\Router;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,25 +14,27 @@ use Illuminate\Routing\Router;
 |
 */
 
-Auth::routes();
-Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
+/**
+ * Rotte per il login
+ */
+Auth::routes(['register' => false]);
+Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout'); // per avere il logout con verbo get e quindi gestibile anche da un link
 
-/** 
- * Admin 
+/**
+ * Rotte per gli utenti amministratori (che hanno accesso al backend)
  */
 Route::prefix('admin')->name('admin.')->middleware('auth')->group(function (Router $router) {
-    $router->group(['middleware' => ['auth', 'role:admin']], function (Router $router) {        
-        // /admin porta a /admin/home
-        Route::get('/', function () {
-            return redirect('/admin/home');
-        });
-        
-        // /admin/home
-        Route::get('/home', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('home');
-        
-        /*Route::prefix('name')->name('name.')->group(function () { ... }); */
+    // -> /admin/
+    Route::get('/', function () {
+        return redirect('/admin/home');
+    });
 
-        // Gestione Utenti
+    // -> /admin/home
+    Route::get('/home', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('home');
+
+    // Rotte solo per l'utente con ruolo Admin ( 'role:admin' )
+    $router->group(['middleware' => ['auth', 'role:admin']], function (Router $router) {
+        // Gestione Utenti -> /admin/user/...
         $router->resource('user', App\Http\Controllers\Admin\UserController::class)->except(['show']);
         $router->post('/user/list', [App\Http\Controllers\Admin\UserController::class, 'list'])->name('user.list');
         $router->get('/user/export/excel', [App\Http\Controllers\Admin\UserController::class, 'export_excel'])->name('user.export_excel');
@@ -41,17 +43,8 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function (Rout
     });
 });
 
-/** 
- * User 
- */
-Route::middleware('auth')->group(function (Router $router) {
-    Route::get('/home', function () {
-        return view('home');
-    });
-});
-
-/** 
- * Guest 
+/**
+ * Rotte utente non autenticato
  */
 Route::get('/', function () {
     return view('welcome');

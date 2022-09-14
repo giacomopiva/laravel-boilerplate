@@ -14,8 +14,10 @@ return [
     */
 
     'name' => env('APP_NAME', 'Laravel'),
-    
+
     'version' => env('APP_VERSION', '1.0'),
+
+    'logo_name' => env('APP_LOGO_NAME', 'logo@2x.png'),
 
     /*
     |--------------------------------------------------------------------------
@@ -69,7 +71,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Europe/Rome',
 
     /*
     |--------------------------------------------------------------------------
@@ -168,7 +170,7 @@ return [
          * Package Service Providers...
          */
         Spatie\Permission\PermissionServiceProvider::class,
-        Yajra\DataTables\DataTablesServiceProvider::class,        
+        Yajra\DataTables\DataTablesServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
         ESolution\DBEncryption\Providers\DBEncryptionServiceProvider::class,
@@ -235,9 +237,9 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        
+
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
-        'Excel' => Maatwebsite\Excel\Facades\Excel::class,        
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
     ],
 

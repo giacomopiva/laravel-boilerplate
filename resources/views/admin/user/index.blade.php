@@ -10,10 +10,15 @@
 
         <div class="row clearfix">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="card">
+                <div class="card card-collapsable">
                     <div class="header">
-                        <h2>Elenco degli utenti</h2>
+                        <h2><i class="material-icons">people</i>Elenco degli utenti</h2>
                         <ul class="header-dropdown m-r--5">
+                            <li>
+                                <a href="javascript:void(0);" class="collapsable-handler">
+                                    <i class="material-icons">vertical_align_center</i>
+                                </a>
+                            </li>
                             <li class="dropdown">
                                 <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                     aria-haspopup="true" aria-expanded="false">
@@ -22,21 +27,21 @@
                                 <ul class="dropdown-menu pull-right">
                                     <li><a href="{{ url('admin/user/create') }}" role="button" onclick=""
                                             name="crea_nuovo" id="nuovo_utente" class=" waves-effect waves-block"
-                                            value="Nuovo Utente">Nuovo utente</a>
+                                            value="Nuovo utente"><i class="material-icons">add</i> Nuovo utente</a>
                                     </li>
                                     <li><a href="{{ url('admin/user/export/excel') }}" role="button" onclick=""
                                         name="esporta" id="esporta" class=" waves-effect waves-block"
-                                        value="Nuovo Utente">Esporta su file Excel</a>
+                                        value="Esporta file Excel"><i class="material-icons">file_download</i> Esporta su Excel</a>
                                     </li>
                                     <li><a href="{{ url('admin/user/export/gsheet') }}" role="button" onclick=""
                                         name="esporta" id="esporta" class=" waves-effect waves-block"
-                                        value="Nuovo Utente">Esporta su Google Sheet</a>
+                                        value="Esporta Google Sheet"><i class="material-icons">cloud_upload</i> Esporta su Google</a>
                                     </li>
                                 </ul>
                             </li>
                         </ul>
                     </div>
-                    <div class="body">
+                    <div class="body body-collapsable open">
                         @if ($errors->any())
                             <div id="errors-container" class="alert alert-danger alert-dismissible">
                                 <span>Si è verificato un errore: {{ $errors->first() }}</span>
@@ -49,16 +54,18 @@
                             </div>
                         @endif
                                    
-                        <div class="table">
+                        <div class="table-responsive">
                             <table id="utenti_table"
                                 class="table table-bordered table-striped table-hover dataTable" role="grid"
                                 aria-describedby="DataTables_Table_1_info" style="width: 100%;  height:100%;"
                                 cellspacing="0" cellpadding="0">
                                 <thead>
                                     <tr>
+                                        <th>#</th>
                                         <th>Nome</th>
                                         <th>Email</th>
                                         <th>Ruolo</th>
+                                        <th>Ultima modifica</th>
                                         <th>Azioni</th>
                                     </tr>
                                 </thead>
@@ -88,15 +95,19 @@
                 }
             },
             "columns": [
-                {
-                    "data": 'name' 
-                },
-                {
-                    "data": 'email'
-                },
+                { "data": 'id' },
+                { "data": 'name' },
+                { "data": 'email' },
                 {
                     "data": 'rolename',
                     "searchable": false
+                },                    
+                {
+                    "data": 'updated_at',
+                    "searchable": false,
+                    render: function(data, type, row) {
+                        return data ? moment(data).format('DD/MM/YYYY') : 'Ancora nessuna spedizione';
+                    }
                 },                    
                 {
                     "data": 'actions',
@@ -105,11 +116,8 @@
                 },
             ],
             "columnDefs": [
-                { "width": "20%", "targets": 0 },
-                { "width": "20%", "targets": 1 },
-                { "width": "20%", "targets": 2 },
-                { "width": "20%", "targets": 3 }
-            ],            
+                { "width": "30%", "targets": 5 }, // Esempio di imposizione della dimensione della colonna.
+            ],
             "lengthMenu": [25, 50, 100],
             "pageLength": 25,
             "order": [
@@ -123,6 +131,7 @@
             },
             /*"initComplete": function(settings, json) {
                 // Ultima ad essere chiamata
+                console.log('fine draw riga');
             },*/
         });
     });
@@ -133,7 +142,7 @@
     var bind_elimina = function() {
         $('.btn-elimina').bind('click', function(event) {
             event.preventDefault();
-            var id = $(this).attr('id');
+            var id = $(this).attr('data-id');
             swal({
                 title: "Sei sicuro?",
                 text: "Procedere alla cancellazione dell'utente?. L'azione è irreversibile e l'utente sarà definitivamente eliminato dal sistema",
@@ -160,9 +169,6 @@
                         error: function(response, stato) {
                             swal.close();
                             showNotification('alert-danger', response.responseJSON.message, 'top', 'right', null, null);
-
-                            //console.log(response.responseJSON.message);
-                            //showNotification('alert-danger', 'Si è verificato un errore, controllare la console per avere maggiori dettagli', 'top', 'right', null, null);
                         }
                     });
                 } else {

@@ -1,8 +1,10 @@
 @props(['url', 'resource'])
 
-<a  href="javascript:void(0)" 
+<a href="javascript:void(0)" 
     class="btn waves-effect btn-danger ml-2" 
-    onclick="elimina({{ $resource->id }}, event)"> Elimina </a>
+    onclick="elimina({{ $resource->id }}, event)"> 
+    <i class="material-icons">delete</i><span>
+        Elimina</i></a>
 
 <script type="text/javascript">
     /**

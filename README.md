@@ -26,6 +26,12 @@
 [laravel-database-encryption](https://packagist.org/packages/elgibor-solution/laravel-database-encryption)
 [Documentazione](https://github.com/betterapp/laravel-db-encrypter)
 
+### Laravel Debug Bar 
+[laravel-debugbar](https://github.com/barryvdh/laravel-debugbar)
+
+### Laravel Pint
+[laravel-pint](https://laravel.com/docs/9.x/pint)
+
 ### Google API 
 [Developer Guide](https://developers.google.com/sheets/api/quickstart/php) 
 [Documentazione](https://developers.google.com/sheets/api/reference/rest/v4/spreadsheets.values)
@@ -34,11 +40,13 @@
 ### Google Calendar
 [spatie/laravel-google-calendar](https://github.com/spatie/laravel-google-calendar)
 
-
 ## Alcuni tutorial utili
 [Validazione](https://www.laravelcode.com/post/laravel-8-ajax-crud-with-yajra-datatable-and-bootstrap-model-validation-example)
-[Google Data Studio](https://www.youtube.com/watch?v=r5Ug0588c2g&list=PLkZU2rKh1mT92fmCpJmYEQwwz9rj7U5my)
+[TDD](https://jsdecena.medium.com/simple-tdd-in-laravel-with-11-steps-c475f8b1b214)
+[SOLID](https://youtu.be/OmtLxnjMnlY)
+[Action](https://www.youtube.com/watch?v=izFyFtpEGoY)
 [REST API](https://www.youtube.com/watch?v=MT-GJQIY3EU)
+[Google Data Studio](https://youtu.be/r5Ug0588c2g)
 
 ## Test
 
