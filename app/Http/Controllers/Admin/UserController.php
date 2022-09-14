@@ -81,9 +81,11 @@ class UserController extends AdminController
     {
         try {
             $validator = Validator::make($request->all(), [
-                'name'      => 'required|string|max:255',
-                'email'     => 'required|email|string|unique:users|max:255',
-                'password'  => 'required|string|min:6',
+                'name' => 'required|string|max:255',
+                'email' => 'required|email|max:255|unique_encrypted:users,email',
+                'password' => 'required|string|min:6',
+            ], [
+                'email.unique_encrypted' => "L'email esiste già",
             ]);
 
             if ($validator->fails()) {
@@ -95,9 +97,8 @@ class UserController extends AdminController
 
             $user = User::create($input);
             $user->assignRole($input['role']);
-            
-            return view('admin.user.index');   
-        
+
+            return view('admin.user.index');
         } catch (Exception $e) {
             Log::info($e->getMessage());
         }
@@ -150,8 +151,10 @@ class UserController extends AdminController
 
             $validator = Validator::make($request->all(), [
                 'name' => 'required|string|max:255',
-                'email' => 'required|email|string|max:255',
+                'email' => 'required|email|max:255|unique_encrypted:users,email,'. $user->id,
                 'password' => 'nullable|sometimes|string|min:6',
+            ], [
+                'email.unique_encrypted' => "L'email esiste già",
             ]);
 
             if ($validator->fails()) {
