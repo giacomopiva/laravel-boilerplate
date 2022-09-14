@@ -106,7 +106,7 @@
                     "data": 'updated_at',
                     "searchable": false,
                     render: function(data, type, row) {
-                        return data ? moment(data).format('DD/MM/YYYY') : 'Ancora nessuna spedizione';
+                        return data ? moment(data).format('DD/MM/YYYY') : '';
                     }
                 },                    
                 {
