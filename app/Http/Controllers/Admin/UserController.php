@@ -107,7 +107,7 @@ class UserController extends AdminController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
         //
     }
@@ -118,9 +118,8 @@ class UserController extends AdminController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        $user = User::find($id);
         $roles = User::$roles;
 
         if ($user) {
@@ -137,11 +136,9 @@ class UserController extends AdminController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
         try {
-            $user = User::find($id);
-
             if (! $user) {
                 return redirect()->route('admin.user.index')->withErrors("L' utente non esiste");
             }
@@ -182,11 +179,9 @@ class UserController extends AdminController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
         try {
-            $user = User::find($id);
-
             if (! $user) {
                 return self::makeJsonResponseBadRequest('Utente non trovato');
             }
@@ -248,14 +243,12 @@ class UserController extends AdminController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function print($id)
+    public function print(User $user)
     {
         /**
          * !!! POTREBBE ESSERE UTILE: https://codepen.io/rafaelcastrocouto/pen/LFAes
          */
         try {
-            $user = User::find($id);
-
             if (! $user) {
                 return redirect()->route('admin.user.index')->withErrors("L'utente non esiste");
             }

@@ -27,7 +27,7 @@
                         </div>
                     @endif
             
-                    <form action="{{ URL::action([App\Http\Controllers\Admin\UserController::class, 'update'], $user->id) }}" method="POST">
+                    <form action="{{ URL::action([App\Http\Controllers\Admin\UserController::class, 'update'], $user) }}" method="POST">
                         {{ csrf_field() }}
                         {{ method_field('PATCH') }}
 
