@@ -17,11 +17,13 @@
             <img src="/images/user.png" width="48" height="48" alt="User" />
         </div>
         <div class="info-container">
-            <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Ciao <span class="name">{{ Auth::user()->name }}</span>! </div>
-            <div class="email">Hai effettuato il login come: <span class="name">{{ Auth::user()->name }} </span><br/> 
-            Il tuo ruolo è: 
-                <span class="role" id="role">{{ Auth::user()->roleName() }}</span>
-            </div>
+            <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Ciao <span class="name">{{ Auth::user()->name }}</span>! </div>
+            
+            <div class="email">
+                Email di accesso: <span class="name">{{ Auth::user()->email }} </span><br/> 
+                Il tuo ruolo è: <span class="role" id="role">{{ Auth::user()->roleName() }}</span></div>
+
             <div class="btn-group user-helper-dropdown">
                 <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
                 <ul class="dropdown-menu pull-right">
@@ -39,14 +41,17 @@
     <div class="menu">
         <ul class="list">
             <li class="header">MENU PRINCIPALE</li>
-            @role(['admin'])
-            <li class="{{ is_section_active(['home']) ? 'active' : '' }}">
+            
+            <li class="{{ app_section_name(0) }} {{ app_section_name(1) }} {{ is_section_active(['home'], 1) ? 'active' : '' }}">
                 <a href="{{ route('admin.home') }}">
                     <i class="material-icons">home</i>
                     <span>Home</span>
                 </a>
             </li>
-            <li class="{{ is_section_active(['utenti']) ? 'active' : '' }}">
+            
+            @role(['admin'])
+            <hr />
+            <li class="{{ app_section_name(0) }} {{ app_section_name(1) }} {{ is_section_active(['user'], 1) ? 'active' : '' }}">
                 <a href="{{ route('admin.user.index') }}">
                     <i class="material-icons">account_circle</i>
                     <span>Utenti</span>

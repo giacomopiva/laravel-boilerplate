@@ -2,28 +2,24 @@
 
 namespace App\Notifications\Admin;
 
+use App\Models\User;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-
-use App\Models\User;
-
-use URL;
 
 class AccountConfirmation extends Notification
 {
     use Queueable;
 
-    /** 
-     * @var User 
+    /**
+     * @var User
      */
     private $user;
 
     /**
      * Create a new notification instance.
      *
-     * @param User $user
+     * @param  User  $user
      * @return void
      */
     public function __construct(User $user)
@@ -66,5 +62,5 @@ class AccountConfirmation extends Notification
         return [
             //
         ];
-    } 
+    }
 }

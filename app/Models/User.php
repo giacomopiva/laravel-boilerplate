@@ -2,17 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Notifications\Admin\AccountConfirmation;
+use ESolution\DBEncryption\Traits\EncryptedAttribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use Spatie\Permission\Traits\HasRoles;
-use ESolution\DBEncryption\Traits\EncryptedAttribute;
-
-use App\Notifications\Admin\AccountConfirmation;
-
 use Log;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
@@ -47,23 +44,23 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-       
+
     /**
      * The attributes that should be encrypted/decrypted.
      *
      * @var array
      */
     protected $encryptable = [
-        'name', 
+        'name',
         'email',
     ];
 
     /**
      * Ruoli degli utenti
      */
-    static $roles = [
-        'admin' => "Amministratore",
-        'user'  => "Utente"
+    public static $roles = [
+        'admin' => 'Amministratore',
+        'user' => 'Utente',
     ];
 
     /**
@@ -71,45 +68,47 @@ class User extends Authenticatable
      * admin -> Amministratore
      * user -> Utente
      */
-    public function roleName() 
+    public function roleName()
     {
-        return self::$roles[ $this->getRoleNames()->first() ];
+        return self::$roles[$this->getRoleNames()->first()];
     }
 
+    /**
+     * Azioni database
+     */
     public static function boot()
     {
         parent::boot();
 
-        self::creating(function($model){
+        self::creating(function ($model) {
             Log::info('User creating');
         });
 
-        self::created(function($model){
+        self::created(function ($model) {
             Log::info('User created');
 
             if (! in_array(config('app.env'), ['local', 'testing'])) {
                 try {
                     $model->notify(new AccountConfirmation($model));
-                    
                 } catch (Exception $e) {
                     Log::info($e->getMessage());
                 }
             }
         });
 
-        self::updating(function($model){
+        self::updating(function ($model) {
             Log::info('User updating');
         });
 
-        self::updated(function($model){
+        self::updated(function ($model) {
             Log::info('User updated');
         });
 
-        self::deleting(function($model){
+        self::deleting(function ($model) {
             Log::info('User deleting');
         });
 
-        self::deleted(function($model){
+        self::deleted(function ($model) {
             Log::info('User deleted');
         });
     }

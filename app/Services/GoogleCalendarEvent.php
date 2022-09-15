@@ -4,15 +4,13 @@ namespace App\Services;
 
 use Spatie\GoogleCalendar\Event;
 
-use Log;
-
-class GoogleCalendarEvent 
+class GoogleCalendarEvent
 {
     private $event;
 
     public function __construct()
     {
-        $this->event = new Event; 
+        $this->event = new Event;
     }
 
     public function saveEvent($name, $description, $startTime, $time)
@@ -23,5 +21,4 @@ class GoogleCalendarEvent
         $this->event->endDateTime = $startTime->addMinutes(30);
         $this->event->save();
     }
-
 }

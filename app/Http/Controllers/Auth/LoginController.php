@@ -4,11 +4,10 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use Auth;
+use ESolution\DBEncryption\Encrypter;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-
-use ESolution\DBEncryption\Encrypter;
-use Auth;
 
 class LoginController extends Controller
 {
@@ -43,7 +42,6 @@ class LoginController extends Controller
     }
 
     /**
-     *
      * @return response()
      */
     public function login(Request $request)
@@ -52,15 +50,14 @@ class LoginController extends Controller
             'email' => 'required',
             'password' => 'required',
         ]);
-     
+
         $credentials = $request->only('email', 'password');
         $credentials['email'] = Encrypter::encrypt($credentials['email']); // Devo criptare la mail perchè il login abbia successo
 
         if (Auth::attempt($credentials)) {
             return redirect($this->redirectTo);
         }
-    
-        return redirect("login")->withSuccess('Oppes! You have entered invalid credentials');
-    }
 
+        return redirect('login')->withSuccess('Oppes! You have entered invalid credentials');
+    }
 }

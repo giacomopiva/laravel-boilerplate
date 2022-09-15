@@ -16,10 +16,19 @@ echo "setup ..."
 ./vendor/bin/phpunit 	
 @endtask
 
+@task('pint', ['on' => ['localhost']])
+./vendor/bin/pint 	
+@endtask
+
 @task('encrypt_db', ['on' => ['localhost']])
 php artisan encryptable:encryptModel 'App\Models\User'
 @endtask
 
 @task('decrypt_db', ['on' => ['localhost']])
 php artisan encryptable:decryptModel 'App\Models\User'
+@endtask
+
+@task('rebuild', ['on' => ['localhost']])
+php artisan migrate:fresh 
+php artisan db:seed 
 @endtask

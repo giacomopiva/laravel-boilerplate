@@ -24,8 +24,8 @@ return [
     'access_type' => 'online',
     'approval_prompt' => 'auto',
 
-    /** 
-     * Personalizzati 
+    /**
+     * Personalizzati
      */
     'spreadsheet_id' => env('GOOGLE_SPREADSHEET_ID', ''),
     'sheet_id' => env('GOOGLE_SHEET_ID', ''),

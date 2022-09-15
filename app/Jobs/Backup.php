@@ -2,14 +2,13 @@
 
 namespace App\Jobs;
 
+use DateTime;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-
-use DateTime;
+use File;
 use Log;
 
 class Backup implements ShouldQueue
@@ -35,10 +34,14 @@ class Backup implements ShouldQueue
     {
         $today = new DateTime();
         $date = $today->format('Y-m-d_His');
+        $filename = env('DB_DATABASE')."-backup-{$date}.sql";
+        $backup_path = storage_path().config('backup.backup_directory');
 
-        $filename = "mysql-backup-{$date}.sql";
-        $backup_path = storage_path() . config('backup.backup_directory');
-        $command = "mysqldump --user=" . env('DB_USERNAME') . " --password=" . env('DB_PASSWORD') . " --host=" . env('DB_HOST') . " " . env('DB_DATABASE') . "  > " . $backup_path . $filename;
+        if (! File::isDirectory($backup_path)) {
+            File::makeDirectory($backup_path, 0777, true, true);
+        }
+
+        $command = 'mysqldump --user='.env('DB_USERNAME').' --password='.env('DB_PASSWORD').' --host='.env('DB_HOST').' '.env('DB_DATABASE').'  > '.$backup_path.$filename;
 
         $returnVar = null;
         $output = null;
@@ -48,11 +51,12 @@ class Backup implements ShouldQueue
 
         // Controllo che il backup sia andato a buon fine, altrimenti faccio il report e termino il processo
         if ($returnVar != 0) {
-            Log::error("BackUp: Errore creazione del backup del database.");
+            Log::error('BackUp: Errore creazione del backup del database.');
             Log::error("command: $command");
-            Log::error("output: ");
+            Log::error('output: ');
             Log::error($output);
             Log::error("return: $returnVar");
+
             return -1;
         }
 
@@ -81,10 +85,10 @@ class Backup implements ShouldQueue
         // Con vecchi si intende più vecchi del ciclo di vita
         if ($handle = opendir($backup_path)) {
             while (false !== ($entry = readdir($handle))) {
-                if ($entry[0] != "." && $entry != "mysql-backup-last.sql.gz" && $entry != "README.md") {
+                if ($entry[0] != '.' && $entry != 'mysql-backup-last.sql.gz' && $entry != 'README.md') {
                     $file_prefix = explode('_', $entry)[0];
                     $parts = explode('-', $file_prefix);
-                    $fd = $parts[2] . "-" . $parts[3] . "-" . $parts[4];
+                    $fd = $parts[2].'-'.$parts[3].'-'.$parts[4];
                     $file_date = DateTime::createFromFormat('Y-m-d', $fd);
 
                     // Se la data del file è più vecchia della data di partenza
@@ -98,6 +102,6 @@ class Backup implements ShouldQueue
             closedir($handle);
         }
 
-        Log::info("BackUp: Backup eseguito correttamente");
+        Log::info('BackUp: Backup eseguito correttamente');
     }
 }

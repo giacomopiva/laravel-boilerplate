@@ -2,10 +2,9 @@
 
 namespace App\Console;
 
+use App\Jobs\Backup;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-
-use App\Jobs\Backup;
 
 class Kernel extends ConsoleKernel
 {
@@ -21,7 +20,6 @@ class Kernel extends ConsoleKernel
 
         if (env('APP_ENV') == 'production') {
             $schedule->job(new Backup)->dailyAt('1:00');
-
         } else {
             $schedule->job(new Backup)->everyMinute();
         }

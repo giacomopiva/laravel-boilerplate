@@ -470,4 +470,27 @@ $(function () {
     $.AdminBSB.search.activate();
 
     setTimeout(function () { $('.page-loader-wrapper').fadeOut(); }, 50);
+
+    $(document).ready(function() {
+        /** 
+         * Gestisco il click per collassare o espandere le card
+         */
+        $('.collapsable-handler').bind('click', function() {
+            toggleCardCollapse($(this).parents('.card-collapsable'));
+        });
+        
+        /** 
+         * Card Collassabile 
+         * TODO: Servirebbe una piccola animazione per lo sliding
+         */
+        function toggleCardCollapse($card) {
+            var $body = $card.find('.body-collapsable')
+            $body.toggleClass("open");
+            if ($body.hasClass("open")) {
+                $body.show();                
+            } else {
+                $body.hide();
+            }
+        }
+    });
 });

@@ -3,9 +3,8 @@
 namespace Tests\Unit;
 
 //use PHPUnit\Framework\TestCase;
-use Tests\TestCase;
-
 use App\Models\User;
+use Tests\TestCase;
 
 class AdminUserExistsTest extends TestCase
 {
@@ -17,7 +16,7 @@ class AdminUserExistsTest extends TestCase
     public function test_example()
     {
         $users = User::whereEncrypted('email', 'admin@example.com')->get();
-        
+
         $this->assertTrue($users->count() > 0);
     }
 }

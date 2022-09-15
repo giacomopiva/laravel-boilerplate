@@ -12,7 +12,7 @@ return [
     */
 
     'backup_directory' => '/app/backups/',
-    
+
     /*
     |--------------------------------------------------------------------------
     | Backup conservati
