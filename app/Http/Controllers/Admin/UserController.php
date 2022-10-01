@@ -145,7 +145,7 @@ class UserController extends AdminController
 
             $validator = Validator::make($request->all(), [
                 'name' => 'required|string|max:255',
-                'email' => 'required|email|max:255|unique_encrypted:users,email,'. $user->id,
+                'email' => 'required|email|max:255|unique_encrypted:users,email,'.$user->id,
                 'password' => 'nullable|sometimes|string|min:6',
             ], [
                 'email.unique_encrypted' => "L'email esiste già",
