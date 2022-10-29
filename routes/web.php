@@ -24,6 +24,7 @@ Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout
  * Rotte per gli utenti amministratori (che hanno accesso al backend)
  */
 Route::prefix('admin')->name('admin.')->middleware('auth')->group(function (Router $router) {
+    
     // -> /admin/
     Route::get('/', function () {
         return redirect('/admin/home');
@@ -47,5 +48,6 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function (Rout
  * Rotte utente non autenticato
  */
 Route::get('/', function () {
-    return view('welcome');
+    //return view('welcome');
+    return view('comingsoon');
 });

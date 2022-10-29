@@ -372,3 +372,8 @@ span.required {
     color:#f00;
     margin-left: 5px;
 }
+
+/* Bottoni */
+.btn:not(.btn-link):not(.btn-circle) {
+    border-radius: 5px;
+}
