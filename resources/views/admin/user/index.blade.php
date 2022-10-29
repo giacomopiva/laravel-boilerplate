@@ -1,5 +1,22 @@
 @extends('layouts.admin.app')
 
+@section('style')
+<!-- Page Style -->
+<style>
+:root{
+    --max-btn-count: 3;
+    --max-btn-width: 90px;
+    --btn-margin-right: 10px;
+}
+
+.table.dataTable thead tr th:last-child {
+    width: calc(var(--max-btn-count) * var(--max-btn-width) + var(--max-btn-count) * var(--btn-margin-right)) !important;
+    min-width: calc(var(--max-btn-count) * var(--btn-margin-right)) !important;
+    max-width: 30%;
+}
+</style>
+@endsection
+
 @section('content')
     <div class="container-fluid">
         <div class="block-header">
@@ -65,6 +82,7 @@
                                         <th>Nome</th>
                                         <th>Email</th>
                                         <th>Ruolo</th>
+                                        <th>Data di creazione</th>
                                         <th>Ultima modifica</th>
                                         <th>Azioni</th>
                                     </tr>
@@ -80,6 +98,7 @@
 @endsection
 
 @section('script')
+<!-- Page Script -->
 <script type="text/javascript">
     var table;
     $(document).ready(function() {
@@ -103,6 +122,13 @@
                     "searchable": false
                 },                    
                 {
+                    "data": 'created_at',
+                    "searchable": false,
+                    render: function(data, type, row) {
+                        return data ? moment(data).format('DD/MM/YYYY') : '';
+                    }
+                },                    
+                {
                     "data": 'updated_at',
                     "searchable": false,
                     render: function(data, type, row) {
@@ -116,7 +142,7 @@
                 },
             ],
             "columnDefs": [
-                { "width": "30%", "targets": 5 }, // Esempio di imposizione della dimensione della colonna.
+                { "width": '30px', "targets": 0 }, // Esempio di imposizione della dimensione della colonna.
             ],
             "lengthMenu": [25, 50, 100],
             "pageLength": 25,
@@ -129,10 +155,9 @@
             "drawCallback": function(settings, json) {
                 $(bind_elimina);
             },
-            /*"initComplete": function(settings, json) {
+            "initComplete": function(settings, json) {
                 // Ultima ad essere chiamata
-                console.log('fine draw riga');
-            },*/
+            },
         });
     });
 
