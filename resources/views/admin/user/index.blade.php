@@ -25,15 +25,15 @@
                                     <i class="material-icons">more_vert</i>
                                 </a>
                                 <ul class="dropdown-menu pull-right">
-                                    <li><a href="{{ url('admin/user/create') }}" role="button" onclick=""
+                                    <li><a href="{{ url('admin/users/create') }}" role="button" onclick=""
                                             name="crea_nuovo" id="nuovo_utente" class=" waves-effect waves-block"
                                             value="Nuovo utente"><i class="material-icons">add</i> Nuovo utente</a>
                                     </li>
-                                    <li><a href="{{ url('admin/user/export/excel') }}" role="button" onclick=""
+                                    <li><a href="{{ url('admin/users/export/excel') }}" role="button" onclick=""
                                         name="esporta" id="esporta" class=" waves-effect waves-block"
                                         value="Esporta file Excel"><i class="material-icons">file_download</i> Esporta su Excel</a>
                                     </li>
-                                    <li><a href="{{ url('admin/user/export/gsheet') }}" role="button" onclick=""
+                                    <li><a href="{{ url('admin/users/export/gsheet') }}" role="button" onclick=""
                                         name="esporta" id="esporta" class=" waves-effect waves-block"
                                         value="Esporta Google Sheet"><i class="material-icons">cloud_upload</i> Esporta su Google</a>
                                     </li>
@@ -88,7 +88,7 @@
             processing: true,
             serverSide: true,
             ajax: {
-                url: "{!! url('admin/user/list') !!}",
+                url: "{!! url('admin/users/list') !!}",
                 type: "post",
                 data: {
                     _token: $('meta[name="csrf-token"]').attr('content'),
@@ -156,7 +156,7 @@
             }, function(isConfirm) {
                 if (isConfirm) {
                     $.ajax({
-                        url: "{!! url('admin/user') !!}/" + id,
+                        url: "{!! url('admin/users') !!}/" + id,
                         type: "delete",
                         dataType: "json",
                         data: {

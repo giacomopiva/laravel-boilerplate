@@ -40,8 +40,8 @@ class UserController extends AdminController
 
         return DataTables::of($users)
             ->addColumn('actions', function ($user) {
-                $buttons = '<span class="mr-1"><a href="user/'.$user->id.'/edit" data-id="'.$user->id.'" class="btn waves-effect btn-primary"><i class="material-icons">edit</i><span>Modifica</span></a></span>';
-                $buttons .= '<span class="mr-1"><a href="user/'.$user->id.'/print" data-id="'.$user->id.'" class="btn waves-effect btn-default"><i class="material-icons">print</i><span>Stampa</span></a></span>';
+                $buttons = '<span class="mr-1"><a href="users/'.$user->id.'/edit" data-id="'.$user->id.'" class="btn waves-effect btn-primary"><i class="material-icons">edit</i><span>Modifica</span></a></span>';
+                $buttons .= '<span class="mr-1"><a href="users/'.$user->id.'/print" data-id="'.$user->id.'" class="btn waves-effect btn-default"><i class="material-icons">print</i><span>Stampa</span></a></span>';
 
                 if (Auth::user()->id != $user->id) {
                     $buttons .= '<span class="mr-1"><button data-id="'.$user->id.'" class="btn waves-effect btn-danger btn-elimina"><i class="material-icons">delete</i><span>Elimina</span></button></span>';
@@ -86,7 +86,7 @@ class UserController extends AdminController
             ]);
 
             if ($validator->fails()) {
-                return redirect()->route('admin.user.create')->withErrors($validator)->withInput();
+                return redirect()->route('admin.users.create')->withErrors($validator)->withInput();
             }
 
             $input = $request->all();
@@ -126,7 +126,7 @@ class UserController extends AdminController
             return view('admin.user.edit', compact('user', 'roles'));
         }
 
-        return redirect()->route('admin.user.index')->withErrors("L' utente non esiste");
+        return redirect()->route('admin.users.index')->withErrors("L' utente non esiste");
     }
 
     /**
@@ -140,7 +140,7 @@ class UserController extends AdminController
     {
         try {
             if (! $user) {
-                return redirect()->route('admin.user.index')->withErrors("L' utente non esiste");
+                return redirect()->route('admin.users.index')->withErrors("L' utente non esiste");
             }
 
             $validator = Validator::make($request->all(), [
@@ -152,7 +152,7 @@ class UserController extends AdminController
             ]);
 
             if ($validator->fails()) {
-                return redirect()->route('admin.user.edit', $id)->withErrors($validator)->withInput();
+                return redirect()->route('admin.users.edit', $id)->withErrors($validator)->withInput();
             }
 
             $input = $request->all();
@@ -167,7 +167,7 @@ class UserController extends AdminController
             $user->update($input);
             $user->syncRoles($input['role']);
 
-            return redirect()->route('admin.user.index');
+            return redirect()->route('admin.users.index');
         } catch (Exception $e) {
             Log::info($e->getMessage());
         }
@@ -231,10 +231,10 @@ class UserController extends AdminController
         } catch (Exception $e) {
             Log::info($e->getMessage());
 
-            return redirect()->route('admin.user.index')->withErrors('L\'export non è andato a buon fine');
+            return redirect()->route('admin.users.index')->withErrors('L\'export non è andato a buon fine');
         }
 
-        return redirect()->route('admin.user.index')->with('success', 'Export riuscito.');
+        return redirect()->route('admin.users.index')->with('success', 'Export riuscito.');
     }
 
     /**
@@ -250,7 +250,7 @@ class UserController extends AdminController
          */
         try {
             if (! $user) {
-                return redirect()->route('admin.user.index')->withErrors("L'utente non esiste");
+                return redirect()->route('admin.users.index')->withErrors("L'utente non esiste");
             }
 
             $pdf = PDF::loadView('admin.user.pdf.show', compact('user'));

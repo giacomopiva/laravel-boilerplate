@@ -48,7 +48,7 @@ class AccountConfirmation extends Notification
     {
         return (new MailMessage)
             ->subject('Account confermato')
-            ->view('admin.user.email.account-confirmation', ['user' => $this->user]);
+            ->view('admin.users.email.account-confirmation', ['user' => $this->user]);
     }
 
     /**

@@ -74,7 +74,7 @@
                                         <label for="email">Nuova password<span class="required">*</span></label>
                                         <div class="form-group">
                                             <div class="form-line {{ $errors->has('password') ? 'error' : '' }}">
-                                                <input type="password" class="form-control" name="password" value="" maxlength="255">
+                                                <input type="password" class="form-control" name="password" value="{{ old('password') ?? '' }}" maxlength="255">
                                             </div>
                                             @if ($errors->has('password'))
                                                 <label class="error">{{ $errors->first('password') }}</label>
@@ -97,7 +97,7 @@
                                                             :description="'Ruolo dell utente'" 
                                                             :check="$user->roles->first()->name" 
                                                             :required="true" 
-                                                            :disabled="$user->id == Auth::user()->id ? 'true' : 'false'" />
+                                                            :disabled="$user->id == Auth::user()->id ? true : false" />
                                         </div>    
                                     </div>
                                 </div>
@@ -112,7 +112,7 @@
                                         <span>Salva</span>
                                     </button>
                                     
-                                    <a href="{{ route('admin.user.index') }}" class="btn waves-effect btn-default ml-2">
+                                    <a href="{{ route('admin.users.index') }}" class="btn waves-effect btn-default ml-2">
                                         <i class="material-icons">undo</i><span>Indietro</span></a>
                                     
                                     @if ($user->id != Auth::user()->id)

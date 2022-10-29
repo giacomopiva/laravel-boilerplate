@@ -52,7 +52,7 @@
             @role(['admin'])
             <hr />
             <li class="{{ app_section_name(0) }} {{ app_section_name(1) }} {{ is_section_active(['user'], 1) ? 'active' : '' }}">
-                <a href="{{ route('admin.user.index') }}">
+                <a href="{{ route('admin.users.index') }}">
                     <i class="material-icons">account_circle</i>
                     <span>Utenti</span>
                 </a>

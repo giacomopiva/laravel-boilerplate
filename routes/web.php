@@ -36,11 +36,11 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function (Rout
     // Rotte solo per l'utente con ruolo Admin ( 'role:admin' )
     $router->group(['middleware' => ['auth', 'role:admin']], function (Router $router) {
         // Gestione Utenti -> /admin/user/...
-        $router->resource('user', App\Http\Controllers\Admin\UserController::class)->except(['show']);
-        $router->post('/user/list', [App\Http\Controllers\Admin\UserController::class, 'list'])->name('user.list');
-        $router->get('/user/export/excel', [App\Http\Controllers\Admin\UserController::class, 'export_excel'])->name('user.export_excel');
-        $router->get('/user/export/gsheet', [App\Http\Controllers\Admin\UserController::class, 'export_gsheet'])->name('user.export_gsheet');
-        $router->get('/user/{user}/print', [App\Http\Controllers\Admin\UserController::class, 'print'])->name('user.print');
+        $router->resource('users', App\Http\Controllers\Admin\UserController::class)->except(['show']);
+        $router->post('/users/list', [App\Http\Controllers\Admin\UserController::class, 'list'])->name('users.list');
+        $router->get('/users/export/excel', [App\Http\Controllers\Admin\UserController::class, 'export_excel'])->name('users.export_excel');
+        $router->get('/users/export/gsheet', [App\Http\Controllers\Admin\UserController::class, 'export_gsheet'])->name('users.export_gsheet');
+        $router->get('/users/{user}/print', [App\Http\Controllers\Admin\UserController::class, 'print'])->name('users.print');
     });
 });
 
