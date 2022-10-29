@@ -23,7 +23,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
 	<!-- Favicon-->
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="{{  asset('images/favicon_admin.ico') }}">
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
@@ -44,6 +44,38 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/admin/font-awesome.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/admin/custom.css') }}">
     
+    <style>
+        .custom-shape-divider-bottom-1667063732 {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+            transform: rotate(180deg);
+        }
+
+        .custom-shape-divider-bottom-1667063732 svg {
+            position: relative;
+            display: block;
+            width: calc(165% + 1.3px);
+            height: 370px;
+        }
+
+        .custom-shape-divider-bottom-1667063732 .shape-fill {
+            fill: #FFFFFF;
+        }
+
+        .fp-page {
+            background-color: #1F91F3;
+        }
+
+        .btn:not(.btn-link):not(.btn-circle) {
+            min-width: 80px;
+            border-radius: 5px;
+        }
+    </style>
+
     <!-- Jquery Core Js -->
     <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
 
@@ -52,6 +84,12 @@
 </head>
 
 <body class="fp-page">
+    <div class="custom-shape-divider-bottom-1667063732">
+        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M1200 120L0 16.48 0 0 1200 0 1200 120z" class="shape-fill"></path>
+        </svg>
+    </div>
+
     <div class="fp-box">
         <div class="logo">
             <a href="javascript:void(0);">Accedi a {{ config('app.name', 'Laravel') }}</b></a>
@@ -76,7 +114,7 @@
                     <button class="btn btn-block btn-lg bg-pink waves-effect btn-primary" type="submit">{{ __('Send Password Reset Link') }}</button>
 
                     <div class="row m-t-20 m-b--5 align-center">
-                        <a href="{{ url('login') }}" class="col-blue-grey">{{ __('Log In!') }}</a>
+                        <a href="{{ url('login') }}" class="col-blue-grey">{{ __('Back to Log In') }}</a>
                     </div>
                 </form>
             </div>

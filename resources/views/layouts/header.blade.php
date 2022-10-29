@@ -3,7 +3,7 @@
     <div class="container">
       <nav class="navbar-nav-wrap">
         <!-- Default Logo -->
-        <a class="navbar-brand" href="./index.html" aria-label="Front">
+        <a class="navbar-brand" href="{{ route('home') }}" aria-label="Front">
           <img class="navbar-brand-logo" src="{{ asset('images/svg/logo.svg') }}" alt="Logo">
         </a>
         <!-- End Default Logo -->

@@ -25,7 +25,7 @@ Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout
  */
 Route::prefix('admin')->name('admin.')->middleware('auth')->group(function (Router $router) {
     
-    // -> /admin/
+    // -> /admin
     Route::get('/', function () {
         return redirect('/admin/home');
     });
@@ -35,6 +35,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function (Rout
 
     // Rotte solo per l'utente con ruolo Admin ( 'role:admin' )
     $router->group(['middleware' => ['auth', 'role:admin']], function (Router $router) {
+        
         // Gestione Utenti -> /admin/user/...
         $router->resource('users', App\Http\Controllers\Admin\UserController::class)->except(['show']);
         $router->post('/users/list', [App\Http\Controllers\Admin\UserController::class, 'list'])->name('users.list');
@@ -48,6 +49,13 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function (Rout
  * Rotte utente non autenticato
  */
 Route::get('/', function () {
-    //return view('welcome');
+    return redirect('/comingsoon');
+})->name('home');
+
+Route::get('/welcome', function () {
+    return view('welcome');
+})->name('welcome');
+
+Route::get('/comingsoon', function () {
     return view('comingsoon');
-});
+})->name('comingsoon');

@@ -3,7 +3,7 @@
     <div class="container pb-5 content-space-b-sm-1">
       <div class="row justify-content-between align-items-center">
         <div class="col-sm mb-3 mb-sm-0">
-          <p class="small mb-0">&copy; app-front template. {{ date('Y') }}.</p>
+          <p class="small mb-0">&copy; app-front template {{ date('Y') }}</p>
         </div>
 
         <div class="col-sm-auto">

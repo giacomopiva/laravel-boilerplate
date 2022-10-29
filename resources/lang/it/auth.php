@@ -14,4 +14,8 @@ return [
 
     'failed' => 'Credenziali non corrispondenti ai dati registrati.',
     'throttle' => 'Troppi tentativi di accesso. Riprova tra :seconds secondi.',
+    'Forgot Your Password?' => 'Diemnticato la Password?',
+    'Remember Me' => 'Ricordami',
+    'Send Password Reset Link' => 'Invia il link di reset password',
+    'Back to Log In' => 'Torna al Log In',
 ];
