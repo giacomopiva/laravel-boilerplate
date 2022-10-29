@@ -58,7 +58,7 @@
   <!-- ========== END MAIN CONTENT ========== -->
 
   <!-- JS Implementing Plugins -->
-  <script src="{{ asset('front/vendor/countdown/countdown.js') }}"></script>
+  <script src="{{ asset('front-4.3/vendor/countdown/countdown.js') }}"></script>
 
   <script>
     (function () {

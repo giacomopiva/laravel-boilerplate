@@ -25,12 +25,12 @@
 		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 
 		<!-- CSS Implementing Plugins -->
-		<link rel="stylesheet" href="{{ asset('/front/vendor/bootstrap-icons/font/bootstrap-icons.css') }} ">
-		<link rel="stylesheet" href="{{ asset('/front/vendor/hs-mega-menu/dist/hs-mega-menu.min.css') }} ">
-		<link rel="stylesheet" href="{{ asset('/front/vendor/aos/dist/aos.css') }} ">
+		<link rel="stylesheet" href="{{ asset('/front-4.3/vendor/bootstrap-icons/font/bootstrap-icons.css') }} ">
+		<link rel="stylesheet" href="{{ asset('/front-4.3/vendor/hs-mega-menu/dist/hs-mega-menu.min.css') }} ">
+		<link rel="stylesheet" href="{{ asset('/front-4.3/vendor/aos/dist/aos.css') }} ">
 
 		<!-- CSS Front Template -->
-		<link rel="stylesheet" href="{{ asset('/front/css/theme.min.css') }} ">
+		<link rel="stylesheet" href="{{ asset('/front-4.3/css/theme.min.css') }} ">
     </head>
 
     <body>
@@ -41,20 +41,20 @@
         @include('layouts.footer')
 
         <!-- JS Global Compulsory  -->
-        <script src="{{ asset('front/vendor/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
+        <script src="{{ asset('front-4.3/vendor/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
 
         <!-- JS Implementing Plugins -->
-        <script src="{{ asset('front/vendor/hs-header/dist/hs-header.min.js') }}"></script>
-        <script src="{{ asset('front/vendor/hs-mega-menu/dist/hs-mega-menu.min.js') }}"></script>
-        <script src="{{ asset('front/vendor/hs-show-animation/dist/hs-show-animation.min.js') }}"></script>
-        <script src="{{ asset('front/vendor/hs-go-to/dist/hs-go-to.min.js') }}"></script>
-        <script src="{{ asset('front/vendor/aos/dist/aos.js') }}"></script>
+        <script src="{{ asset('front-4.3/vendor/hs-header/dist/hs-header.min.js') }}"></script>
+        <script src="{{ asset('front-4.3/vendor/hs-mega-menu/dist/hs-mega-menu.min.js') }}"></script>
+        <script src="{{ asset('front-4.3/vendor/hs-show-animation/dist/hs-show-animation.min.js') }}"></script>
+        <script src="{{ asset('front-4.3/vendor/hs-go-to/dist/hs-go-to.min.js') }}"></script>
+        <script src="{{ asset('front-4.3/vendor/aos/dist/aos.js') }}"></script>
 
         <!-- JS Front -->
-        <script src="{{ asset('front/js/theme.min.js') }}"></script>
+        <script src="{{ asset('front-4.3/js/theme.min.js') }}"></script>
 
         <!-- JS Custom -->
-        <script src="{{ asset('front/js/theme-custom.js') }}"></script>
+        <script src="{{ asset('front-4.3/js/theme-custom.js') }}"></script>
 
         <!-- JS Plugins Init. -->
         <script>
