@@ -31,6 +31,8 @@
 
 		<!-- CSS Front Template -->
 		<link rel="stylesheet" href="{{ asset('/front-4.3/css/theme.min.css') }} ">
+
+        @yield('style')
     </head>
 
     <body>
@@ -56,13 +58,14 @@
         <!-- JS Custom -->
         <script src="{{ asset('front-4.3/js/theme-custom.js') }}"></script>
 
+        @yield('script')
+
         <!-- JS Plugins Init. -->
         <script>
         (function() {
             // INITIALIZATION OF HEADER
             // =======================================================
             new HSHeader('#header').init()
-
 
             // INITIALIZATION OF MEGA MENU
             // =======================================================
@@ -72,11 +75,9 @@
                 }
             })
 
-
             // INITIALIZATION OF SHOW ANIMATIONS
             // =======================================================
             new HSShowAnimation('.js-animation-link')
-
 
             // INITIALIZATION OF BOOTSTRAP VALIDATION
             // =======================================================
@@ -87,16 +88,13 @@
             }
             })
 
-
             // INITIALIZATION OF BOOTSTRAP DROPDOWN
             // =======================================================
             HSBsDropdown.init()
 
-
             // INITIALIZATION OF GO TO
             // =======================================================
             new HSGoTo('.js-go-to')
-
 
             // INITIALIZATION OF AOS
             // =======================================================

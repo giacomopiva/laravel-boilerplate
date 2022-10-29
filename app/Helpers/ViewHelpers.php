@@ -9,8 +9,19 @@
     | file è caricato in tutte le pagine attraverso l'autoload:
     | composer.json -> autoload -> files
     |
-    | Come standard le funzioni hanno la sintassi snack_case
+    | Come standard le funzioni hanno la sintassi snack_case 
     */
+
+    /**
+     * Ritorna Il titolo con la segnalazione dell'ENV attivo
+     *
+     * @param void
+     * @return string
+     */
+    function app_title_env()
+    { 
+        return config('app.env') != 'production' ? '[ '. ucwords(config('app.env')) .' ] - ' : '';
+    }
 
     /**
      * Ritorna se la sezione attiva è fra quelle passate
