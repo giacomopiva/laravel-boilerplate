@@ -91,7 +91,13 @@
                                 <div class="row clearfix">
                                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <div class="form-line">
-                                            <x-admin.select :name="'role'" :options="$roles" :label="'Ruolo'" :description="'Ruolo dell utente'" :check="$user->roles->first()->name" :required="true" />
+                                            <x-admin.select :name="'role'" 
+                                                            :options="$roles" 
+                                                            :label="'Ruolo'" 
+                                                            :description="'Ruolo dell utente'" 
+                                                            :check="$user->roles->first()->name" 
+                                                            :required="true" 
+                                                            :disabled="$user->id == Auth::user()->id ? 'true' : 'false'" />
                                         </div>    
                                     </div>
                                 </div>
