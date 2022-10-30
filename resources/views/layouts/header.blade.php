@@ -8,9 +8,12 @@
         </a>
         <!-- End Default Logo -->
 
+        @if(!App::isDownForMaintenance())
         <div class="ms-auto">
           <a class="btn btn-primary btn-transition" href="{{ route('login') }}" target="_blank">Login</a>
         </div>
+        @endif
+        
       </nav>
     </div>
   </header>
