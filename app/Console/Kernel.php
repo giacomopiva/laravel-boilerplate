@@ -18,7 +18,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
 
-        if (env('APP_ENV') == 'production') {
+        if (config('app.env') == 'production') {
             $schedule->job(new Backup)->dailyAt('1:00');
         } else {
             $schedule->job(new Backup)->everyMinute();

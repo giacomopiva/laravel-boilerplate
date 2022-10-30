@@ -9,7 +9,7 @@
     | file è caricato in tutte le pagine attraverso l'autoload:
     | composer.json -> autoload -> files
     |
-    | Come standard le funzioni hanno la sintassi snack_case 
+    | Come standard le funzioni hanno la sintassi snack_case
     */
 
     /**
@@ -19,8 +19,8 @@
      * @return string
      */
     function app_title_env()
-    { 
-        return config('app.env') != 'production' ? '[ '. ucwords(config('app.env')) .' ] - ' : '';
+    {
+        return config('app.env') != 'production' ? '[ '.ucwords(config('app.env')).' ] - ' : '';
     }
 
     /**

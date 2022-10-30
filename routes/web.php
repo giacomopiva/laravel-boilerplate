@@ -24,7 +24,6 @@ Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout
  * Rotte per gli utenti amministratori (che hanno accesso al backend)
  */
 Route::prefix('admin')->name('admin.')->middleware('auth')->group(function (Router $router) {
-    
     // -> /admin
     Route::get('/', function () {
         return redirect('/admin/home');
@@ -35,7 +34,6 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function (Rout
 
     // Rotte solo per l'utente con ruolo Admin ( 'role:admin' )
     $router->group(['middleware' => ['auth', 'role:admin']], function (Router $router) {
-        
         // Gestione Utenti -> /admin/user/...
         $router->resource('users', App\Http\Controllers\Admin\UserController::class)->except(['show']);
         $router->post('/users/list', [App\Http\Controllers\Admin\UserController::class, 'list'])->name('users.list');
