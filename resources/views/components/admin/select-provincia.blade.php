@@ -5,7 +5,11 @@
 <div class="form-group">
 
     <div class=" {{ $errors->has($name) ? 'error' : '' }}">
-        <select name="{{ $name }}" id="{{ $name }}" class="form-control select-provincia" {{ ($required ?? false) ? 'required' : '' }} >
+        <select id="{{ $name }}" 
+                class="form-control select-provincia" 
+                name="{{ $name }}" 
+                {{ ($required ?? false) ? 'required' : '' }} >
+            
             <option value="" >&mdash;</option>         
             @php /*<optgroup label="Estero">
                 <option value="Estero">Estero</option>

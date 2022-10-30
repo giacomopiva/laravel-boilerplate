@@ -3,7 +3,11 @@
 <label for="{{ $name }}">{{ $label }} {!! ($required ?? false) ? '<span class="required">*</span>' : '' !!}</label>
 <div class="form-group">
     <div class="form-line {{ $errors->has($name) ? 'error' : '' }}">
-        <input type="email" class="form-control" name="{{ $name }}" value="{{ old($name) ?? $value ?? '' }}" {{ ($required ?? false) ? 'required' : '' }} />
+        <input  type="email" 
+                class="form-control" 
+                name="{{ $name }}" 
+                value="{{ old($name) ?? $value ?? '' }}" 
+                {{ ($required ?? false) ? 'required' : '' }} />
     </div>
 
     @if ($errors->has($name))

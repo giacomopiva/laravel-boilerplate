@@ -3,7 +3,12 @@
 <label for="{{ $name }}">{{ $label }} {!! ($required ?? false) ? '<span class="required">*</span>' : '' !!}</label>
 <div class="form-group">
     <div class="form-line {{ $errors->has($name) ? 'error' : '' }}">
-        <input type="number" class="form-control" name="{{ $name }}" value="{{ old($name) ?? $value ?? '' }}" min="{{ $min }}" {{ ($required ?? false) ? 'required' : '' }} />
+        <input  type="number" 
+                class="form-control" 
+                name="{{ $name }}" 
+                value="{{ old($name) ?? $value ?? '' }}" 
+                min="{{ $min }}" 
+                {{ ($required ?? false) ? 'required' : '' }} />
     </div>
 
     @if ($errors->has($name))

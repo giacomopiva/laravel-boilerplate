@@ -3,7 +3,15 @@
 <label for="{{ $name }}">{{ $label }} {!! ($required ?? false) ? '<span class="required">*</span>' : '' !!}</label>
 <div class="form-group">
     <div class="form-line {{ $errors->has($name) ? 'error' : '' }}">
-        <textarea class="form-control" id="{{ $name }}" name="{{ $name }}" rows="5" style="resize: vertical;" {{ ($required ?? false) ? 'required' : '' }} >{{ old($name) ?? $value ?? '' }}</textarea>
+        <textarea   id="{{ $name }}" 
+                    class="form-control"                    
+                    name="{{ $name }}" 
+                    rows="5" 
+                    style="resize: vertical;" 
+                    {{ ($required ?? false) ? 'required' : '' }} >
+
+            {{ old($name) ?? $value ?? '' }}
+        </textarea>
     </div>
 
     @if ($errors->has($name))

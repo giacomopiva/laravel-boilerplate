@@ -17,7 +17,7 @@
             text: "Vuoi procedere con l'eliminazone? \nL'azione è irreversibile e questo elemento sarà definitivamente eliminato dal sistema",
             type: "warning",
             showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
+            confirmButtonColor: "#FB483A",
             confirmButtonText: "Si, procedi",
             cancelButtonText: "No, annulla",
             closeOnConfirm: false,
