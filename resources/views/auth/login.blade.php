@@ -66,6 +66,10 @@
             fill: #FFFFFF;
         }
 
+        .card {
+            border-radius: 10px;
+        }
+
         .login-page {
             background-color: #1F91F3;
         }

@@ -65,6 +65,10 @@
         .custom-shape-divider-bottom-1667063732 .shape-fill {
             fill: #FFFFFF;
         }
+        
+        .card {
+            border-radius: 10px;
+        }
 
         .fp-page {
             background-color: #1F91F3;

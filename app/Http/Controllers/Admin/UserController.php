@@ -95,7 +95,7 @@ class UserController extends AdminController
             $user = User::create($input);
             $user->assignRole($input['role']);
 
-            return view('admin.user.index');
+            return redirect()->route('admin.users.index');
         } catch (Exception $e) {
             Log::info($e->getMessage());
         }

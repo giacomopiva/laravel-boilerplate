@@ -132,7 +132,7 @@
                     "data": 'updated_at',
                     "searchable": false,
                     render: function(data, type, row) {
-                        return data ? moment(data).format('DD/MM/YYYY') : '';
+                        return data ? moment(data).format('DD/MM/YY HH:MM') : '';
                     }
                 },                    
                 {
@@ -173,7 +173,7 @@
                 text: "Procedere alla cancellazione dell'utente?. L'azione è irreversibile e l'utente sarà definitivamente eliminato dal sistema",
                 type: "warning",
                 showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
+                confirmButtonColor: "#fb483a",
                 confirmButtonText: "Si, procedi",
                 cancelButtonText: "No, annulla",
                 closeOnConfirm: false,

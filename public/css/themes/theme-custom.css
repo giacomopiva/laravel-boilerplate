@@ -275,6 +275,11 @@
     font-weight: normal !important;
 }
 
+.sa-button-container button {
+    border-radius: 5px !important;
+    min-height: 38px;
+}
+
 /* Table */
 .no-border {
     border: 0px solid black !important;
@@ -337,6 +342,12 @@ input.form-control.input-sm {
 /* impedisce al campo di ricerca di sforare dal suo contenitore */
 div.dataTables_wrapper div.dataTables_filter label {
     overflow: hidden !important;
+}
+
+/*.dropdown-menu,*/
+.table,
+.card {
+    border-radius: 10px;
 }
 
 /** 
