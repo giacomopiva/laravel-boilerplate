@@ -50,10 +50,11 @@ Route::get('/', function () {
     return redirect('/comingsoon');
 })->name('home');
 
-Route::get('/welcome', function () {
-    return view('welcome');
-})->name('welcome');
-
 Route::get('/comingsoon', function () {
     return view('comingsoon');
 })->name('comingsoon');
+
+// View standard di laravel 
+Route::get('/welcome', function () {
+    return view('welcome');
+})->name('welcome');
