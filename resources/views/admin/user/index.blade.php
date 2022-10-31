@@ -106,6 +106,7 @@
             responsive: true,
             processing: true,
             serverSide: true,
+			//stateSave: true, // Permette di salvare lo stato della DT 
             ajax: {
                 url: "{!! url('admin/users/list') !!}",
                 type: "post",
