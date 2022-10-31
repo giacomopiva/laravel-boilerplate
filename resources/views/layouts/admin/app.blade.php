@@ -65,12 +65,16 @@
     
     @yield('style')
 
-	<!-- Vue JS ed Axios -->
+	<!-- Vue JS 2.x ed Axios -->
     @if (config('app.env') === 'production')
 	    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.min.js"></script>
     @else
         <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+        
     @endif
+	
+    <!-- Vue JS 3.x -->
+    <!--script src="https://unpkg.com/vue@3/dist/vue.global.js"></script-->
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>

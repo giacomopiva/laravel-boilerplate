@@ -1,8 +1,12 @@
 ## Tema grafico
 
-### Tema grafico installato
+### Tema grafico installato area Admin
 [AdminBSBMaterialDesign](https://github.com/gurayyarar/AdminBSBMaterialDesign)
 [Demo](https://gurayyarar.github.io/AdminBSBMaterialDesign/)
+
+### Tema grafico installato area Frontend
+[Front](https://themes.getbootstrap.com/product/front-multipurpose-responsive-template)
+[Demo](https://htmlstream.com/front)
 
 ## Package installati
 
@@ -20,7 +24,7 @@
 
 ### Laravel Excel
 [laravel-excel](https://packagist.org/packages/cyber-duck/laravel-excel)
-[Documentazione](https://laravel-excel.com/)
+[Documentazione](https://laravel-excel.com)
 
 ### Database Encryption 
 [laravel-database-encryption](https://packagist.org/packages/elgibor-solution/laravel-database-encryption)
@@ -53,5 +57,11 @@
 ### Eseguire i test
 Per eseguire i test bisogna preparare il file `.env.testing` ed eseguire il comando: `./vendor/bin/phpunit` oppure `envoy run test`
 
-## Autori:
-[Giacomo Piva](https://www.innovativa.it).
+## Vue JS 2
+[Vue JS 2](https://v2.vuejs.org/v2/guide/)
+
+## Vue JS 3
+[Vue JS 3](https://vuejs.org/guide/introduction.html/)
+
+## Autori
+[Giacomo Piva](https://www.innovativa.it)
