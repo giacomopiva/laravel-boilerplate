@@ -87,7 +87,7 @@ class User extends Authenticatable
         self::created(function ($model) {
             Log::info('User created');
 
-            if (! in_array(config('app.env'), ['local', 'testing'])) {
+            if (config('custom.send_created_user_notification') == true) {
                 try {
                     $model->notify(new AccountConfirmation($model));
                 } catch (Exception $e) {
