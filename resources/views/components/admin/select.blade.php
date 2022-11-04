@@ -8,7 +8,7 @@
                 name="{{ $name }}" 
                 {{ ($required ?? false) ? 'required' : '' }} 
                 @disabled(($disabled ?? false) == true) >
-
+            
             @foreach ($options as $key => $option)
                 <option value="{{ $key }}" @selected( old($name) ? $key == old($name) : $key == ($check ?? null) ) >{{ $option }}</option>
             @endforeach

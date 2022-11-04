@@ -54,7 +54,7 @@ Route::get('/comingsoon', function () {
     return view('comingsoon');
 })->name('comingsoon');
 
-// View standard di laravel 
+// View standard di laravel
 Route::get('/welcome', function () {
     return view('welcome');
 })->name('welcome');

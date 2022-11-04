@@ -7,7 +7,7 @@ return [
     | Configurazioni custom
     |--------------------------------------------------------------------------
     |
-    | Usage: config('custom.custom_config') 
+    | Usage: config('custom.custom_config')
     */
 
     //'custom_config' => env('CUSTOM_CONFIG', 'Default value'),

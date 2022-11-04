@@ -1,4 +1,4 @@
-@props(['name', 'label', 'id', 'description', 'value', 'required'])
+@props(['name', 'label', 'id', 'description', 'value', 'maxlength', 'required'])
 
 <label for="{{ $name }}">{{ $label }} {!! ($required ?? false) ? '<span class="required">*</span>' : '' !!}</label>
 <div class="form-group">
@@ -7,8 +7,9 @@
                 id="{{ $name }}"
                 class="form-control" 
                 name="{{ $name }}" 
-                value="{{ old($name) ?? $value ?? '' }}" 
-                {{ ($required ?? false) ? 'required' : '' }}  />
+                value="{{ $value ?? '' }}" 
+                maxlength="{{ $maxlength ?? 255  }}" 
+                {{ ($required ?? false) ? 'required' : '' }} />
     </div>
 
     @if ($errors->has($name))

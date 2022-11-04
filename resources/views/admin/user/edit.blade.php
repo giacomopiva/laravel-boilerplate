@@ -35,38 +35,30 @@
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div class="row clearfix">
                                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                        <label for="nome">Nome<span class="required">*</span></label>
-                                        <div class="form-group">
-                                            <div class="form-line {{ $errors->has('name') ? 'error' : '' }}">
-                                                <input type="text" class="form-control" name="name" value="{{ old('name') ?? $user->name ?? '' }}" maxlength="255">
-                                            </div>
-                                            @if ($errors->has('name'))
-                                                <label class="error">{{ $errors->first('name') }}</label>
-                                            @endif                                                    
-                                            <div class="help-info">Nome utente</div>
-                                        </div>
+                                        <x-admin.input-text :name="'name'" 
+                                                            :label="'Nome'" 
+                                                            :value="old('name') ?? $user->name"
+                                                            :description="'Nome dell\' utente'" 
+                                                            :required="true" />
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                         <div class="row clearfix">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div class="row clearfix">
                                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                        <label for="email">Email<span class="required">*</span></label>
-                                        <div class="form-group">
-                                            <div class="form-line {{ $errors->has('email') ? 'error' : '' }}">
-                                                <input type="text" class="form-control" name="email" value="{{ old('email') ?? $user->email ?? '' }}" maxlength="255">
-                                            </div>
-                                            @if ($errors->has('email'))
-                                                <label class="error">{{ $errors->first('email') }}</label>
-                                            @endif        
-                                            <div class="help-info">Email utente</div>
-                                        </div>
+                                        <x-admin.input-text :name="'email'" 
+                                                            :label="'Email'" 
+                                                            :value="old('email') ?? $user->email"
+                                                            :description="'Email dell\' utente'" 
+                                                            :required="true" />
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                         <div class="row clearfix">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div class="row clearfix">
@@ -103,6 +95,7 @@
                                 </div>
                             </div>
                         </div>
+                        
                         <div class="row clearfix">
                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                 <div class="form-group">

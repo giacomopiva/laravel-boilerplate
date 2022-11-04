@@ -89,6 +89,7 @@ class User extends Authenticatable
 
             if (config('custom.send_created_user_notification') == true) {
                 try {
+                    Log::info('Sending account confirmation email ...');
                     $model->notify(new AccountConfirmation($model));
                 } catch (Exception $e) {
                     Log::info($e->getMessage());
