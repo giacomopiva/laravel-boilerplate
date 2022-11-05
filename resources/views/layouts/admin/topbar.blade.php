@@ -28,7 +28,7 @@
             <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
             <a href="javascript:void(0);" class="bars"></a>
             <a class="navbar-brand" href="{{ route('admin.home') }}" style="padding: 0px;"> 
-                <img src="{{ config('app.url') . '/images/' . config('app.logo_name') }}" height="50" alt="{{ config('app.name') }}" />
+                <img src="{{ config('app.url') . '/images/' . config('custom.logo_name') }}" height="50" alt="{{ config('app.name') }}" />
                 <span>{{ config('app.name') }}</span>
             </a>
         </div>
