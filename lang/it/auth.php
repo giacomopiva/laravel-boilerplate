@@ -16,4 +16,6 @@ return [
     'failed'   => "Le credenziali che hai inserito non sono corrette.",
     'throttle' => "Troppi tentativi falliti. Ti preghiamo di riprovare tra :seconds secondi.",
     
+    'Remember Me' => 'Ricordami',
+    'Forgot Your Password?' => 'Dimenticato la Password?',
 ];
