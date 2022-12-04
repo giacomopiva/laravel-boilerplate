@@ -40,8 +40,6 @@
 
     <!-- AdminBSB Theme -->
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/admin/style.css') }}">
-	<link rel="stylesheet" type="text/css" href="{{ asset('css/themes/theme-white.css') }}">
-	<link rel="stylesheet" type="text/css" href="{{ asset('css/admin/font-awesome.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/admin/custom.css') }}">
     
     <style>
@@ -94,6 +92,7 @@
 </head>
 
 <body class="login-page" style="max-width:80%;">
+    
     <div class="custom-shape-divider-bottom-1667063732">
         <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
             <path d="M1200 120L0 16.48 0 0 1200 0 1200 120z" class="shape-fill"></path>
@@ -102,9 +101,11 @@
 
     <div class="row" style="margin-top:20%;">
         <div class="col-md-6">
-            <div class="login-box">        
+            <div class="login-box"> 
                 <div class="logo">
-                    <a href="javascript:void(0);">Accedi a {{ config('app.name', 'Laravel') }}</b></a>
+                    <a href="javascript:void(0);">
+                        <a href="javascript:void(0);">Accedi a {{ config('app.name', 'Laravel') }}</b></a>
+                    </a>
                     <hr />
                     <p style="color:#fff; font-size:18px;">
                         Lorem ipsum dolor quì quò quà sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.                         
@@ -113,14 +114,20 @@
             </div>
         </div>
 
-        <div class="col-md-6">
-            <div class="login-box">        
+        <div class="col-md-5 col-md-offset-1">
+            <div class="login-box"> 
                 <div class="card">
                     <div class="body">
                         <form id="sign_in" method="POST" action="{{ route('login') }}">
                             @csrf
         
-                            <div class="msg" style="font-size:18px;">Inserisci le tue credenziali</div>
+                            <div class="msg" style="font-size:18px;">                                
+                                <img src="{{ config('app.url') . '/images/' . config('custom.logo_name') }}" 
+                                     height="50" 
+                                     alt="{{ config('app.name') }}" />                                
+                                
+                                <div class="msg" style="font-size:16px; margin-top:10px; color:#555">Inserisci le tue credenziali</div>
+                            </div>
         
                             <div class="input-group">
                                 <span class="input-group-addon">
@@ -155,8 +162,8 @@
                                     <input class="filled-in chk-col-blue" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }} >
                                     <label for="remember">{{ __('Remember Me') }}</label>
                                 </div>
-                                <div class="col-xs-4">
-                                    <button class="btn btn-block btn-primary waves-effect" type="submit">
+                                <div class="col-xs-4 align-right">
+                                    <button class="btn btn-block btn-primary waves-effect" type="submit" style="max-width:90px;">
                                         {{ __('Login') }}
                                     </button>
                                 </div>
@@ -179,10 +186,8 @@
                     </div>
                 </div>
             </div>
-        
         </div>
     </div>
-
 
     <!-- Waves Effect Plugin Js -->
     <script src="{{ asset('plugins/node-waves/waves.js') }}"></script>
