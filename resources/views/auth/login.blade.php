@@ -93,81 +93,96 @@
     ]) !!}
 </head>
 
-<body class="login-page">
+<body class="login-page" style="max-width:80%;">
     <div class="custom-shape-divider-bottom-1667063732">
         <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
             <path d="M1200 120L0 16.48 0 0 1200 0 1200 120z" class="shape-fill"></path>
         </svg>
     </div>
 
-    <div class="login-box">        
-        <div class="logo">
-            <a href="javascript:void(0);">Accedi a {{ config('app.name', 'Laravel') }}</b></a>
-        </div>
-        <div class="card">
-            <div class="body">
-                <form id="sign_in" method="POST" action="{{ route('login') }}">
-                    @csrf
-
-                    <div class="msg">Inserisci le tue credenziali</div>
-
-                    <div class="input-group">
-                        <span class="input-group-addon">
-                            <i class="material-icons">email</i>
-                        </span>
-                        <div class="form-line">
-                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Email">
-                            @error('email')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div>
-                    </div>
-                    
-                    <div class="input-group">
-                        <span class="input-group-addon">
-                            <i class="material-icons">lock</i>
-                        </span>
-                        <div class="form-line">
-                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Password">
-                            @error('password')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                    </div>
-                    
-                    <div class="row">
-                        <div class="col-xs-8 p-t-5">
-                            <input class="filled-in chk-col-blue" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }} >
-                            <label for="remember">{{ __('Remember Me') }}</label>
-                        </div>
-                        <div class="col-xs-4">
-                            <button class="btn btn-block btn-primary waves-effect" type="submit">
-                                {{ __('Login') }}
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="row m-t-15 m-b--20">
-                        @if (false)
-                        <div class="col-xs-6">
-                            <a href="">{{ __('Register Now!') }}</a>
-                        </div>
-                        @endif
-
-                        @if (Route::has('password.request'))
-                        <div class="col-xs-6 align-right">
-                            <a href="{{ route('password.request') }}" class="col-blue-grey"> {{ __('Forgot Your Password?') }}</a>
-                        </div>
-                        @endif
-                    </div>
-                </form>
+    <div class="row" style="margin-top:20%;">
+        <div class="col-md-6">
+            <div class="login-box">        
+                <div class="logo">
+                    <a href="javascript:void(0);">Accedi a {{ config('app.name', 'Laravel') }}</b></a>
+                    <hr />
+                    <p style="color:#fff; font-size:18px;">
+                        Lorem ipsum dolor quì quò quà sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.                         
+                    </p>
+                </div>
             </div>
         </div>
+
+        <div class="col-md-6">
+            <div class="login-box">        
+                <div class="card">
+                    <div class="body">
+                        <form id="sign_in" method="POST" action="{{ route('login') }}">
+                            @csrf
+        
+                            <div class="msg" style="font-size:18px;">Inserisci le tue credenziali</div>
+        
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="material-icons">email</i>
+                                </span>
+                                <div class="form-line">
+                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Email">
+                                    @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="material-icons">lock</i>
+                                </span>
+                                <div class="form-line">
+                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Password">
+                                    @error('password')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-xs-8 p-t-5">
+                                    <input class="filled-in chk-col-blue" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }} >
+                                    <label for="remember">{{ __('Remember Me') }}</label>
+                                </div>
+                                <div class="col-xs-4">
+                                    <button class="btn btn-block btn-primary waves-effect" type="submit">
+                                        {{ __('Login') }}
+                                    </button>
+                                </div>
+                            </div>
+        
+                            <div class="row m-t-15 m-b--20">
+                                @if (false)
+                                <div class="col-xs-6">
+                                    <a href="">{{ __('Register Now!') }}</a>
+                                </div>
+                                @endif
+        
+                                @if (Route::has('password.request'))
+                                <div class="col-xs-6 ">
+                                    <a href="{{ route('password.request') }}" class="col-blue-grey"> {{ __('Forgot Your Password?') }}</a>
+                                </div>
+                                @endif
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        
+        </div>
     </div>
+
 
     <!-- Waves Effect Plugin Js -->
     <script src="{{ asset('plugins/node-waves/waves.js') }}"></script>
