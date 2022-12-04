@@ -84,11 +84,13 @@
     <!-- Bootstrap Core Js -->
     <script src="{{ asset('plugins/bootstrap/js/bootstrap.min.js') }}"></script>
 
+    @if (config('app.env') != 'local')
     {!! htmlScriptTagJsApi([
         'action' => 'homepage',
         'callback_then' => 'callbackThen',
         'callback_catch' => 'callbackCatch'
     ]) !!}
+    @endif 
 </head>
 
 <body class="login-page" style="max-width:80%;">
