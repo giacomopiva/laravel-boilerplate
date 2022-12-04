@@ -43,10 +43,6 @@ class UserController extends AdminController
                 $buttons = '<span class="mr-1"><a href="users/'.$user->id.'/edit" data-id="'.$user->id.'" class="btn waves-effect btn-primary"><i class="material-icons">edit</i><span>Modifica</span></a></span>';
                 $buttons .= '<span class="mr-1"><a href="users/'.$user->id.'/print" data-id="'.$user->id.'" class="btn waves-effect btn-default"><i class="material-icons">print</i><span>Stampa</span></a></span>';
 
-                if (Auth::user()->id != $user->id) {
-                    $buttons .= '<span class="mr-1"><button data-id="'.$user->id.'" class="btn waves-effect btn-danger btn-elimina"><i class="material-icons">delete</i><span>Elimina</span></button></span>';
-                }
-
                 return $buttons;
             })
             ->editColumn('rolename', function ($user) {
@@ -63,7 +59,7 @@ class UserController extends AdminController
      */
     public function create()
     {
-        $roles = User::$roles;
+        $roles = array_reverse(User::$roles);
 
         return view('admin.user.create', compact('roles'));
     }
@@ -83,7 +79,7 @@ class UserController extends AdminController
                 'password' => 'required|string|min:6',
                 'role' => 'required|string|min:4',
             ], [
-                'email.unique_encrypted' => "L'email esiste già",
+                'email.unique_encrypted' => 'Esiste già un utente registrato con questa email',
             ]);
 
             if ($validator->fails()) {
@@ -121,13 +117,14 @@ class UserController extends AdminController
      */
     public function edit(User $user)
     {
-        $roles = User::$roles;
-
         if ($user) {
-            return view('admin.user.edit', compact('user', 'roles'));
+            return view('admin.user.edit', [
+                'user' => $user,
+                'roles' => array_reverse(User::$roles),
+            ]);
         }
 
-        return redirect()->route('admin.users.index')->withErrors("L' utente non esiste");
+        return redirect()->route('admin.users.index')->withErrors("L' utente non esiste.");
     }
 
     /**
@@ -141,15 +138,16 @@ class UserController extends AdminController
     {
         try {
             if (! $user) {
-                return redirect()->route('admin.users.index')->withErrors("L' utente non esiste");
+                return redirect()->route('admin.users.index')->withErrors("L' utente non esiste.");
             }
 
             $validator = Validator::make($request->all(), [
                 'name' => 'required|string|max:255',
                 'email' => 'required|email|max:255|unique_encrypted:users,email,'.$user->id,
                 'password' => 'nullable|sometimes|string|min:6',
+                'role' => 'required|string|min:4',
             ], [
-                'email.unique_encrypted' => "L'email esiste già",
+                'email.unique_encrypted' => 'Esiste già un utente registrato con questa email',
             ]);
 
             if ($validator->fails()) {
@@ -184,7 +182,11 @@ class UserController extends AdminController
     {
         try {
             if (! $user) {
-                return self::makeJsonResponseBadRequest('Utente non trovato');
+                return self::makeJsonResponseBadRequest('Utente non trovato.');
+            }
+
+            if ($user->id == Auth::user()->id) {
+                return self::makeJsonResponseBadRequest('Non è possibile eliminare l\'utente attivo.');
             }
 
             $user->delete();
@@ -192,7 +194,7 @@ class UserController extends AdminController
             Log::info($e->getMessage());
         }
 
-        return self::makeJsonResponse([], 200, 'Utente eliminato');
+        return self::makeJsonResponse([], 200, 'Utente eliminato.');
     }
 
     /**
@@ -228,11 +230,11 @@ class UserController extends AdminController
             $googleSheet->saveDataToSheet($data, true); // true -> overwrite
 
             $googleCalendarEvent = new GoogleCalendarEvent();
-            $googleCalendarEvent->saveEvent('Esportazione completata', 'Esportazione completata con successo', Carbon::now(), 30);
+            $googleCalendarEvent->saveEvent('Esportazione completata', 'Esportazione completata con successo.', Carbon::now(), 30);
         } catch (Exception $e) {
             Log::info($e->getMessage());
 
-            return redirect()->route('admin.users.index')->withErrors('L\'export non è andato a buon fine');
+            return redirect()->route('admin.users.index')->withErrors('L\'export non è andato a buon fine.');
         }
 
         return redirect()->route('admin.users.index')->with('success', 'Export riuscito.');
@@ -251,7 +253,7 @@ class UserController extends AdminController
          */
         try {
             if (! $user) {
-                return redirect()->route('admin.users.index')->withErrors("L'utente non esiste");
+                return redirect()->route('admin.users.index')->withErrors("L'utente non esiste.");
             }
 
             $pdf = PDF::loadView('admin.user.pdf.show', compact('user'));

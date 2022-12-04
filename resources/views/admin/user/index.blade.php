@@ -4,7 +4,7 @@
 <!-- Page Style -->
 <style>
 :root{
-    --max-btn-count: 3;
+    --max-btn-count: 2;
     --max-btn-width: 90px;
     --btn-margin-right: 10px;
 }
