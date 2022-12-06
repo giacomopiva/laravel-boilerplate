@@ -151,7 +151,7 @@ class UserController extends AdminController
             ]);
 
             if ($validator->fails()) {
-                return redirect()->route('admin.users.edit', $id)->withErrors($validator)->withInput();
+                return redirect()->route('admin.users.edit', $user)->withErrors($validator)->withInput();
             }
 
             $input = $request->all();
@@ -163,8 +163,12 @@ class UserController extends AdminController
                 unset($input['password']);
             }
 
-            $user->update($input);
-            $user->syncRoles($input['role']);
+            $user->update($input);            
+
+            // Aggiorno il ruolo solo se è passato
+            if (isset($input['role'])) {
+                $user->syncRoles($input['role']);
+            }
 
             return redirect()->route('admin.users.index');
         } catch (Exception $e) {
