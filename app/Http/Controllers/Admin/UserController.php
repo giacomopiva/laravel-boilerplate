@@ -145,7 +145,7 @@ class UserController extends AdminController
                 'name' => 'required|string|max:255',
                 'email' => 'required|email|max:255|unique_encrypted:users,email,'.$user->id,
                 'password' => 'nullable|sometimes|string|min:6',
-                'role' => 'required|string|min:4',
+                'role' => 'sometimes|string|min:4',
             ], [
                 'email.unique_encrypted' => 'Esiste già un utente registrato con questa email',
             ]);
