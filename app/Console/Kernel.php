@@ -17,6 +17,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
+        $schedule->command('cache:prune-stale-tags')->hourly();
 
         if (config('app.env') == 'production') {
             $schedule->job(new Backup)->dailyAt('1:00');

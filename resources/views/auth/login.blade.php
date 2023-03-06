@@ -128,7 +128,13 @@
                                      height="50" 
                                      alt="{{ config('app.name') }}" />                                
                                 
-                                <div class="msg" style="font-size:16px; margin-top:10px; color:#555">Inserisci le tue credenziali</div>
+                                <div class="msg" style="font-size:16px; margin-top:10px; color:#555">
+                                    @error('disabled')
+                                        {{ $message }}
+                                    @else
+                                        Inserisci le tue credenziali
+                                    @enderror
+                                </div>
                             </div>
         
                             <div class="input-group">
@@ -191,6 +197,9 @@
         </div>
     </div>
 
+    <script>
+        console.log(`{{print_r($errors)}}`);
+    </script>
     <!-- Waves Effect Plugin Js -->
     <script src="{{ asset('plugins/node-waves/waves.js') }}"></script>
 

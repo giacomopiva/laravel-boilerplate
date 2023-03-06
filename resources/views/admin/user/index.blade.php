@@ -82,6 +82,7 @@
                                         <th>Nome</th>
                                         <th>Email</th>
                                         <th>Ruolo</th>
+                                        <th>Stato</th>
                                         <th>Data di creazione</th>
                                         <th>Ultima modifica</th>
                                         <th>Azioni</th>
@@ -121,7 +122,14 @@
                 {
                     "data": 'rolename',
                     "searchable": false
-                },                    
+                },
+                {
+                    "data": 'is_disabled',
+                    "searchable": false,
+                    render: function(data, type, row) {
+                        return data ? "Disabilitato" : "Abilitato";
+                    }
+                },
                 {
                     "data": 'created_at',
                     "searchable": false,

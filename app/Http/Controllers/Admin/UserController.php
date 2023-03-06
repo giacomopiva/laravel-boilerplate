@@ -121,6 +121,10 @@ class UserController extends AdminController
             return view('admin.user.edit', [
                 'user' => $user,
                 'roles' => array_reverse(User::$roles),
+                'status' => [
+                    0 => "Abilitato",
+                    1 => "Disabilitato"
+                ]
             ]);
         }
 
@@ -146,6 +150,7 @@ class UserController extends AdminController
                 'email' => 'required|email|max:255|unique_encrypted:users,email,'.$user->id,
                 'password' => 'nullable|sometimes|string|min:6',
                 'role' => 'sometimes|string|min:4',
+                'is_disabled' => 'sometimes|boolean'
             ], [
                 'email.unique_encrypted' => 'Esiste già un utente registrato con questa email',
             ]);
@@ -161,6 +166,11 @@ class UserController extends AdminController
                 $input['password'] = Hash::make($input['password']);
             } else {
                 unset($input['password']);
+            }
+
+            // Aggiorno is_disabled solo se e' passato
+            if (isset($input['is_disabled'])) {
+                $user->is_disabled = $input['is_disabled'];
             }
 
             $user->update($input);            
