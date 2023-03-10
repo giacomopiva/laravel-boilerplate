@@ -66,7 +66,7 @@
                                         <label for="email">Nuova password<span class="required">*</span></label>
                                         <div class="form-group">
                                             <div class="form-line {{ $errors->has('password') ? 'error' : '' }}">
-                                                <input type="password" class="form-control" name="password" value="{{ old('password') ?? '' }}" maxlength="255">
+                                                <input type="password" class="form-control" name="password" value="" maxlength="255">
                                             </div>
                                             @if ($errors->has('password'))
                                                 <label class="error">{{ $errors->first('password') }}</label>
@@ -87,7 +87,7 @@
                                                             :options="$roles" 
                                                             :label="'Ruolo'" 
                                                             :description="'Ruolo dell utente'" 
-                                                            :check="$user->roles->first()->name" 
+                                                            :check="old('role') ?? $user->roles->first()->name"
                                                             :required="true" 
                                                             :disabled="$user->id == Auth::user()->id ? true : false" />
                                         </div>    
@@ -105,7 +105,7 @@
                                                             :options="$status" 
                                                             :label="'Stato'" 
                                                             :description="'Stato dell utente'" 
-                                                            :check="$user->is_disabled" 
+                                                            :check="old('role') ?? $user->is_disabled"
                                                             :required="true" 
                                                             :disabled="$user->id == Auth::user()->id ? true : false" />
                                         </div>    

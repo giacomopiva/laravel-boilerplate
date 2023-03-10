@@ -36,6 +36,7 @@
                                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <x-admin.input-text :name="'name'" 
                                                             :label="'Nome'" 
+                                                            :value="old('name') ?? ''"
                                                             :description="'Nome dell\' utente'" 
                                                             :required="true" />
                                     </div>
@@ -49,6 +50,7 @@
                                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <x-admin.input-text :name="'email'" 
                                                             :label="'Email'" 
+                                                            :value="old('email') ?? ''"
                                                             :description="'Email dell\' utente'" 
                                                             :required="true" />
                                     </div>
@@ -63,7 +65,7 @@
                                         <label for="email">Password<span class="required">*</span></label>
                                         <div class="form-group">
                                             <div class="form-line {{ $errors->has('password') ? 'error' : '' }}">
-                                                <input type="password" class="form-control" name="password" value="{{ old('password') ?? '' }}" maxlength="255">
+                                                <input type="password" class="form-control" name="password" value="" maxlength="255">
                                             </div>
                                             @if ($errors->has('password'))
                                                 <label class="error">{{ $errors->first('password') }}</label>
@@ -83,6 +85,7 @@
                                             <x-admin.select :name="'role'" 
                                                             :options="$roles" 
                                                             :label="'Ruolo'" 
+                                                            :check="old('role') ?? ''"
                                                             :description="'Ruolo dell utente'" 
                                                             :empty="true"
                                                             :required="true" />
