@@ -128,11 +128,11 @@
                                      height="50" 
                                      alt="{{ config('app.name') }}" />                                
                                 
-                                <div class="msg" style="font-size:16px; margin-top:10px; color:#555">
+                                <div class="msg" style="margin-top: 15px">
                                     @error('disabled')
-                                        {{ $message }}
+                                        <span style="color: #dc3545;">{{ $message }}</span>
                                     @else
-                                        Inserisci le tue credenziali
+                                        <span>Inserisci le tue credenziali</span>
                                     @enderror
                                 </div>
                             </div>
@@ -197,9 +197,6 @@
         </div>
     </div>
 
-    <script>
-        console.log(`{{print_r($errors)}}`);
-    </script>
     <!-- Waves Effect Plugin Js -->
     <script src="{{ asset('plugins/node-waves/waves.js') }}"></script>
 
