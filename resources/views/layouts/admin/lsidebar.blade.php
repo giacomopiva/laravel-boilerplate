@@ -56,7 +56,7 @@
                     <i class="material-icons">account_circle</i>
                     <span>Utenti</span>
                 </a>
-                <a href="{{ url('log-viewer') }}">
+                <a href="{{ url('admin/log-viewer') }}">
                     <i class="material-icons">sms_failed</i>
                     <span>Logs</span>
                 </a>
