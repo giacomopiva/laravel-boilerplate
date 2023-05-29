@@ -8,6 +8,9 @@
 [Front](https://themes.getbootstrap.com/product/front-multipurpose-responsive-template)
 [Demo](https://htmlstream.com/front)
 
+### Login
+[Shape divider](https://www.shapedivider.app/)
+
 ## Package installati
 
 ### Permission per i ruoli utente
