@@ -54,6 +54,10 @@ Route::get('/comingsoon', function () {
     return view('comingsoon');
 })->name('comingsoon');
 
+Route::get('/flex', function () {
+    return view('flex-home');
+})->name('flex');
+
 // View standard di laravel
 Route::get('/welcome', function () {
     return view('welcome');
