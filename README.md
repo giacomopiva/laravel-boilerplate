@@ -45,7 +45,7 @@
 ### Google Calendar
 [spatie/laravel-google-calendar](https://github.com/spatie/laravel-google-calendar)
 
-### Google Calendar
+### Backup
 [spatie/laravel-backup](https://github.com/spatie/laravel-backup)
 
 ```php vendor/spatie/laravel-backup/config/backup.php
