@@ -47,16 +47,12 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function (Rout
  * Rotte utente non autenticato
  */
 Route::get('/', function () {
-    return redirect('/comingsoon');
+    return view('flex-home');
 })->name('home');
 
 Route::get('/comingsoon', function () {
     return view('comingsoon');
 })->name('comingsoon');
-
-Route::get('/flex', function () {
-    return view('flex-home');
-})->name('flex');
 
 // View standard di laravel
 Route::get('/welcome', function () {

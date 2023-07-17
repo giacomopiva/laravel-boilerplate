@@ -36,11 +36,11 @@
     </head>
 
     <body>
-        @include('layouts.header')
+        @include('layouts.header-front')
         
         @yield('content')
         
-        @include('layouts.footer')
+        @include('layouts.footer-front')
 
         <!-- JS Global Compulsory  -->
         <script src="{{ asset('front-4.3/vendor/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
