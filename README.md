@@ -332,6 +332,12 @@ return [
 ];
 ```
 
+### PHPInsights
+[nunomaduro/phpinsights](https://github.com/nunomaduro/phpinsights)
+
+### Backup panel
+[pavel-mironchik/laravel-backup-panel](https://github.com/pavel-mironchik/laravel-backup-panel)
+
 ## Alcuni tutorial utili
 [Validazione](https://www.laravelcode.com/post/laravel-8-ajax-crud-with-yajra-datatable-and-bootstrap-model-validation-example)
 [TDD](https://jsdecena.medium.com/simple-tdd-in-laravel-with-11-steps-c475f8b1b214)
