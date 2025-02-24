@@ -23,6 +23,7 @@
     </div>
     <div class="menu">
         <ul class="list">
+            
             <!-- Admin -->
             @role(['admin'])
                 <li
@@ -32,6 +33,9 @@
                         <span>Home</span>
                     </a>
                 </li>
+                
+                <!-- Sistema -->
+                <hr />
                 <li
                     class="{{ appSectionName(0) }} {{ appSectionName(1) }} {{ isSectionActive(['user'], 1) ? 'active' : '' }}">
                     <a href="{{ route('admin.user.index') }}">
@@ -39,8 +43,6 @@
                         <span>Utenti</span>
                     </a>
                 </li>
-                <hr />
-                <!-- Sistema -->
                 <li>
                     <a href="{{ url('admin/log-viewer') }}" target="_blank">
                         <i class="material-icons">error</i>
