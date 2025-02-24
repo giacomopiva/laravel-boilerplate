@@ -28,9 +28,8 @@ class RegisterService
      * @param  User  $user  The user to assign the role to.
      * @param  string  $roleName  The name of the role to assign.
      */
-    public function assignRoleToUser(User $user/*, string $roleName*/): void
+    public function assignRoleToUser(User $user, string $roleName = 'user'): void
     {
-        $role = 'user'; // Fissato a User
-        $user->assignRole($role);
+        $user->assignRole($roleName);
     }
 }
