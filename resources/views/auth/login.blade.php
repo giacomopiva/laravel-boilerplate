@@ -132,15 +132,15 @@
                         </div>
                     </div>
                     <div class="row">
-                        @if (Route::has('register'))
-                        <div class="col-xs-6">
-                            <a href="{{ route('register')}}">{{ __('Registrati Ora!') }}</a>
+                        @if (Route::has('password.request'))
+                        <div class="col-xs-8">
+                            <a href="{{ route('password.request')}}"  style="color: gray">{{ __('Hai dimenticato la password?') }}</a>
                         </div>
                         @endif
 
-                        @if (Route::has('password.request'))
-                        <div>
-                            <a href="{{ route('password.request')}}"  style="color: gray">{{ __('Hai dimenticato la password?') }}</a>
+                        @if (Route::has('register'))
+                        <div class="col-xs-4 text-right">
+                            <a href="{{ route('register')}}">{{ __('Registrati Ora!') }}</a>
                         </div>
                         @endif
 

@@ -18,7 +18,7 @@ Route::get('/welcome', function () {
  * Per abilitate la conferma della registrazione, impostare il valore 'confirm' a true ??? 
  * Per abilitare la verifica dell'email, impostare il valore 'verify' a true ??? 
  */
-Auth::routes(['register' => false, 'confirm' => false, 'reset' => false, 'verify' => false]);
+Auth::routes(['register' => false, 'confirm' => false, 'reset' => true, 'verify' => false]);
 
 // Rotta personalizzata per il logout
 Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
