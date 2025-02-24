@@ -2,9 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 
+/**
+ * Rotte utente non autenticato
+ */
 Route::get('/', function () {
-    return redirect('/welcome');
-});
+    return view('flex-home');
+})->name('home');
 
 Route::get('/welcome', function () {
     return view('welcome');
