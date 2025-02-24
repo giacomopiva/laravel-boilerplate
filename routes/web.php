@@ -2,22 +2,28 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/welcome', function () {
-    return view('welcome');
-});
-
 Route::get('/', function () {
     return redirect('/welcome');
 });
 
-/**
- * Per disabilitare la registrazione:
- * 'register' => false
- */
-Auth::routes(['register' => true, 'confirm' => false, 'reset' => true, 'verify' => false]);
+Route::get('/welcome', function () {
+    return view('welcome');
+});
 
-// Rotta per il logout
+/**
+ * Rotte per l'autenticazione
+ * 
+ * Per abilitare il reset della password, impostare il valore 'reset' a true
+ * Per abilitare la registrazione di un nuovo utente, impostare il valore 'register' a true
+ * Per abilitate la conferma della registrazione, impostare il valore 'confirm' a true ??? 
+ * Per abilitare la verifica dell'email, impostare il valore 'verify' a true ??? 
+ */
+Auth::routes(['register' => false, 'confirm' => false, 'reset' => false, 'verify' => false]);
+
+// Rotta personalizzata per il logout
 Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
+
+// Fine delle rotte per la gestione dell'autenticazione 
 
 /**
  * Rotte per l'utente Admin
