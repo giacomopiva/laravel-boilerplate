@@ -47,32 +47,6 @@ class UserController extends AdminController
     }
 
     /**
-     * Return the content of the DataTable.
-     *
-     * @return JsonResponse A JSON response containing DataTable content for users.
-     */
-    public function list(): JsonResponse
-    {
-        $users = User::all();
-
-        return DataTables::of($users)
-            ->addColumn('actions', function ($user) {
-                $buttons = '<span class="mr-1"><a href="user/'.$user->id.'/edit" data-id="'.$user->id.'" class="btn waves-effect btn-sm btn-primary" title="Modifica"><i class="material-icons">edit</i><span>Modifica</span></a></span>';
-                $buttons .= '<span class="mr-1"><a href="user/'.$user->id.'/print" data-id="'.$user->id.'" class="btn waves-effect btn-sm btn-default" title="Stampa"><i class="material-icons">print</i><span>Stampa</span></a></span>';
-                if (Auth::user()->id !== $user->id) {
-                    $buttons .= '<span class="mr-1"><button id="'.$user->id.'" class="btn waves-effect btn-sm btn-danger btn-delete" title="Elimina"><i class="material-icons">delete</i><span>Elimina</span></button></span>';
-                }
-
-                return $buttons;
-            })
-            ->editColumn('rolename', function ($user) {
-                return $user->getRoleName();
-            })
-            ->rawColumns(['actions'])
-            ->make(true);
-    }
-
-    /**
      * Show the form for creating a new user.
      *
      * @return View The view displaying the user creation form.
@@ -103,26 +77,6 @@ class UserController extends AdminController
         $this->userService->assignRoleToUser($user, $validatedData['role']);
 
         return Redirect::route(route: 'admin.user.index');
-    }
-
-    /**
-     * Export users to an Excel file.
-     *
-     * @return mixed The Excel download response for exporting users to a file.
-     */
-    public function exportToExcel()
-    {
-        return Excel::download(new UsersExport, time().'-Utenti.xlsx');
-    }
-
-    /**
-     * Show the form for Inport users from an Excel file.
-     *
-     * @return View The view displaying the user creation form.
-     */
-    public function showImport()
-    {
-        return view('admin.user.import');
     }
 
     /**
@@ -180,6 +134,53 @@ class UserController extends AdminController
     }
 
     /**
+     * Gestione delle azioni personalizzate.
+     * 
+     * list(): Gestisce la Datatable AJAX
+     * showImport(): Mostra il form per l'importazione degli utenti
+     * import(): Importa gli utenti da un file Excel
+     * exportToExcel(): Esporta gli utenti in un file Excel
+     * print(): Stampa una scheda informativa sull'utente
+     *  
+     */
+
+    /**
+     * Return the content of the DataTable.
+     *
+     * @return JsonResponse A JSON response containing DataTable content for users.
+     */
+    public function list(): JsonResponse
+    {
+        $users = User::all();
+
+        return DataTables::of($users)
+            ->addColumn('actions', function ($user) {
+                $buttons = '<span class="mr-1"><a href="user/'.$user->id.'/edit" data-id="'.$user->id.'" class="btn waves-effect btn-sm btn-primary" title="Modifica"><i class="material-icons">edit</i><span>Modifica</span></a></span>';
+                $buttons .= '<span class="mr-1"><a href="user/'.$user->id.'/print" data-id="'.$user->id.'" class="btn waves-effect btn-sm btn-default" title="Stampa"><i class="material-icons">print</i><span>Stampa</span></a></span>';
+                if (Auth::user()->id !== $user->id) {
+                    $buttons .= '<span class="mr-1"><button id="'.$user->id.'" class="btn waves-effect btn-sm btn-danger btn-delete" title="Elimina"><i class="material-icons">delete</i><span>Elimina</span></button></span>';
+                }
+
+                return $buttons;
+            })
+            ->editColumn('rolename', function ($user) {
+                return $user->getRoleName();
+            })
+            ->rawColumns(['actions'])
+            ->make(true);
+    }
+
+    /**
+     * Show the form for Inport users from an Excel file.
+     *
+     * @return View The view displaying the user creation form.
+     */
+    public function showImport()
+    {
+        return view('admin.user.import');
+    }
+
+    /**
      * Show the form for Inport users from an Excel file.
      *
      * @return View The view displaying the user creation form.
@@ -189,6 +190,16 @@ class UserController extends AdminController
         Excel::import(new UserImport, $request->file('file'));
 
         return view('admin.user.import'); // Passa i dati alla vista
+    }
+
+    /**
+     * Export users to an Excel file.
+     *
+     * @return mixed The Excel download response for exporting users to a file.
+     */
+    public function exportToExcel()
+    {
+        return Excel::download(new UsersExport, time().'-Utenti.xlsx');
     }
 
     /**
