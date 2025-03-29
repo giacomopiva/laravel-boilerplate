@@ -6,14 +6,14 @@ Questo è un boilerplate Laravel preconfigurato con vari pacchetti utili per ini
 
 ### Tema grafico installato area Admin
 
-[AdminBSBMaterialDesign](https://github.com/gurayyarar/AdminBSBMaterialDesign)
-[Demo](https://gurayyarar.github.io/AdminBSBMaterialDesign/)
+[AdminBSBMaterialDesign](https://github.com/gurayyarar/AdminBSBMaterialDesign)  
+[Demo](https://gurayyarar.github.io/AdminBSBMaterialDesign/)  
 
 ### Tema grafico installato area Frontend
 
-[Front](https://themes.getbootstrap.com/product/front-multipurpose-responsive-template)
-[Demo](https://htmlstream.com/front)
-[FlexStart](https://bootstrapmade.com/demo/FlexStart/)
+[Front](https://themes.getbootstrap.com/product/front-multipurpose-responsive-template)  
+[Demo](https://htmlstream.com/front)  
+[FlexStart](https://bootstrapmade.com/demo/FlexStart/)  
 
 ### Login
 
@@ -108,7 +108,7 @@ Questo boilerplate è distribuito con la licenza MIT.
 
 ## Autori
 
-Gli autori di questo progetto sono:
+Gli autori di questo progetto sono:  
 [Giacomo Piva](https://www.innovativa.it)  
 [Alessandro Tieri](https://www.unife.it)  
 [Federica Filippi ](https://www.unife.it)  
