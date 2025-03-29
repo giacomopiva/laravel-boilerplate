@@ -88,9 +88,12 @@ Questo è un boilerplate Laravel preconfigurato con vari pacchetti utili per ini
 2. Esegui `composer install` per installare le dipendenze.
 3. Copia il file `.env.example` in `.env` e configurane i dettagli del database.
 4. Esegui `php artisan key:generate` per generare una nuova chiave dell'applicazione.
-5. Esegui le migrazioni del database con `php artisan migrate`.
+5. Esegui le migrazioni del database con `php artisan migrate --seed`.
 6. Puoi avviare il server di sviluppo con `php artisan serve`.
 7. Per abilitare la registrazione agire sulla configurazione delle rotte.
+8. Gli utenti creati con i seed sono: 
+- Utente Admin: admin@example.com con password `password`
+- Utente User: user@example.com con password `password`
 
 ## Test
 
