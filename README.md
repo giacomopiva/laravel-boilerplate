@@ -57,9 +57,9 @@ Questo è un boilerplate Laravel preconfigurato con vari pacchetti utili per ini
 
 ### Google API 
 
-[Developer Guide](https://developers.google.com/sheets/api/quickstart/php) 
-[Documentazione](https://developers.google.com/sheets/api/reference/rest/v4/spreadsheets.values)
-[Tutorial](https://www.youtube.com/watch?v=mV-k9uXd42A)
+[Developer Guide](https://developers.google.com/sheets/api/quickstart/php)  
+[Documentazione](https://developers.google.com/sheets/api/reference/rest/v4/spreadsheets.values)  
+[Tutorial](https://www.youtube.com/watch?v=mV-k9uXd42A)  
 
 ### Google Calendar
 
@@ -67,20 +67,20 @@ Questo è un boilerplate Laravel preconfigurato con vari pacchetti utili per ini
 
 ## Alcuni tutorial utili
 
-[Validazione](https://www.laravelcode.com/post/laravel-8-ajax-crud-with-yajra-datatable-and-bootstrap-model-validation-example)
-[TDD](https://jsdecena.medium.com/simple-tdd-in-laravel-with-11-steps-c475f8b1b214)
-[SOLID](https://youtu.be/OmtLxnjMnlY)
-[Action](https://www.youtube.com/watch?v=izFyFtpEGoY)
-[REST API](https://www.youtube.com/watch?v=MT-GJQIY3EU)
-[Google Data Studio](https://youtu.be/r5Ug0588c2g)
+[Validazione](https://www.laravelcode.com/post/laravel-8-ajax-crud-with-yajra-datatable-and-bootstrap-model-validation-example)  
+[TDD](https://jsdecena.medium.com/simple-tdd-in-laravel-with-11-steps-c475f8b1b214)  
+[SOLID](https://youtu.be/OmtLxnjMnlY)  
+[Action](https://www.youtube.com/watch?v=izFyFtpEGoY)  
+[REST API](https://www.youtube.com/watch?v=MT-GJQIY3EU)  
+[Google Data Studio](https://youtu.be/r5Ug0588c2g)  
 
 ## Vue JS 2
 
-[Vue JS 2](https://v2.vuejs.org/v2/guide/)
+[Vue JS 2](https://v2.vuejs.org/v2/guide/) 
 
 ## Vue JS 3
 
-[Vue JS 3](https://vuejs.org/guide/introduction.html/)
+[Vue JS 3](https://vuejs.org/guide/introduction.html/) 
 
 ## Installazione
 
@@ -109,6 +109,6 @@ Questo boilerplate è distribuito con la licenza MIT.
 ## Autori
 
 Gli autori di questo progetto sono:
-[Giacomo Piva](https://www.innovativa.it)
-[Alessandro Tieri](https://www.unife.it)
-[Federica Filippi ](https://www.unife.it)
+[Giacomo Piva](https://www.innovativa.it)  
+[Alessandro Tieri](https://www.unife.it)  
+[Federica Filippi ](https://www.unife.it)  
