@@ -52,4 +52,6 @@ Se vuoi contribuire, per favore apri una issue prima di inviare una pull request
 Questo boilerplate è distribuito con la licenza MIT.
 
 ## Contributors
+Giacomo Piva 
+Alessandro Tieri
 Federica Filippi
