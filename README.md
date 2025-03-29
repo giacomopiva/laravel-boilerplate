@@ -4,9 +4,22 @@ Questo è un boilerplate Laravel preconfigurato con vari pacchetti utili per ini
 
 ## Tema Grafico
 
-- **[AdminBSBMaterialDesign](https://github.com/gurayyarar/AdminBSBMaterialDesign)**
+### Tema grafico installato area Admin
 
-## Pacchetti Installati
+[AdminBSBMaterialDesign](https://github.com/gurayyarar/AdminBSBMaterialDesign)
+[Demo](https://gurayyarar.github.io/AdminBSBMaterialDesign/)
+
+### Tema grafico installato area Frontend
+
+[Front](https://themes.getbootstrap.com/product/front-multipurpose-responsive-template)
+[Demo](https://htmlstream.com/front)
+[FlexStart](https://bootstrapmade.com/demo/FlexStart/)
+
+### Login
+
+[Shape divider](https://www.shapedivider.app/)
+
+## Package installati
 
 - **[barryvdh/laravel-dompdf](https://github.com/barryvdh/laravel-dompdf)**: Per la generazione di file PDF.
 - **[elgibor-solution/laravel-database-encryption](https://github.com/elgibor-solution/laravel-database-encryption)**: Per la crittografia dei dati nel database.
@@ -34,6 +47,41 @@ Questo è un boilerplate Laravel preconfigurato con vari pacchetti utili per ini
 - **[phpunit/phpunit](https://github.com/sebastianbergmann/phpunit)**: Framework di testing unitario per PHP.
 - **[spatie/laravel-ignition](https://github.com/spatie/laravel-ignition)**: Strumento di debug per Laravel.
 
+### Backup
+
+[spatie/laravel-backup](https://github.com/spatie/laravel-backup)
+
+### PHPInsights
+
+[nunomaduro/phpinsights](https://github.com/nunomaduro/phpinsights)
+
+### Google API 
+
+[Developer Guide](https://developers.google.com/sheets/api/quickstart/php) 
+[Documentazione](https://developers.google.com/sheets/api/reference/rest/v4/spreadsheets.values)
+[Tutorial](https://www.youtube.com/watch?v=mV-k9uXd42A)
+
+### Google Calendar
+
+[spatie/laravel-google-calendar](https://github.com/spatie/laravel-google-calendar)
+
+## Alcuni tutorial utili
+
+[Validazione](https://www.laravelcode.com/post/laravel-8-ajax-crud-with-yajra-datatable-and-bootstrap-model-validation-example)
+[TDD](https://jsdecena.medium.com/simple-tdd-in-laravel-with-11-steps-c475f8b1b214)
+[SOLID](https://youtu.be/OmtLxnjMnlY)
+[Action](https://www.youtube.com/watch?v=izFyFtpEGoY)
+[REST API](https://www.youtube.com/watch?v=MT-GJQIY3EU)
+[Google Data Studio](https://youtu.be/r5Ug0588c2g)
+
+## Vue JS 2
+
+[Vue JS 2](https://v2.vuejs.org/v2/guide/)
+
+## Vue JS 3
+
+[Vue JS 3](https://vuejs.org/guide/introduction.html/)
+
 ## Installazione
 
 1. Clona il repository.
@@ -42,16 +90,25 @@ Questo è un boilerplate Laravel preconfigurato con vari pacchetti utili per ini
 4. Esegui `php artisan key:generate` per generare una nuova chiave dell'applicazione.
 5. Esegui le migrazioni del database con `php artisan migrate`.
 6. Puoi avviare il server di sviluppo con `php artisan serve`.
+7. Per abilitare la registrazione agire sulla configurazione delle rotte.
+
+## Test
+
+### Eseguire i test
+
+Per eseguire i test bisogna preparare il file `.env.testing` ed eseguire il comando: `./vendor/bin/phpunit` oppure `envoy run test`
 
 ## Contribuire
 
-Se vuoi contribuire, per favore apri una issue prima di inviare una pull request.
+Non si può contribuire.
 
 ## Licenza
 
 Questo boilerplate è distribuito con la licenza MIT.
 
-## Contributors
-Giacomo Piva 
-Alessandro Tieri
-Federica Filippi
+## Autori
+
+Gli autori di questo progetto sono:
+[Giacomo Piva](https://www.innovativa.it)
+[Alessandro Tieri](https://www.unife.it)
+[Federica Filippi ](https://www.unife.it)
