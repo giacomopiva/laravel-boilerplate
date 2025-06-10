@@ -11,6 +11,5 @@ test('welcome page renders', function () {
     $response = $this->get('/welcome');
 
     $response->assertStatus(200);
-    $response->assertSee('Laravel');
+    $response->assertSee('Welcome');
 });
-
