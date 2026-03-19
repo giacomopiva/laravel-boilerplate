@@ -103,7 +103,7 @@
                         data: 'created_at',
                         searchable: false,
                         render: function(data, type, row) {
-                            return data ? moment(data).format('DD/MM/YYYY') : '';
+                            return data ? moment(data).format('DD/MM/YY HH:MM') : '';
                         }
                     },
                     {

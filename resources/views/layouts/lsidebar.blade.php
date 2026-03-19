@@ -35,7 +35,6 @@
                 </li>
                 
                 <!-- Sistema -->
-                <hr />
                 <li
                     class="{{ appSectionName(0) }} {{ appSectionName(1) }} {{ isSectionActive(['user'], 1) ? 'active' : '' }}">
                     <a href="{{ route('admin.user.index') }}">
@@ -43,6 +42,8 @@
                         <span>Utenti</span>
                     </a>
                 </li>
+                <hr />
+
                 <li>
                     <a href="{{ url('admin/log-viewer') }}" target="_blank">
                         <i class="material-icons">error</i>
