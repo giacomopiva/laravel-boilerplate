@@ -7,3 +7,5 @@ I file sono nei vari branch:
 - laravel-9-lts
 - laravel-10
 - laravel-11
+- laravel-12
+- laravel-13
