@@ -8,7 +8,7 @@ test('home page renders', function () {
 });
 
 test('welcome page renders', function () {
-    $response = $this->get('/welcome');
+    $response = $this->get('/');
 
     $response->assertStatus(200);
     $response->assertSee('Welcome');
