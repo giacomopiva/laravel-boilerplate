@@ -155,11 +155,22 @@ class UserController extends AdminController
 
         return DataTables::of($users)
             ->addColumn('actions', function ($user) {
-                $buttons = '<span class="mr-1"><a href="user/'.$user->id.'/edit" data-id="'.$user->id.'" class="btn waves-effect btn-sm btn-primary" title="Modifica"><i class="material-icons">edit</i><span>Modifica</span></a></span>';
-                $buttons .= '<span class="mr-1"><a href="user/'.$user->id.'/print" data-id="'.$user->id.'" class="btn waves-effect btn-sm btn-default" title="Stampa"><i class="material-icons">print</i><span>Stampa</span></a></span>';
+                $editUrl  = route('admin.user.edit', $user->id);
+                $printUrl = route('admin.user.print', $user->id);
+
+                $buttons  = '<div class="d-flex gap-1">';
+                $buttons .= '<a href="'.$editUrl.'" class="btn btn-sm btn-primary" title="Modifica">';
+                $buttons .= '<i class="ti ti-edit me-1"></i>Modifica</a>';
+
+                $buttons .= '<a href="'.$printUrl.'" class="btn btn-sm btn-ghost-secondary" title="Stampa">';
+                $buttons .= '<i class="ti ti-printer me-1"></i>Stampa</a>';
+
                 if (Auth::user()->id !== $user->id) {
-                    $buttons .= '<span class="mr-1"><button id="'.$user->id.'" class="btn waves-effect btn-sm btn-danger btn-delete" title="Elimina"><i class="material-icons">delete</i><span>Elimina</span></button></span>';
+                    $buttons .= '<button data-id="'.$user->id.'" class="btn btn-sm btn-danger btn-delete" title="Elimina">';
+                    $buttons .= '<i class="ti ti-trash me-1"></i>Elimina</button>';
                 }
+
+                $buttons .= '</div>';
 
                 return $buttons;
             })

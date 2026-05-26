@@ -1,17 +1,21 @@
 @props(['name', 'label', 'description', 'value', 'required'])
 
-<label for="{{ $name }}">{{ $label }} {!! ($required ?? false) ? '<span class="required">*</span>' : '' !!}</label>
-<div class="form-group">
-    <div class="form-line {{ $errors->has($name) ? 'error' : '' }}">
-        <input  type="email" 
-                class="form-control" 
-                name="{{ $name }}" 
-                value="{{ old($name) ?? $value ?? '' }}" 
-                {{ ($required ?? false) ? 'required' : '' }} />
-    </div>
+<div class="mb-3">
+    <label class="form-label" for="{{ $name }}">
+        {{ $label }}
+        {!! ($required ?? false) ? '<span class="text-danger ms-1">*</span>' : '' !!}
+    </label>
+    <input type="email"
+           id="{{ $name }}"
+           class="form-control {{ $errors->has($name) ? 'is-invalid' : '' }}"
+           name="{{ $name }}"
+           value="{{ old($name) ?? $value ?? '' }}"
+           {{ ($required ?? false) ? 'required' : '' }} />
 
     @if ($errors->has($name))
-        <label class="error">{{ $errors->first($name) }}</label>
-    @endif                                                    
-    <div class="help-info">{{ $description }}</div>
+        <div class="invalid-feedback">{{ $errors->first($name) }}</div>
+    @endif
+    @if (!empty($description))
+        <small class="form-hint text-secondary">{{ $description }}</small>
+    @endif
 </div>

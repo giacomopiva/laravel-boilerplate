@@ -1,177 +1,173 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container-fluid">
-        <div class="row clearfix">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="card">
-                    <div class="header">
-                        <h2><i class="material-icons">list</i>Elenco degli utenti</h2>
-                        <ul class="header-dropdown m-r--5">
-                            <li class="dropdown">
-                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                    aria-haspopup="true" aria-expanded="false">
-                                    <i class="material-icons">more_vert</i>
-                                </a>
-                                <ul class="dropdown-menu pull-right">
-                                    <li><a href="{{ route('admin.user.create') }}" role="button" onclick=""
-                                            name="crea_nuovo" id="nuovo_utente" class=" waves-effect waves-block"
-                                            value="Nuovo utente"><i class="material-icons">add</i> Nuovo utente</a>
-                                    </li>
-                                    <li><a href="{{ route('admin.user.exportToExcel') }}" role="button" onclick=""
-                                            name="esporta" id="esporta" class=" waves-effect waves-block"
-                                            value="Esporta file Excel"><i class="material-icons">file_download</i> Esporta
-                                            su Excel</a>
-                                    </li>
-                                    <li><a href="{{ route('admin.user.showImport') }}" role="button" onclick=""
-                                        name="esporta" id="esporta" class=" waves-effect waves-block"
-                                        value="Importa file Excel"><i class="material-icons">file_upload</i> Importa
-                                        da Excel</a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="body">
-                        <div class="table-responsive">
-                            <table id="users_table" class="table table-bordered table-striped table-hover"role="grid"
-                                aria-describedby="DataTables_Table_1_info" style="width: 100%;  height:100%;"
-                                cellspacing="0" cellpadding="0" data-toggle="dataTable"
-                                data-ajax-url="{{ route('admin.user.list') }}">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Nome</th>
-                                        <th>Email</th>
-                                        <th>Ruolo</th>
-                                        <th>Stato</th>
-                                        <th>Data di creazione</th>
-                                        <th>Ultima modifica</th>
-                                        <th>Azioni</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {{-- Managed by the DataTable AJAX --}}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+
+{{-- ───────────────────────────────────────────────
+     Page header  ·  container-xl è DENTRO l'header
+     ─────────────────────────────────────────────── --}}
+<div class="page-header d-print-none">
+    <div class="container-xl">
+        <div class="row g-2 align-items-center">
+            <div class="col">
+                <div class="page-pretitle">Sistema</div>
+                <h2 class="page-title">Utenti</h2>
+            </div>
+            <div class="col-auto ms-auto d-print-none">
+                <div class="btn-group">
+                    <a href="{{ route('admin.user.create') }}" class="btn btn-primary">
+                        <i class="ti ti-plus me-1"></i>Nuovo utente
+                    </a>
+                    <button type="button"
+                        class="btn btn-primary dropdown-toggle dropdown-toggle-split"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <span class="visually-hidden">Altro</span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li>
+                            <a class="dropdown-item" href="{{ route('admin.user.exportToExcel') }}">
+                                <i class="ti ti-download me-2"></i>Esporta su Excel
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="{{ route('admin.user.showImport') }}">
+                                <i class="ti ti-upload me-2"></i>Importa da Excel
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
+</div>
+
+{{-- ───────────────────────────────────────────────
+     Page body  ·  container-xl > row row-cards
+     ─────────────────────────────────────────────── --}}
+<div class="page-body">
+    <div class="container-xl">
+        <div class="row row-cards">
+            <div class="col-12">
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="ti ti-list me-2 text-secondary"></i>Elenco degli utenti
+                        </h3>
+                    </div>
+                    {{-- p-0: rimuove il padding per avere la tabella flush con i bordi della card --}}
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table id="users_table"
+                                class="table table-vcenter card-table"
+                                style="width:100%"
+                                data-ajax-url="{{ route('admin.user.list') }}">
+                                <thead>
+                                    <tr>
+                                        <th style="width:50px">#</th>
+                                        <th>Nome</th>
+                                        <th>Email</th>
+                                        <th>Ruolo</th>
+                                        <th>Stato</th>
+                                        <th>Creato il</th>
+                                        <th>Aggiornato il</th>
+                                        <th style="width:180px">Azioni</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
 @endsection
 
 @section('script')
-    <!-- Page Script -->
-    <script type="text/javascript">
-        var table;
-        $(document).ready(function() {
-            table = $('#users_table').DataTable({
-                responsive: true,
-                processing: true,
-                serverSide: true,
-                deferRender: true,
-                ajax: {
-                    url: $('#users_table').data('ajax-url'),
-                    type: "post",
-                    data: {
-                        _token: $('meta[name="csrf-token"]').attr('content'),
-                    },
-                },
-                columns: [{
-                        data: 'id'
-                    },
-                    {
-                        data: 'name'
-                    },
-                    {
-                        data: 'email'
-                    },
-                    {
-                        data: 'rolename',
-                        searchable: false
-                    },
-                    {
-                        data: 'status',
-                        searchable: true,
-                        render: function(data, type, row) {
-                            return data ? "Abilitato" : "Disabilitato";
-                        }
-                    },
-                    {
-                        data: 'created_at',
-                        searchable: false,
-                        render: function(data, type, row) {
-                            return data ? moment(data).format('DD/MM/YY HH:MM') : '';
-                        }
-                    },
-                    {
-                        data: 'updated_at',
-                        searchable: false,
-                        render: function(data, type, row) {
-                            return data ? moment(data).format('DD/MM/YY HH:MM') : '';
-                        }
-                    },
-                    {
-                        data: 'actions',
-                        searchable: false,
-                        orderable: false
-                    },
-                ],
-                lengthMenu: [25, 50, 100],
-                pageLength: 25,
-                order: [
-                    [0, "asc"]
-                ],
-                language: {
-                    url: "{{ asset('vendor/datatables/Italian.json') }}",
-                },
-                drawCallback: function(settings) {
-                    bindDelete();
-                }
-            });
+<script type="text/javascript">
+    var table;
 
-            function bindDelete() {
-                $('.btn-delete').on('click', function(event) {
-                    event.preventDefault();
-                    var id = $(this).attr('id');
-                    var url = '{{ route('admin.user.destroy', ':id') }}';
-                    url = url.replace(':id', id);
-                    swal({
-                        title: "Sei sicuro?",
-                        text: "Procedere alla cancellazione dell'utente?. L'azione è irreversibile e l'utente sarà definitivamente eliminato dal sistema",
-                        type: "warning",
-                        showCancelButton: true,
-                        confirmButtonColor: "#DD6B55",
-                        confirmButtonText: "Si, procedi",
-                        cancelButtonText: "No, annulla",
-                        closeOnConfirm: true,
-                        closeOnCancel: true
-                    }, function(isConfirm) {
-                        if (isConfirm) {
-                            $.ajax({
-                                url: url,
-                                type: "delete",
-                                dataType: "json",
-                                data: {
-                                    _token: $('meta[name="csrf-token"]').attr('content'),
-                                },
-                                success: function(response) {
-                                    table.ajax.reload();
-                                    showNotification('alert-success', response.message,
-                                        'top', 'right', null, null);
-                                },
-                                error: function(response, stato) {
-                                    showNotification('alert-danger', response
-                                        .responseJSON.errors,
-                                        'top', 'right', null, null);
-                                }
-                            });
-                        }
-                    });
-                });
-            }
+    $(document).ready(function () {
+        table = $('#users_table').DataTable({
+            responsive: true,
+            processing: true,
+            serverSide: true,
+            deferRender: true,
+            ajax: {
+                url: $('#users_table').data('ajax-url'),
+                type: 'POST',
+                data: { _token: $('meta[name="csrf-token"]').attr('content') }
+            },
+            columns: [
+                { data: 'id' },
+                { data: 'name' },
+                { data: 'email' },
+                { data: 'rolename', searchable: false },
+                {
+                    data: 'status',
+                    searchable: true,
+                    render: function (data) {
+                        return data
+                            ? '<span class="badge bg-success-lt text-success">Abilitato</span>'
+                            : '<span class="badge bg-danger-lt text-danger">Disabilitato</span>';
+                    }
+                },
+                {
+                    data: 'created_at',
+                    searchable: false,
+                    render: function (data) { return data ? moment(data).format('DD/MM/YY HH:mm') : '—'; }
+                },
+                {
+                    data: 'updated_at',
+                    searchable: false,
+                    render: function (data) { return data ? moment(data).format('DD/MM/YY HH:mm') : '—'; }
+                },
+                { data: 'actions', searchable: false, orderable: false }
+            ],
+            lengthMenu: [25, 50, 100],
+            pageLength: 25,
+            order: [[0, 'asc']],
+            language: { url: "{{ asset('vendor/datatables/Italian.json') }}" },
+            drawCallback: function () { bindDelete(); }
         });
-    </script>
+
+        function bindDelete() {
+            $('.btn-delete').off('click').on('click', function (e) {
+                e.preventDefault();
+                var id  = $(this).data('id');
+                var url = '{{ route('admin.user.destroy', ':id') }}'.replace(':id', id);
+
+                Swal.fire({
+                    title: 'Elimina utente',
+                    text: "Sei sicuro? L'azione è irreversibile.",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d63939',
+                    cancelButtonColor: '#6c757d',
+                    confirmButtonText: 'Sì, elimina',
+                    cancelButtonText: 'Annulla'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: url,
+                            type: 'DELETE',
+                            dataType: 'json',
+                            data: { _token: $('meta[name="csrf-token"]').attr('content') },
+                            success: function (response) {
+                                table.ajax.reload();
+                                Swal.fire({ icon: 'success', title: 'Eliminato', text: response.message, timer: 2000, showConfirmButton: false });
+                            },
+                            error: function (response) {
+                                Swal.fire('Errore', response.responseJSON?.errors ?? 'Errore sconosciuto', 'error');
+                            }
+                        });
+                    }
+                });
+            });
+        }
+    });
+</script>
 @endsection

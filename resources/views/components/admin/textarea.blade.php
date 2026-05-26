@@ -1,21 +1,21 @@
-@props(['name', 'label', 'description', 'value', 'required'])
+@props(['name', 'label', 'description', 'value', 'required', 'rows'])
 
-<label for="{{ $name }}">{{ $label }} {!! ($required ?? false) ? '<span class="required">*</span>' : '' !!}</label>
-<div class="form-group">
-    <div class="form-line {{ $errors->has($name) ? 'error' : '' }}">
-        <textarea   id="{{ $name }}" 
-                    class="form-control"                    
-                    name="{{ $name }}" 
-                    rows="5" 
-                    style="resize: vertical;" 
-                    {{ ($required ?? false) ? 'required' : '' }} >
-
-            {{ old($name) ?? $value ?? '' }}
-        </textarea>
-    </div>
+<div class="mb-3">
+    <label class="form-label" for="{{ $name }}">
+        {{ $label }}
+        {!! ($required ?? false) ? '<span class="text-danger ms-1">*</span>' : '' !!}
+    </label>
+    <textarea id="{{ $name }}"
+              class="form-control {{ $errors->has($name) ? 'is-invalid' : '' }}"
+              name="{{ $name }}"
+              rows="{{ $rows ?? 5 }}"
+              style="resize: vertical;"
+              {{ ($required ?? false) ? 'required' : '' }}>{{ old($name) ?? $value ?? '' }}</textarea>
 
     @if ($errors->has($name))
-        <label class="error">{{ $errors->first($name) }}</label>
-    @endif                                                    
-    <div class="help-info">{{ $description }}</div>
+        <div class="invalid-feedback">{{ $errors->first($name) }}</div>
+    @endif
+    @if (!empty($description))
+        <small class="form-hint text-secondary">{{ $description }}</small>
+    @endif
 </div>

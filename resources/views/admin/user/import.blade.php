@@ -1,78 +1,103 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container-fluid">
-        <div class="row clearfix">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="card card-collapsable">
-                    <div class="header">
-                        <h2><i class="material-icons">file_upload</i>CARICAMENTO FILE</h2>
-                        <ul class="header-dropdown m-r--5">
-                            <li>
-                                <a href="javascript:void(0);" class="collapsable-handler">
-                                    <i class="material-icons">vertical_align_center</i>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
 
-                    <div id="dropzone" class="body body-collapsable open">
-                        <form action="{{ route('admin.user.import') }}" id="fileInsert" class="dropzone" method="post" enctype="multipart/form-data">
+{{-- ── Page header ────────────────────────────────── --}}
+<div class="page-header d-print-none">
+    <div class="container-xl">
+        <div class="row g-2 align-items-center">
+            <div class="col-auto">
+                <a href="{{ route('admin.user.index') }}" class="btn btn-ghost-secondary btn-sm">
+                    <i class="ti ti-arrow-left me-1"></i>Utenti
+                </a>
+            </div>
+            <div class="col">
+                <div class="page-pretitle">Sistema</div>
+                <h2 class="page-title">Importa utenti da Excel</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{-- ── Page body ───────────────────────────────────── --}}
+<div class="page-body">
+    <div class="container-xl">
+        <div class="row row-cards">
+
+            {{-- Upload area --}}
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="ti ti-file-upload me-2 text-secondary"></i>Caricamento file
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <form action="{{ route('admin.user.import') }}"
+                            id="fileInsert"
+                            class="dropzone"
+                            method="POST"
+                            enctype="multipart/form-data">
                             @csrf
                             <div class="dz-message">
-                                <div class="drag-icon-cph">
-                                    <i class="material-icons">touch_app</i>
+                                <div class="mb-3">
+                                    <i class="ti ti-cloud-upload text-secondary" style="font-size:3rem;"></i>
                                 </div>
-                                <h3>Trascina qui i file</h3>
-                                <em>(Carica il file Utenti.xlsx per aggiornare l'elenco delle rotte)</em>
+                                <h3>Trascina qui il file o clicca per selezionarlo</h3>
+                                <p class="text-secondary mb-0">
+                                    Carica il file <code>Utenti.xlsx</code> per aggiornare l'elenco degli utenti
+                                </p>
                             </div>
                             <div class="fallback">
-                                <input name="file" type="file" accept=".xslx"  multiple />
+                                <input name="file" type="file" accept=".xlsx" multiple />
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="row clearfix">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="card card-collapsable">
-                    <div class="header">
-                        <h2><i class="material-icons">people</i>Elenco degli utenti</h2>
-                        <ul class="header-dropdown m-r--5">
-                            <li>
-                                <a href="javascript:void(0);" class="collapsable-handler">
-                                    <i class="material-icons">vertical_align_center</i>
-                                </a>
-                            </li>
-                        </ul>
+            {{-- Preview table --}}
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="ti ti-users me-2 text-secondary"></i>Utenti presenti nel sistema
+                        </h3>
                     </div>
-                    <div class="body body-collapsable open">
+                    <div class="card-body p-0">
+
                         @if ($errors->any())
-                            <div id="errors-container" class="alert alert-danger alert-dismissible">
-                                <span>Si è verificato un errore: {{ $errors->first() }}</span>
+                            <div class="alert alert-danger m-3 alert-dismissible" role="alert">
+                                <div class="d-flex">
+                                    <i class="ti ti-alert-triangle me-2 flex-shrink-0 mt-1"></i>
+                                    <div>{{ $errors->first() }}</div>
+                                </div>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                             </div>
                         @endif
 
                         @if (Session::has('success'))
-                            <div id="msg-container" class="alert alert-success alert-dismissible">
-                                <span>{!! \Session::get('success') !!}</span>
+                            <div class="alert alert-success m-3 alert-dismissible" role="alert">
+                                <div class="d-flex">
+                                    <i class="ti ti-circle-check me-2 flex-shrink-0 mt-1"></i>
+                                    <div>{!! \Session::get('success') !!}</div>
+                                </div>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                             </div>
                         @endif
 
                         <div class="table-responsive">
                             <table id="users_table"
-                                class="table table-bordered table-striped table-hover" role="grid"
-                                style="width: 100%;  height:100%;" cellspacing="0" cellpadding="0">
+                                class="table table-vcenter card-table"
+                                style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
+                                        <th style="width:50px">#</th>
                                         <th>Nome</th>
                                         <th>Email</th>
                                         <th>Ruolo</th>
-                                        <th>Data Creazione</th>
-                                        <th>Ultima Modifica</th>
+                                        <th>Data creazione</th>
+                                        <th>Ultima modifica</th>
                                     </tr>
                                 </thead>
                                 <tbody></tbody>
@@ -81,110 +106,65 @@
                     </div>
                 </div>
             </div>
+
         </div>
+    </div>
+</div>
+
 @endsection
 
-
 @section('script')
-<!-- Page Script -->
 <script type="text/javascript">
     var table;
-    $(document).ready(function() {
+
+    $(document).ready(function () {
         table = $('#users_table').DataTable({
             responsive: true,
             processing: true,
             serverSide: true,
-			//stateSave: true, // Permette di salvare lo stato della DT
             ajax: {
                 url: "{!! url('admin/user/list') !!}",
-                type: "post",
-                data: {
-                    _token: $('meta[name="csrf-token"]').attr('content'),
+                type: 'POST',
+                data: { _token: $('meta[name="csrf-token"]').attr('content') }
+            },
+            columns: [
+                { data: 'id' },
+                { data: 'name' },
+                { data: 'email' },
+                { data: 'rolename' },
+                {
+                    data: 'created_at',
+                    searchable: false,
+                    render: function (data) { return data ? moment(data).format('DD/MM/YYYY') : '—'; }
+                },
+                {
+                    data: 'updated_at',
+                    searchable: false,
+                    render: function (data) { return data ? moment(data).format('DD/MM/YY HH:mm') : '—'; }
                 }
-            },
-            "columns": [
-                { "data": 'id' },
-                { "data": 'name' },
-                { "data": 'email' },
-                { "data": 'rolename' },
-                {
-                    "data": 'created_at',
-                    "searchable": false,
-                    render: function(data, type, row) {
-                        return data ? moment(data).format('DD/MM/YYYY') : '';
-                    }
-                },
-                {
-                    "data": 'updated_at',
-                    "searchable": false,
-                    render: function(data, type, row) {
-                        return data ? moment(data).format('DD/MM/YY HH:MM') : '';
-                    }
-                },
             ],
-            "columnDefs": [
-                { "width": '30px', "targets": 0 }, // Esempio di imposizione della dimensione della colonna.
-            ],
-            "lengthMenu": [25, 50, 100],
-            "pageLength": 25,
-            "order": [
-                [0, "asc"]
-            ],
-            "language": {
-                "url": "{!! url('vendor/datatables/Italian.json') !!}"
-            },
-            "drawCallback": function(settings, json) {
-                // ...
-            },
-            "initComplete": function(settings, json) {
-                // Ultima ad essere chiamata
-            },
+            columnDefs: [{ width: '50px', targets: 0 }],
+            lengthMenu: [25, 50, 100],
+            pageLength: 25,
+            order: [[0, 'asc']],
+            language: { url: "{!! url('vendor/datatables/Italian.json') !!}" }
         });
     });
 
-    /**
-     * Dropzone
-     */
     Dropzone.options.fileInsert = {
-        /**
-         * Invio del file
-         */
-        sending: function(file, response) {
-            console.log('sending');
-            $('.page-loader-wrapper').css('opacity', '0.7').show();
-        },
-
-        /**
-         * Success del caricamento del file.
-         * Dopo la chiamata AJAX per il caricamento
-         */
-        success: function(file, response) {
-            console.log('success');
-            $('.page-loader-wrapper').hide();
-            showNotification('alert-success', 'Utenti caricati con successo', 'top', 'right', null, null);
-
-            dropzone = document.getElementById('dropzone');
-            dropzone.classList.remove('open');
-
+        sending: function () {},
+        success: function (file, response) {
+            Swal.fire({ icon: 'success', title: 'File caricato!', text: 'Utenti importati con successo.', timer: 2500, showConfirmButton: false });
             table.ajax.reload();
-            table.on( 'draw', function () {
-                $('.page-loader-wrapper').hide();
-                showNotification('alert-success', 'Utenti inseriti con successo', 'top', 'right', null, null);
-            });
         },
-
-        /**
-         * Error del caricamento del file.
-         */
-        error: function(file, response) {
-            console.log(response);
-            $('.page-loader-wrapper').hide();
-
-            let firstKey = Object.keys(response.errors)[0];
-            firstMessage = response.errors[firstKey]
-            showNotification('alert-danger', 'Si è verificato un errore: '+firstMessage, 'top', 'right', null, null);
+        error: function (file, response) {
+            let msg = 'Si è verificato un errore durante il caricamento.';
+            if (response && response.errors) {
+                const firstKey = Object.keys(response.errors)[0];
+                msg = response.errors[firstKey];
+            }
+            Swal.fire('Errore', msg, 'error');
         }
     };
-
 </script>
 @endsection

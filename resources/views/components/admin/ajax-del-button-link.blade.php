@@ -1,46 +1,39 @@
 @props(['url', 'resource'])
 
-<a href="javascript:void(0)" 
-    class="btn waves-effect btn-danger ml-2" 
-    onclick="elimina({{ $resource->id }}, event)"> 
-    <i class="material-icons">delete</i><span>
-        Elimina</i></a>
+<button type="button"
+    class="btn btn-danger ms-2"
+    onclick="eliminaRisorsa({{ $resource->id }}, event)">
+    <i class="ti ti-trash me-1"></i>Elimina
+</button>
 
 <script type="text/javascript">
-    /**
-     * Funzione elimina
-     */    
-    function elimina(id, event) {
+    function eliminaRisorsa(id, event) {
         event.preventDefault();
-        swal({
-            title: "Sei sicuro?",
-            text: "Vuoi procedere con l'eliminazone? \nL'azione è irreversibile e questo elemento sarà definitivamente eliminato dal sistema",
-            type: "warning",
+        Swal.fire({
+            title: 'Sei sicuro?',
+            text: "L'azione è irreversibile. L'elemento sarà definitivamente eliminato.",
+            icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: "#FB483A",
-            confirmButtonText: "Si, procedi",
-            cancelButtonText: "No, annulla",
-            closeOnConfirm: false,
-            closeOnCancel: false
-        }, function(confirmed) {
-            if (confirmed) {
+            confirmButtonColor: '#d63939',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: 'Sì, elimina',
+            cancelButtonText: 'Annulla'
+        }).then((result) => {
+            if (result.isConfirmed) {
                 $.ajax({
-                    url: "{!! url($url) !!}/" + id,
-                    type: "delete",
-                    dataType: "json",
+                    url: '{!! url($url) !!}/' + id,
+                    type: 'DELETE',
+                    dataType: 'json',
                     data: {
                         _token: $('meta[name="csrf-token"]').attr('content'),
                     },
                     success: function(data) {
-                        //swal("Elemento eliminato", data.message, "success");
-                        window.location.href = "{!! url($url) !!}";
+                        window.location.href = '{!! url($url) !!}';
                     },
-                    error: function(response, stato) {
-                        swal("Si è verificato un errore", "L'operazione non è andata a buon fine", "error");
+                    error: function(response) {
+                        Swal.fire('Errore', "L'operazione non è andata a buon fine.", 'error');
                     }
                 });
-            } else {
-                swal("Operazione annullata", "L'operazione è stata annullata", "info");
             }
         });
     }

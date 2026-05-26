@@ -1,23 +1,34 @@
-@props(['name', 'label', 'description', 'options', 'check', 'required', 'disabled', 'readonly'])
+@props(['name', 'label', 'description', 'options', 'check', 'required', 'disabled', 'readonly', 'empty'])
 
-<label for="{{ $name }}">{{ $label }} {!! ($required ?? false) ? '<span class="required">*</span>' : '' !!}</label>
-<div class="form-group">
-    <div class="form-line {{ $errors->has($name) ? 'error' : '' }}">
-        <select id="{{ $name }}" 
-                class="form-control" 
-                name="{{ $name }}" 
-                {{ ($required ?? false) ? 'required' : '' }} 
-                @disabled(($disabled ?? false) == true) 
-                @readonly(($readonly ?? false) == true) >
+<div class="mb-3">
+    <label class="form-label" for="{{ $name }}">
+        {{ $label }}
+        {!! ($required ?? false) ? '<span class="text-danger ms-1">*</span>' : '' !!}
+    </label>
+    <select id="{{ $name }}"
+            class="form-select {{ $errors->has($name) ? 'is-invalid' : '' }}"
+            name="{{ $name }}"
+            {{ ($required ?? false) ? 'required' : '' }}
+            @disabled(($disabled ?? false) == true)
+            @readonly(($readonly ?? false) == true)>
 
-            @foreach ($options as $key => $option)
-                <option value="{{ $key }}" @selected( old($name) ? $key == old($name) : $key == ($check ?? null) ) >{{ $option }}</option>
-            @endforeach
-        </select>        
-    </div>
+        @if ($empty ?? false)
+            <option value="">— Seleziona —</option>
+        @endif
+
+        @foreach ($options as $key => $option)
+            <option value="{{ $key }}"
+                @selected( old($name) ? $key == old($name) : $key == ($check ?? null) )>
+                {{ $option }}
+            </option>
+        @endforeach
+
+    </select>
 
     @if ($errors->has($name))
-        <label class="error">{{ $errors->first($name) }}</label>
-    @endif                                                    
-    <div class="help-info">{{ $description }}</div>
+        <div class="invalid-feedback">{{ $errors->first($name) }}</div>
+    @endif
+    @if (!empty($description))
+        <small class="form-hint text-secondary">{{ $description }}</small>
+    @endif
 </div>

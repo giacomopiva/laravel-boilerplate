@@ -1,19 +1,22 @@
 @props(['name', 'label', 'id', 'description', 'value', 'maxlength', 'required'])
 
-<label for="{{ $name }}">{{ $label }} {!! ($required ?? false) ? '<span class="required">*</span>' : '' !!}</label>
-<div class="form-group">
-    <div class="form-line {{ $errors->has($name) ? 'error' : '' }}">
-        <input  type="text"
-                id="{{ $name }}"
-                class="form-control"
-                name="{{ $name }}"
-                value="{{ $value ?? '' }}"
-                maxlength="{{ $maxlength ?? 255  }}"
-                {{ ($required ?? false) ? 'required' : '' }} />
-    </div>
+<div class="mb-3">
+    <label class="form-label" for="{{ $id ?? $name }}">
+        {{ $label }}
+        {!! ($required ?? false) ? '<span class="text-danger ms-1">*</span>' : '' !!}
+    </label>
+    <input type="text"
+           id="{{ $id ?? $name }}"
+           class="form-control {{ $errors->has($name) ? 'is-invalid' : '' }}"
+           name="{{ $name }}"
+           value="{{ $value ?? '' }}"
+           maxlength="{{ $maxlength ?? 255 }}"
+           {{ ($required ?? false) ? 'required' : '' }} />
 
     @if ($errors->has($name))
-        <label class="error">{{ $errors->first($name) }}</label>
+        <div class="invalid-feedback">{{ $errors->first($name) }}</div>
     @endif
-    <div class="help-info">{{ $description }}</div>
+    @if (!empty($description))
+        <small class="form-hint text-secondary">{{ $description }}</small>
+    @endif
 </div>
