@@ -1,4 +1,4 @@
-@props(['name', 'label', 'description', 'options', 'check', 'required', 'disabled', 'readonly', 'empty'])
+@props(['name', 'label', 'description', 'options', 'check', 'required', 'disabled', 'readonly', 'empty', 'placeholder', 'rounded'])
 
 <div class="mb-3">
     <label class="form-label" for="{{ $name }}">
@@ -6,14 +6,14 @@
         {!! ($required ?? false) ? '<span class="text-danger ms-1">*</span>' : '' !!}
     </label>
     <select id="{{ $name }}"
-            class="form-select {{ $errors->has($name) ? 'is-invalid' : '' }}"
+            class="form-select {{ ($rounded ?? false) ? 'rounded-3' : '' }} {{ $errors->has($name) ? 'is-invalid' : '' }}"
             name="{{ $name }}"
             {{ ($required ?? false) ? 'required' : '' }}
             @disabled(($disabled ?? false) == true)
             @readonly(($readonly ?? false) == true)>
 
         @if ($empty ?? false)
-            <option value="">— Seleziona —</option>
+            <option value="">{{ $placeholder ?? 'Seleziona' }}</option>
         @endif
 
         @foreach ($options as $key => $option)

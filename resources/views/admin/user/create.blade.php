@@ -25,7 +25,7 @@
         <div class="row row-cards">
             <div class="col-lg-6">
 
-                <div class="card">
+                <div class="card rounded-3 overflow-hidden">
                     <div class="card-header">
                         <h3 class="card-title">
                             <i class="ti ti-user-plus me-2 text-secondary"></i>Dati utente
@@ -48,45 +48,52 @@
 
                         <form action="{{ route('admin.user.store') }}" method="POST">
                             @csrf
+                            <div class="space-y">
+                                <x-admin.input-text
+                                    :name="'name'"
+                                    :label="'Nome'"
+                                    :value="old('name') ?? ''"
+                                    :description="null"
+                                    :placeholder="'Nome completo dell\'utente'"
+                                    :rounded="true"
+                                    :required="true" />
 
-                            <x-admin.input-text
-                                :name="'name'"
-                                :label="'Nome'"
-                                :value="old('name') ?? ''"
-                                :description="'Nome completo dell\'utente'"
-                                :required="true" />
+                                <x-admin.input-text
+                                    :name="'email'"
+                                    :label="'Email'"
+                                    :value="old('email') ?? ''"
+                                    :description="null"
+                                    :placeholder="'Indirizzo email dell\'utente'"
+                                    :rounded="true"
+                                    :required="true" />
 
-                            <x-admin.input-text
-                                :name="'email'"
-                                :label="'Email'"
-                                :value="old('email') ?? ''"
-                                :description="'Indirizzo email dell\'utente'"
-                                :required="true" />
+                                <div>
+                                    <label class="form-label" for="password">
+                                        Password <span class="text-danger ms-1">*</span>
+                                    </label>
+                                    <input type="password"
+                                           id="password"
+                                           class="form-control rounded-3 {{ $errors->has('password') ? 'is-invalid' : '' }}"
+                                           name="password"
+                                           maxlength="255"
+                                           placeholder="Password dell'utente"
+                                           required />
+                                    @if ($errors->has('password'))
+                                        <div class="invalid-feedback">{{ $errors->first('password') }}</div>
+                                    @endif
+                                </div>
 
-                            <div class="mb-3">
-                                <label class="form-label" for="password">
-                                    Password <span class="text-danger ms-1">*</span>
-                                </label>
-                                <input type="password"
-                                       id="password"
-                                       class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}"
-                                       name="password"
-                                       maxlength="255"
-                                       required />
-                                @if ($errors->has('password'))
-                                    <div class="invalid-feedback">{{ $errors->first('password') }}</div>
-                                @endif
-                                <small class="form-hint text-secondary">Password dell'utente</small>
+                                <x-admin.select
+                                    :name="'role'"
+                                    :options="$roles"
+                                    :label="'Ruolo'"
+                                    :check="old('role') ?? ''"
+                                    :description="null"
+                                    :placeholder="'Seleziona un ruolo'"
+                                    :rounded="true"
+                                    :empty="true"
+                                    :required="true" />
                             </div>
-
-                            <x-admin.select
-                                :name="'role'"
-                                :options="$roles"
-                                :label="'Ruolo'"
-                                :check="old('role') ?? ''"
-                                :description="'Ruolo assegnato all\'utente'"
-                                :empty="true"
-                                :required="true" />
 
                             <div class="mt-4 d-flex gap-2">
                                 <button type="submit" class="btn btn-primary">

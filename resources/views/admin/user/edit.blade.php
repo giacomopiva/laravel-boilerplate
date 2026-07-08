@@ -25,7 +25,7 @@
         <div class="row row-cards">
             <div class="col-lg-6">
 
-                <div class="card">
+                <div class="card rounded-3 overflow-hidden">
                     <div class="card-header">
                         <h3 class="card-title">
                             <i class="ti ti-edit me-2 text-secondary"></i>{{ $user->name }}
@@ -60,34 +60,40 @@
                                 :name="'name'"
                                 :label="'Nome'"
                                 :value="old('name') ?? $user->name"
-                                :description="'Nome completo dell\'utente'"
+                                :description="null"
+                                :placeholder="'Nome completo dell\'utente'"
+                                :rounded="true"
                                 :required="true" />
 
                             <x-admin.input-text
                                 :name="'email'"
                                 :label="'Email'"
                                 :value="old('email') ?? $user->email"
-                                :description="'Indirizzo email dell\'utente'"
+                                :description="null"
+                                :placeholder="'Indirizzo email dell\'utente'"
+                                :rounded="true"
                                 :required="true" />
 
                             <div class="mb-3">
                                 <label class="form-label" for="password">Nuova password</label>
                                 <input type="password"
                                        id="password"
-                                       class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}"
+                                       class="form-control rounded-3 {{ $errors->has('password') ? 'is-invalid' : '' }}"
                                        name="password"
-                                       maxlength="255" />
+                                       maxlength="255"
+                                       placeholder="Lascia vuoto per mantenere la password attuale" />
                                 @if ($errors->has('password'))
                                     <div class="invalid-feedback">{{ $errors->first('password') }}</div>
                                 @endif
-                                <small class="form-hint text-secondary">Lascia vuoto per mantenere la password attuale</small>
                             </div>
 
                             <x-admin.select
                                 :name="'role'"
                                 :options="$roles"
                                 :label="'Ruolo'"
-                                :description="'Ruolo dell\'utente'"
+                                :description="null"
+                                :placeholder="'Seleziona un ruolo'"
+                                :rounded="true"
                                 :check="old('role') ?? $user->roles->first()->name"
                                 :required="true" />
 
@@ -95,7 +101,9 @@
                                 :name="'status'"
                                 :options="$status"
                                 :label="'Stato'"
-                                :description="'Stato dell\'utente'"
+                                :description="null"
+                                :placeholder="'Seleziona uno stato'"
+                                :rounded="true"
                                 :check="old('status') ?? $user->status"
                                 :required="true" />
 

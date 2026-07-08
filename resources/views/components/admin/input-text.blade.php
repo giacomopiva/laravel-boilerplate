@@ -1,4 +1,4 @@
-@props(['name', 'label', 'id', 'description', 'value', 'maxlength', 'required'])
+@props(['name', 'label', 'id', 'description', 'value', 'maxlength', 'required', 'placeholder', 'rounded'])
 
 <div class="mb-3">
     <label class="form-label" for="{{ $id ?? $name }}">
@@ -7,10 +7,11 @@
     </label>
     <input type="text"
            id="{{ $id ?? $name }}"
-           class="form-control {{ $errors->has($name) ? 'is-invalid' : '' }}"
+           class="form-control {{ ($rounded ?? false) ? 'rounded-3' : '' }} {{ $errors->has($name) ? 'is-invalid' : '' }}"
            name="{{ $name }}"
            value="{{ $value ?? '' }}"
            maxlength="{{ $maxlength ?? 255 }}"
+           placeholder="{{ $placeholder ?? '' }}"
            {{ ($required ?? false) ? 'required' : '' }} />
 
     @if ($errors->has($name))

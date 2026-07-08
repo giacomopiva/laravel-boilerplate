@@ -2,9 +2,6 @@
 
 @section('content')
 
-{{-- ───────────────────────────────────────────────
-     Page header  ·  container-xl è DENTRO l'header
-     ─────────────────────────────────────────────── --}}
 <div class="page-header d-print-none">
     <div class="container-xl">
         <div class="row g-2 align-items-center">
@@ -40,49 +37,51 @@
     </div>
 </div>
 
-{{-- ───────────────────────────────────────────────
-     Page body  ·  container-xl > row row-cards
-     ─────────────────────────────────────────────── --}}
 <div class="page-body">
     <div class="container-xl">
         <div class="row row-cards">
             <div class="col-12">
-
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">
-                            <i class="ti ti-list me-2 text-secondary"></i>Elenco degli utenti
+                            <i class="ti ti-users me-2 text-secondary"></i>Elenco degli utenti
                         </h3>
                     </div>
-                    {{-- p-0: rimuove il padding per avere la tabella flush con i bordi della card --}}
-                    <div class="card-body p-0">
-                        <div class="table-responsive">
-                            <table id="users_table"
-                                class="table table-vcenter card-table"
-                                style="width:100%"
-                                data-ajax-url="{{ route('admin.user.list') }}">
-                                <thead>
-                                    <tr>
-                                        <th style="width:50px">#</th>
-                                        <th>Nome</th>
-                                        <th>Email</th>
-                                        <th>Ruolo</th>
-                                        <th>Stato</th>
-                                        <th>Creato il</th>
-                                        <th>Aggiornato il</th>
-                                        <th style="width:180px">Azioni</th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
-                        </div>
-                    </div>
+                    <table id="users_table"
+                        class="table table-selectable card-table table-vcenter text-nowrap datatable"
+                        style="width:100%"
+                        data-ajax-url="{{ route('admin.user.list') }}">
+                        <thead>
+                            <tr>
+                                <th style="width:70px">ID</th>
+                                <th>Nome</th>
+                                <th>Email</th>
+                                <th>Ruolo</th>
+                                <th>Stato</th>
+                                <th>Creato il</th>
+                                <th>Aggiornato il</th>
+                                <th style="width:180px">Azioni</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
                 </div>
-
             </div>
         </div>
     </div>
 </div>
+
+
+<style>
+#users_table  {
+    border-color: var(--tblr-border-color-translucent);
+}
+#users_table.dataTable {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+</style>
+
 
 @endsection
 
@@ -91,46 +90,93 @@
     var table;
 
     $(document).ready(function () {
+        function escapeHtml(value) {
+            return $('<div>').text(value ?? '').html();
+        }
+
         table = $('#users_table').DataTable({
             responsive: true,
             processing: true,
             serverSide: true,
             deferRender: true,
+            dom:
+                "<'card-body border-bottom py-3'<'d-flex flex-column flex-md-row align-items-md-center gap-3'<'text-secondary'l><'ms-md-auto text-secondary'f>>>" +
+                "<'table-responsive't>" +
+                "<'card-footer d-flex flex-column flex-md-row align-items-center gap-3'<'text-secondary'i><'ms-md-auto'p>>",
             ajax: {
                 url: $('#users_table').data('ajax-url'),
                 type: 'POST',
                 data: { _token: $('meta[name="csrf-token"]').attr('content') }
             },
             columns: [
-                { data: 'id' },
-                { data: 'name' },
-                { data: 'email' },
-                { data: 'rolename', searchable: false },
+                {
+                    data: 'id',
+                    render: function (data) {
+                        return '<span class="text-secondary fw-medium">#' + escapeHtml(data) + '</span>';
+                    }
+                },
+                {
+                    data: 'name',
+                    render: function (data, type, row) {
+                        return '' +
+                            '<div class="fw-semibold text-body">' + escapeHtml(data) + '</div>';
+                    }
+                },
+                {
+                    data: 'email',
+                    render: function (data) {
+                        var email = escapeHtml(data);
+                        return '<a href="mailto:' + email + '" class="text-reset">' + email + '</a>';
+                    }
+                },
+                {
+                    data: 'rolename',
+                    searchable: false,
+                    render: function (data) {
+                        return '<span class="badge bg-azure-lt text-azure">' + escapeHtml(data) + '</span>';
+                    }
+                },
                 {
                     data: 'status',
                     searchable: true,
                     render: function (data) {
                         return data
-                            ? '<span class="badge bg-success-lt text-success">Abilitato</span>'
+                            ? '<span class="badge bg-success-lt text-success">Attivo</span>'
                             : '<span class="badge bg-danger-lt text-danger">Disabilitato</span>';
                     }
                 },
                 {
                     data: 'created_at',
                     searchable: false,
-                    render: function (data) { return data ? moment(data).format('DD/MM/YY HH:mm') : '—'; }
+                    render: function (data) {
+                        if (!data) return '<span class="text-secondary">-</span>';
+
+                        return '' +
+                            '<div>' + moment(data).format('DD/MM/YYYY') + '</div>' +
+                            '<div class="text-secondary small">' + moment(data).format('HH:mm') + '</div>';
+                    }
                 },
                 {
                     data: 'updated_at',
                     searchable: false,
-                    render: function (data) { return data ? moment(data).format('DD/MM/YY HH:mm') : '—'; }
+                    render: function (data) {
+                        if (!data) return '<span class="text-secondary">-</span>';
+
+                        return '' +
+                            '<div>' + moment(data).format('DD/MM/YYYY') + '</div>' +
+                            '<div class="text-secondary small">' + moment(data).format('HH:mm') + '</div>';
+                    }
                 },
                 { data: 'actions', searchable: false, orderable: false }
             ],
             lengthMenu: [25, 50, 100],
             pageLength: 25,
             order: [[0, 'asc']],
-            language: { url: "{{ asset('vendor/datatables/Italian.json') }}" },
+            language: {
+                url: "{{ asset('vendor/datatables/Italian.json') }}",
+                search: 'Cerca utente: ',
+                searchPlaceholder: ''
+            },
             drawCallback: function () { bindDelete(); }
         });
 
