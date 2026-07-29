@@ -171,9 +171,9 @@ class UserController extends AdminController
     }
 
     /**
-     * Show the form for Inport users from an Excel file.
+     * Show the form for importing users from an Excel file.
      *
-     * @return View The view displaying the user creation form.
+     * @return View The view displaying the user import form.
      */
     public function showImport()
     {
@@ -181,9 +181,10 @@ class UserController extends AdminController
     }
 
     /**
-     * Show the form for Inport users from an Excel file.
+     * Import users from the uploaded Excel file.
      *
-     * @return View The view displaying the user creation form.
+     * @param  Request  $request  The current HTTP request containing the uploaded file.
+     * @return View The view displaying the user import form after import.
      */
     public function import(Request $request)
     {
@@ -205,8 +206,8 @@ class UserController extends AdminController
     /**
      * Stampa una scheda informativa sull'utente.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  User  $user  The user whose information sheet should be printed.
+     * @return \Illuminate\Http\Response The PDF download response, or a redirect on failure.
      */
     public function print(User $user)
     {
