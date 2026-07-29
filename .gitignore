@@ -74,3 +74,8 @@ _ide_helper_models.php
 
 # Claude 
 .claude
+.kilo
+
+# Agents 
+CLAUDE.md
+AGENTS.md
