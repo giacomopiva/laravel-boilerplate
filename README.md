@@ -6,8 +6,8 @@ Questo è un boilerplate Laravel preconfigurato con vari pacchetti utili per ini
 
 ### Tema grafico installato area Admin
 
-[AdminBSBMaterialDesign](https://github.com/gurayyarar/AdminBSBMaterialDesign)  
-[Demo](https://gurayyarar.github.io/AdminBSBMaterialDesign/)  
+[Tabler](https://tabler.io/admin-template)  
+[Demo](https://tabler.io/admin-template/preview/)  
 
 ### Tema grafico installato area Frontend
 

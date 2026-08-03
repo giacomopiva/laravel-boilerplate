@@ -1,51 +1,48 @@
 @extends('layouts.forgot')
 
-
 @section('content')
-    <div class="fp-box">
-        <div class="logo">
-            <img src="/images/logo@2x.png" width="100%" alt="{{ config('app.name') }}" />
-        </div>
-        <div class="card">
-            <div class="body">
-                <form id="forgot_password" method="POST" action="{{ route('password.email') }}">
-                    @csrf
+    <div class="card card-md">
+        <div class="card-body">
+            <h2 class="h2 text-center mb-4">Password dimenticata</h2>
+            <p class="text-secondary mb-4">
+                Inserisci l'indirizzo email usato per la registrazione e ti invieremo una email per effettuare il
+                reset della tua password.
+            </p>
 
-                    @if (session('success'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('success') }}
-                        </div>
-                    @endif
+            @if (session('success'))
+                <div class="alert alert-success" role="alert">
+                    {{ session('success') }}
+                </div>
+            @endif
 
-                    @if (session('fail'))
-                        <div class="alert alert-danger" role="alert">
-                            {{ session('fail') }}
-                        </div>
-                    @endif
+            @if (session('fail'))
+                <div class="alert alert-danger" role="alert">
+                    {{ session('fail') }}
+                </div>
+            @endif
 
-                    <div class="msg">
-                        Inserire l'indirizzo email usato per la registrazione e ti invieremo una email per effettuale il reset della tua
-                        password.
-                    </div>
+            <form id="forgot_password" method="POST" action="{{ route('password.email') }}" autocomplete="off">
+                @csrf
 
-                    <div class="input-group">
-                        <span class="input-group-addon">
-                            <i class="material-icons">email</i>
-                        </span>
-                        <div class="form-line">
-                            <input type="email" class="form-control" name="email" placeholder="Email" required autofocus>
-                        </div>
-                        @error('email')
-                        <span class="text-danger">{{ $message }}</span>
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
+                        name="email" value="{{ old('email') }}" placeholder="Il tuo indirizzo email" required
+                        autocomplete="email" autofocus>
+                    @error('email')
+                        <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
-                    </div>
+                </div>
 
-                    <button class="btn btn-block btn-lg bg-blue waves-effect" type="submit">{{ __('Reset Password !') }}</button>
-
-                    <div class="row m-t-20 m-b--5 align-center">
-                        <a href="{{ route('login') }}">Login</a>
-                    </div>
-                </form>
+                <div class="form-footer">
+                    <button type="submit" class="btn btn-primary w-100">{{ __('Reset Password') }}</button>
+                </div>
+            </form>
+        </div>
+        <div class="hr-text">o</div>
+        <div class="card-body">
+            <div class="text-center">
+                <a href="{{ route('login') }}" tabindex="-1">{{ __('Torna alla schermata di accesso') }}</a>
             </div>
         </div>
     </div>

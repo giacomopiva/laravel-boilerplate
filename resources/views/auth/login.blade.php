@@ -1,180 +1,92 @@
-<!DOCTYPE html>
-<html lang="{{ Str::replace('_', '-', app()->getLocale()) }}">
+@extends('layouts.login')
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+@section('content')
+    <div class="card card-md">
+        <div class="card-body">
+            <h2 class="h2 text-center mb-4">Accedi al tuo account</h2>
 
-    <title>Accedi - {{ config('app.name', 'Laravel') }}</title>
+            @if (Session::has('message'))
+                <div class="alert alert-success" role="alert">
+                    {{ Session::get('message') }}
+                </div>
+            @endif
 
-    <!-- Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+            @if ($errors->any())
+                <div class="alert alert-danger" role="alert">
+                    {{ $errors->first() }}
+                </div>
+            @endif
 
-    <!-- Favicon-->
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+            <form id="sign_in" method="POST" action="{{ route('login') }}" autocomplete="off">
+                @csrf
 
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet"
-        type="text/css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
+                        name="email" value="{{ old('email') }}" placeholder="Il tuo indirizzo email" required
+                        autocomplete="email" autofocus>
+                    @error('email')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
 
-    <!-- Bootstrap Core Css -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('plugins/bootstrap/css/bootstrap.css') }}">
-
-    <!-- Waves Effect Css -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('plugins/node-waves/waves.css') }}">
-
-    <!-- Animation Css -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('plugins/animate-css/animate.css') }}">
-
-    <!-- AdminBSB Theme -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/admin/style.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/admin/custom.css') }}">
-
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/admin/custom.css') }}">
-    <style>
-        .login-page {
-            background-color: #ffffff;
-            margin: 10% auto;
-            max-width: 400px;
-        }
-
-        .logo img {
-            width: 100%;
-            padding: 10px;
-        }
-
-        .logo {
-            box-shadow: 0 2px 10px rgb(0 0 0 / 20%);
-            background-color: #ffffff;
-            text-align: center
-        }
-    </style>
-
-    <!-- Jquery Core Js -->
-    <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
-
-    <!-- Bootstrap Core Js -->
-    <script src="{{ asset('plugins/bootstrap/js/bootstrap.min.js') }}"></script>
-</head>
-
-<body class="login-page">
-    <div class="login-box">
-        <div class="logo">
-            <img src="/images/logo@2x.png" width="220" alt="{{ config('app.name') }}" />
-        </div>
-        <div class="card">
-            <div class="body">
-                @if ($errors->any())
-                    <div id="errors-container" class="alert alert-danger alert-dismissible">
-                        <span>{{ $errors->first() }}</span>
+                <div class="mb-2">
+                    <label class="form-label">Password</label>
+                    <div class="input-group input-group-flat">
+                        <input id="password" type="password"
+                            class="form-control @error('password') is-invalid @enderror" name="password"
+                            placeholder="La tua password" required autocomplete="current-password">
+                        <span class="input-group-text">
+                            <a href="#" id="toggle-password" class="link-secondary" title="Mostra password"
+                                data-bs-toggle="tooltip" onclick="return false;">
+                                <i class="ti ti-eye" id="icon-eye"></i>
+                                <i class="ti ti-eye-off d-none" id="icon-eye-off"></i>
+                            </a>
+                        </span>
+                        @error('password')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
-                @endif
-                <form id="sign_in" method="POST" action="{{ route('login') }}">
-                    @csrf
+                </div>
 
-                    @if (Session::has('message'))
-                        <div class="alert alert-success" role="alert">
-                            {{ Session::get('message') }}
+                <div class="mb-4 mt-3">
+                    <label class="form-check">
+                        <input type="checkbox" class="form-check-input" name="remember" id="remember"
+                            {{ old('remember') ? 'checked' : '' }}>
+                        <span class="form-check-label">{{ __('Ricordami') }}</span>
+                    </label>
+                    @if (Route::has('password.request'))
+                        <div>
+                            <a href="{{ route('password.request') }}">{{ __('Hai dimenticato la password?') }}</a>
                         </div>
                     @endif
+                </div>
 
-                    <div class="msg">
-                        <span>Inserisci le tue credenziali</span>
-                    </div>
+                <div class="form-footer">
+                    <button type="submit" class="btn btn-primary w-100">{{ __('Accedi') }}</button>
+                </div>
+            </form>
 
-                    <div class="input-group">
-                        <span class="input-group-addon">
-                            <i class="material-icons">email</i>
-                        </span>
-                        <div class="form-line">
-                            <input id="email" type="email"
-                                class="form-control @error('email') is-invalid @enderror" name="email"
-                                value="{{ old('email') }}" required autocomplete="email" autofocus
-                                placeholder="Email">
-                            @error('email')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <div class="input-group">
-                        <span class="input-group-addon">
-                            <i class="material-icons">lock</i>
-                        </span>
-                        <div class="form-line">
-                            <input id="password" type="password"
-                                class="form-control @error('password') is-invalid @enderror" style= "width: 90%" name="password" required
-                                autocomplete="current-password" placeholder="Password">
-                            @error('password')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                                <i class="material-icons"  id="hide" onclick="ShowHide()" hidden="hidden"  style="float: right">visibility_off</i>
-                                <i class="material-icons"  id="show" onclick="ShowHide()"  style="float: right">visibility</i>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-xs-8 p-t-5">
-                            <input class="filled-in chk-col-blue" type="checkbox" name="remember" id="remember"
-                                {{ old('remember') ? 'checked' : '' }}>
-                            <label for="remember">{{ __('Ricordami') }}</label>
-                        </div>
-                        <div class="col-xs-4">
-                            <button class="btn waves-effect btn-block btn-primary waves-effect" type="submit">
-                                {{ __('Accedi') }}
-                            </button>
-                        </div>
-                    </div>
-                    <div class="row">
-                        @if (Route::has('password.request'))
-                        <div class="col-xs-8">
-                            <a href="{{ route('password.request')}}"  style="color: gray">{{ __('Hai dimenticato la password?') }}</a>
-                        </div>
-                        @endif
-
-                        @if (Route::has('register'))
-                        <div class="col-xs-4 text-right">
-                            <a href="{{ route('register')}}">{{ __('Registrati Ora!') }}</a>
-                        </div>
-                        @endif
-
-                    </div>
-                </form>
-            </div>
+            @if (Route::has('register'))
+                <div class="text-center text-muted mt-3">
+                    {{ __('Non hai un account?') }} <a href="{{ route('register') }}">{{ __('Registrati ora') }}</a>
+                </div>
+            @endif
         </div>
     </div>
+@endsection
 
-    <!-- Waves Effect Plugin Js -->
-    <script src="{{ asset('plugins/node-waves/waves.js') }}"></script>
+@section('script')
+    <script>
+        document.getElementById('toggle-password').addEventListener('click', function () {
+            const password = document.getElementById('password');
+            const eye = document.getElementById('icon-eye');
+            const eyeOff = document.getElementById('icon-eye-off');
+            const isHidden = password.type === 'password';
 
-    <!-- Jquery Validation Plugin -->
-    <script src="{{ asset('plugins/jquery-validation/jquery.validate.js') }}"></script>
-
-    <script src="{{ asset('js/admin/admin.js') }}"></script>
-
-    <!-- Js for ShowHide function -->
-    <script type="text/javascript">
-        function ShowHide (){
-            var x = document.getElementById("password");
-            if (x.type === "password"){
-                x.type = "text";
-                document.getElementById('hide').style.display = "inline-block";
-                document.getElementById('show').style.display = "none";
-            }
-            else{
-                x.type = "password";
-                document.getElementById('hide').style.display = "none";
-                document.getElementById('show').style.display = "inline-block";
-            }
-        }
+            password.type = isHidden ? 'text' : 'password';
+            eye.classList.toggle('d-none', isHidden);
+            eyeOff.classList.toggle('d-none', !isHidden);
+        });
     </script>
-
-</body>
-
-</html>
+@endsection

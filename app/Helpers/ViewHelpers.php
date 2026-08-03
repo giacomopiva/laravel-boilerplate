@@ -17,6 +17,10 @@ use Illuminate\Support\Str;
  */
 function homeRoute()
 {
+    if (! Auth::check()) {
+        return route('login');
+    }
+
     $role = Auth::user()->getRoleName();
 
     if ($role === 'Amministratore') {
@@ -25,9 +29,6 @@ function homeRoute()
     if ($role === 'Utente') {
         return route('user.home');
     }
-    /*if ($role == null) {
-        return route('auth.login');
-    }*/
 
     return route('admin.home');
 }
