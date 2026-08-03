@@ -87,6 +87,8 @@ class User extends Authenticatable implements MustVerifyEmail
 
     /**
      * Get the user's role name.
+     *
+     * @return string The human-readable name of the user's role.
      */
     public function getRoleName(): string
     {
