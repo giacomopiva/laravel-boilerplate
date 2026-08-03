@@ -11,7 +11,7 @@
         {{-- Logo --}}
         <h1 class="navbar-brand navbar-brand-autodark">
             <a href="{{ homeRoute() }}">
-                <img src="/images/logo@2x.png" height="36" alt="{{ config('app.name') }}"
+                <img src="{{ asset('images/logo@2x.png') }}" height="36" alt="{{ config('app.name') }}"
                     class="navbar-brand-image" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
                 <span style="display:none; color:white; font-size:1.1rem; font-weight:600;">
                     {{ config('app.name') }}
