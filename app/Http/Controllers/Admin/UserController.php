@@ -159,20 +159,20 @@ class UserController extends AdminController
                 $printUrl = route('admin.user.print', $user->id);
 
                 $buttons  = '<div class="d-flex gap-1">';
-                $buttons .= '<a href="'.$editUrl.'" class="btn btn-primary" title="Modifica">';
+                $buttons .= '<a href="'.$editUrl.'" class="btn btn-sm btn-primary" title="Modifica">';
                 $buttons .= '<i class="ti ti-edit me-1"></i>Modifica</a>';
 
-                $buttons .= '<a href="'.$printUrl.'" class="btn btn-ghost-secondary" title="Stampa">';
+                $buttons .= '<a href="'.$printUrl.'" class="btn btn-sm btn-ghost-secondary" title="Stampa">';
                 $buttons .= '<i class="ti ti-printer me-1"></i>Stampa</a>';
 
                 if (Auth::user()->canImpersonate() && $user->canBeImpersonated()) {
                     $impersonateUrl = route('admin.impersonate', $user->id);
-                    $buttons .= '<a href="'.$impersonateUrl.'" class="btn btn-warning" title="Accedi come questo utente">';
+                    $buttons .= '<a href="'.$impersonateUrl.'" class="btn btn-sm btn-warning" title="Accedi come questo utente">';
                     $buttons .= '<i class="ti ti-login-2 me-1"></i>Impersona</a>';
                 }
 
                 if (Auth::user()->id !== $user->id) {
-                    $buttons .= '<button data-id="'.$user->id.'" class="btn btn-danger btn-delete" title="Elimina">';
+                    $buttons .= '<button data-id="'.$user->id.'" class="btn btn-sm btn-danger btn-delete" title="Elimina">';
                     $buttons .= '<i class="ti ti-trash me-1"></i>Elimina</button>';
                 }
 

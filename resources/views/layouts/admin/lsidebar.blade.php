@@ -74,6 +74,8 @@
                             <span class="nav-link-title">Dashboard</span>
                         </a>
                     </li>
+        
+                    <div class="d-none d-lg-block border-top border-white-10 my-2"></div>
 
                     {{-- Divider --}}
                     <li class="nav-item mt-2">
