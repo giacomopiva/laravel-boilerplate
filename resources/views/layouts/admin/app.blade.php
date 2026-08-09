@@ -113,15 +113,7 @@
                   page-header > container-xl > row g-2
                   page-body   > container-xl > row row-cards
             --}}
-            @yield('content')
-
-            {{-- Footer --}}
-            <footer class="footer footer-transparent d-print-none">
-                <div class="container-xl">
-                    <x-admin.footer />
-                </div>
-            </footer>
-
+            @yield('content') 
         </div>
     </div>
 

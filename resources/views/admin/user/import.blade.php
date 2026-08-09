@@ -6,11 +6,6 @@
 <div class="page-header d-print-none">
     <div class="container-xl">
         <div class="row g-2 align-items-center">
-            <div class="col-auto">
-                <a href="{{ route('admin.user.index') }}" class="btn btn-ghost-secondary btn-sm">
-                    <i class="ti ti-arrow-left me-1"></i>Utenti
-                </a>
-            </div>
             <div class="col">
                 <div class="page-pretitle">Sistema</div>
                 <h2 class="page-title">Importa utenti da Excel</h2>
