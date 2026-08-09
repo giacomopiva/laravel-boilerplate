@@ -56,7 +56,7 @@
                 </div>
             </div>
 
-            {{-- Preview table --}}
+            {{-- Preview table — stessa struttura/stile della tabella in admin/user/index --}}
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
@@ -64,52 +64,59 @@
                             <i class="ti ti-users me-2 text-secondary"></i>Utenti presenti nel sistema
                         </h3>
                     </div>
-                    <div class="card-body p-0">
 
-                        @if ($errors->any())
-                            <div class="alert alert-danger m-3 alert-dismissible" role="alert">
-                                <div class="d-flex">
-                                    <i class="ti ti-alert-triangle me-2 flex-shrink-0 mt-1"></i>
-                                    <div>{{ $errors->first() }}</div>
-                                </div>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    @if ($errors->any())
+                        <div class="alert alert-danger m-3 mb-0 alert-dismissible" role="alert">
+                            <div class="d-flex">
+                                <i class="ti ti-alert-triangle me-2 flex-shrink-0 mt-1"></i>
+                                <div>{{ $errors->first() }}</div>
                             </div>
-                        @endif
-
-                        @if (Session::has('success'))
-                            <div class="alert alert-success m-3 alert-dismissible" role="alert">
-                                <div class="d-flex">
-                                    <i class="ti ti-circle-check me-2 flex-shrink-0 mt-1"></i>
-                                    <div>{!! \Session::get('success') !!}</div>
-                                </div>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                            </div>
-                        @endif
-
-                        <div class="table-responsive">
-                            <table id="users_table"
-                                class="table table-vcenter card-table"
-                                style="width:100%">
-                                <thead>
-                                    <tr>
-                                        <th style="width:50px">#</th>
-                                        <th>Nome</th>
-                                        <th>Email</th>
-                                        <th>Ruolo</th>
-                                        <th>Data creazione</th>
-                                        <th>Ultima modifica</th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                         </div>
-                    </div>
+                    @endif
+
+                    @if (Session::has('success'))
+                        <div class="alert alert-success m-3 mb-0 alert-dismissible" role="alert">
+                            <div class="d-flex">
+                                <i class="ti ti-circle-check me-2 flex-shrink-0 mt-1"></i>
+                                <div>{!! \Session::get('success') !!}</div>
+                            </div>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    @endif
+
+                    <table id="users_table"
+                        class="table table-selectable card-table table-vcenter text-nowrap datatable"
+                        style="width:100%"
+                        data-ajax-url="{{ url('admin/user/list') }}">
+                        <thead>
+                            <tr>
+                                <th style="width:70px">ID</th>
+                                <th>Nome</th>
+                                <th>Email</th>
+                                <th>Ruolo</th>
+                                <th>Creato il</th>
+                                <th>Aggiornato il</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
                 </div>
             </div>
 
         </div>
     </div>
 </div>
+
+<style>
+#users_table  {
+    border-color: var(--tblr-border-color-translucent);
+}
+#users_table.dataTable {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+</style>
 
 @endsection
 
@@ -118,39 +125,88 @@
     var table;
 
     $(document).ready(function () {
+        function escapeHtml(value) {
+            return $('<div>').text(value ?? '').html();
+        }
+
         table = $('#users_table').DataTable({
             responsive: true,
             processing: true,
             serverSide: true,
+            deferRender: true,
+            dom:
+                "<'card-body border-bottom py-3'<'d-flex flex-column flex-md-row align-items-md-center gap-3'<'text-secondary'l><'ms-md-auto text-secondary'f>>>" +
+                "<'table-responsive't>" +
+                "<'card-footer d-flex flex-column flex-md-row align-items-center gap-3'<'text-secondary'i><'ms-md-auto'p>>",
             ajax: {
-                url: "{!! url('admin/user/list') !!}",
+                url: $('#users_table').data('ajax-url'),
                 type: 'POST',
                 data: { _token: $('meta[name="csrf-token"]').attr('content') }
             },
             columns: [
-                { data: 'id' },
-                { data: 'name' },
-                { data: 'email' },
-                { data: 'rolename' },
+                {
+                    data: 'id',
+                    render: function (data) {
+                        return '<span class="text-secondary fw-medium">#' + escapeHtml(data) + '</span>';
+                    }
+                },
+                {
+                    data: 'name',
+                    render: function (data) {
+                        return '<div class="fw-semibold text-body">' + escapeHtml(data) + '</div>';
+                    }
+                },
+                {
+                    data: 'email',
+                    render: function (data) {
+                        var email = escapeHtml(data);
+                        return '<a href="mailto:' + email + '" class="text-reset">' + email + '</a>';
+                    }
+                },
+                {
+                    data: 'rolename',
+                    searchable: false,
+                    render: function (data) {
+                        return '<span class="badge bg-azure-lt text-azure">' + escapeHtml(data) + '</span>';
+                    }
+                },
                 {
                     data: 'created_at',
                     searchable: false,
-                    render: function (data) { return data ? moment(data).format('DD/MM/YYYY') : '—'; }
+                    render: function (data) {
+                        if (!data) return '<span class="text-secondary">-</span>';
+
+                        return '' +
+                            '<div>' + moment(data).format('DD/MM/YYYY') + '</div>' +
+                            '<div class="text-secondary small">' + moment(data).format('HH:mm') + '</div>';
+                    }
                 },
                 {
                     data: 'updated_at',
                     searchable: false,
-                    render: function (data) { return data ? moment(data).format('DD/MM/YY HH:mm') : '—'; }
+                    render: function (data) {
+                        if (!data) return '<span class="text-secondary">-</span>';
+
+                        return '' +
+                            '<div>' + moment(data).format('DD/MM/YYYY') + '</div>' +
+                            '<div class="text-secondary small">' + moment(data).format('HH:mm') + '</div>';
+                    }
                 }
             ],
-            columnDefs: [{ width: '50px', targets: 0 }],
             lengthMenu: [25, 50, 100],
             pageLength: 25,
             order: [[0, 'asc']],
-            language: { url: "{!! url('vendor/datatables/Italian.json') !!}" }
+            language: {
+                url: "{{ asset('vendor/datatables/Italian.json') }}",
+                search: 'Cerca utente: ',
+                searchPlaceholder: ''
+            }
         });
     });
 
+    /**
+     * Dropzone configuration
+     */
     Dropzone.options.fileInsert = {
         sending: function () {},
         success: function (file, response) {

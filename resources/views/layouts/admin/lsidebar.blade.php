@@ -44,7 +44,7 @@
         <div class="collapse navbar-collapse" id="sidebar-menu">
 
             {{-- User info (desktop sidebar) --}}
-            <div class="d-none d-lg-block mt-3 mb-2 px-2">
+            <?php /*<div class="d-none d-lg-block mt-3 mb-2 px-2">
                 <div class="d-flex align-items-center">
                     <span class="avatar avatar-sm bg-blue me-2 fw-bold text-white">
                         {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
@@ -56,7 +56,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>*/ ?>
             <div class="d-none d-lg-block border-top border-white-10 my-2"></div>
 
             <ul class="navbar-nav pt-lg-2">

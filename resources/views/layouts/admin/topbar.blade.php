@@ -9,8 +9,8 @@
             {{-- Toggle modalità chiara/scura --}}
             <div class="nav-item me-2 d-flex align-items-center">
                 <a href="#" class="nav-link px-0" id="darkmode-toggle" title="Cambia modalità colore">
-                    <i class="ti ti-moon fs-4" id="darkmode-icon-moon"></i>
-                    <i class="ti ti-sun fs-4 d-none" id="darkmode-icon-sun"></i>
+                    <i class="ti ti-moon fs-2" id="darkmode-icon-moon"></i>
+                    <i class="ti ti-sun fs-2 d-none" id="darkmode-icon-sun"></i>
                 </a>
             </div>
 
