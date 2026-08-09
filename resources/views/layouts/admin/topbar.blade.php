@@ -6,10 +6,11 @@
 
         <div class="navbar-nav flex-row order-md-last">
 
-            {{-- Dark mode toggle --}}
+            {{-- Toggle modalità chiara/scura --}}
             <div class="nav-item me-2 d-flex align-items-center">
-                <a href="#" class="nav-link px-0" data-bs-toggle="tooltip" title="Toggle dark mode" id="darkmode-toggle">
-                    <i class="ti ti-moon fs-4"></i>
+                <a href="#" class="nav-link px-0" id="darkmode-toggle" title="Cambia modalità colore">
+                    <i class="ti ti-moon fs-4" id="darkmode-icon-moon"></i>
+                    <i class="ti ti-sun fs-4 d-none" id="darkmode-icon-sun"></i>
                 </a>
             </div>
 
@@ -41,18 +42,28 @@
 </header>
 
 <script>
-    // Dark mode toggle (persists in localStorage)
+    // Toggle modalità chiara/scura: persiste in localStorage (chiave 'tabler-theme',
+    // la stessa letta dallo script anti-flash in layouts/admin/app.blade.php).
     document.addEventListener('DOMContentLoaded', function () {
-        const toggle = document.getElementById('darkmode-toggle');
-        const html = document.documentElement;
-        if (localStorage.getItem('tabler-theme') === 'dark') {
-            html.setAttribute('data-bs-theme', 'dark');
+        var toggle = document.getElementById('darkmode-toggle');
+        var moonIcon = document.getElementById('darkmode-icon-moon');
+        var sunIcon = document.getElementById('darkmode-icon-sun');
+        var html = document.documentElement;
+
+        function syncIcon() {
+            var isDark = html.getAttribute('data-bs-theme') === 'dark';
+            moonIcon.classList.toggle('d-none', isDark);
+            sunIcon.classList.toggle('d-none', !isDark);
         }
+        syncIcon();
+
         toggle?.addEventListener('click', function (e) {
             e.preventDefault();
-            const isDark = html.getAttribute('data-bs-theme') === 'dark';
-            html.setAttribute('data-bs-theme', isDark ? 'light' : 'dark');
-            localStorage.setItem('tabler-theme', isDark ? 'light' : 'dark');
+            var isDark = html.getAttribute('data-bs-theme') === 'dark';
+            var next = isDark ? 'light' : 'dark';
+            html.setAttribute('data-bs-theme', next);
+            window.localStorage.setItem('tabler-theme', next);
+            syncIcon();
         });
     });
 </script>

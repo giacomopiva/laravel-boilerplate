@@ -2,6 +2,22 @@
    Custom overrides — Tabler + DataTables integration
    ============================================================ */
 
+/* ── Colore "indigo" personalizzato (#4154f1 al posto di #4263eb) ──
+   Sovrascrive sia lo swatch statico (--tblr-indigo, usato da .bg-indigo
+   nel pannello Theme Settings) sia il colore applicato quando "indigo"
+   è selezionato come colore primario (--tblr-primary, definito da
+   tabler-themes.css indipendentemente da --tblr-indigo).
+   Caricato dopo tabler.css e tabler-themes.css: stessa specificità,
+   vince per ordine di sorgente in sia light che dark mode. */
+:root {
+    --tblr-indigo: #4154f1;
+    --tblr-indigo-rgb: 65, 84, 241;
+}
+[data-bs-theme-primary="indigo"] {
+    --tblr-primary: #4154f1;
+    --tblr-primary-rgb: 65, 84, 241;
+}
+
 /* ── Sidebar brand image ─────────────────────────────────── */
 .navbar-brand-autodark .navbar-brand-image {
     max-height: 36px;

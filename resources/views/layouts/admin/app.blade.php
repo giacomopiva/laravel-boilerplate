@@ -1,5 +1,13 @@
+@php
+    $adminTheme = adminThemeSettings();
+@endphp
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}"
+    data-bs-theme="{{ $adminTheme['mode'] === 'auto' ? 'light' : $adminTheme['mode'] }}"
+    data-bs-theme-primary="{{ $adminTheme['primary'] }}"
+    data-bs-theme-base="{{ $adminTheme['base'] }}"
+    data-bs-theme-font="{{ $adminTheme['font'] }}"
+    data-bs-theme-radius="{{ $adminTheme['radius'] }}">
 
 <head>
     <meta charset="utf-8">
@@ -17,7 +25,18 @@
     <link rel="shortcut icon" href="{{ asset('images/favicon_admin.ico') }}">
 
     <!-- Tabler CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0/dist/css/tabler.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.4.0/dist/css/tabler.min.css">
+
+    <!-- Tabler Themes CSS (preset colore/base/font/raggio, letti da ADMIN_THEME_* in .env) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.4.0/dist/css/tabler-themes.min.css">
+
+    <!-- Bunny Fonts (alternativa GDPR-friendly a Google Fonts, font configurabile via ADMIN_FONT_FAMILY) -->
+    <link rel="stylesheet" href="{{ adminBunnyFontCssUrl() }}">
+    <style>
+        :root {
+            --tblr-font-sans-serif: '{{ config('admin-theme.font_family', 'Inter') }}', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+    </style>
 
     <!-- Tabler Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.0.0/dist/tabler-icons.min.css">
@@ -44,17 +63,48 @@
 </head>
 
 <body class="antialiased">
+
+    {{--
+        Script "anti-flash": riapplica subito, prima che la pagina venga
+        dipinta, la modalità chiara/scura scelta dall'utente (salvata nel
+        localStorage del browser tramite il toggle luna/sole in topbar).
+        Colore primario, base, font e raggio angoli sono impostati solo
+        via .env (vedi config/admin-theme.php) e non sono più modificabili
+        a runtime.
+    --}}
+    <script>
+        (function () {
+            var stored = window.localStorage.getItem('tabler-theme');
+            if (stored) {
+                document.documentElement.setAttribute('data-bs-theme', stored);
+            }
+        })();
+    </script>
+
+    {{-- Banner di impersonazione: visibile solo quando un admin sta navigando "come" un altro utente --}}
+    @impersonating
+        {{-- .alert di Tabler è display:flex internamente: text-center non centra i figli,
+             serve justify-content-center (+ flex-wrap per il wrap su schermi stretti). --}}
+        <div class="alert alert-warning sticky-top rounded-0 mb-0 py-2 d-flex flex-wrap justify-content-center align-items-center d-print-none" style="z-index: 1031;">
+            <i class="ti ti-user-shield me-1"></i>
+            Stai navigando come <strong>{{ Auth::user()->name }}</strong>.
+            <a href="{{ route('impersonate.leave') }}" class="alert-link ms-2">
+                <i class="ti ti-logout-2 me-1"></i>Torna al tuo account
+            </a>
+        </div>
+    @endImpersonating
+
     {{-- Root: class="page" è la classe corretta di Tabler per il layout con sidebar --}}
     <div class="page">
 
         {{-- Sidebar --}}
-        @include('layouts.lsidebar')
+        @include('layouts.admin.lsidebar')
 
         {{-- Page wrapper --}}
         <div class="page-wrapper">
 
             {{-- Top header --}}
-            @include('layouts.topbar')
+            @include('layouts.admin.topbar')
 
             {{--
                 Le viste gestiscono direttamente page-header e page-body,
@@ -79,7 +129,7 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
     <!-- Tabler JS -->
-    <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0/dist/js/tabler.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.4.0/dist/js/tabler.min.js"></script>
 
     <!-- DataTables -->
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>

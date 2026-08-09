@@ -14,6 +14,17 @@ Route::get('/welcome', function () {
 });
 
 /**
+ * Rotte per il blog (FlexStart) — contenuto statico, link fissi, nessuna tabella dati
+ */
+Route::get('/blog', function () {
+    return view('blog.index');
+})->name('blog');
+
+Route::get('/blog/articolo', function () {
+    return view('blog.show');
+})->name('blog.show');
+
+/**
  * Rotte per l'autenticazione
  * 
  * Per abilitare il reset della password, impostare il valore 'reset' a true
@@ -21,7 +32,12 @@ Route::get('/welcome', function () {
  * Per abilitate la conferma della registrazione, impostare il valore 'confirm' a true ??? 
  * Per abilitare la verifica dell'email, impostare il valore 'verify' a true ??? 
  */
-Auth::routes(['register' => false, 'confirm' => false, 'reset' => true, 'verify' => false]);
+Auth::routes([
+    'reset'     => true, // lasciare a true
+    'register'  => true, // registrazione 
+    'confirm'   => true, // conferma della registrazione dell'account 
+    'verify'    => true  // verifica dell'email  
+]);
 
 // Rotta personalizzata per il logout
 Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
@@ -37,17 +53,27 @@ Route::get('/admin', function () {
 
 Route::middleware(['auth', 'role:admin', 'status'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/home', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('home');
-    
-    // Gestione utenti 
+
+    // Gestione utenti
     Route::resource('user', App\Http\Controllers\Admin\UserController::class)->except(['show']);
     Route::prefix('user')->scopeBindings()->name('user.')->group(function () {
-        // Rotte personalizzate gestione utenti 
+        // Rotte personalizzate gestione utenti
         Route::post('/list', [App\Http\Controllers\Admin\UserController::class, 'list'])->name('list');
         Route::get('/{user}/print', [App\Http\Controllers\Admin\UserController::class, 'print'])->name('print');
         Route::get('/exportToExcel', [App\Http\Controllers\Admin\UserController::class, 'exportToExcel'])->name('exportToExcel');
         Route::get('/import', [App\Http\Controllers\Admin\UserController::class, 'showImport'])->name('showImport');
         Route::post('/import', [App\Http\Controllers\Admin\UserController::class, 'import'])->name('import');
     });
+
+    // Impersonate "login come" un utente — solo un admin può avviarla
+    Route::get('/impersonate/take/{id}/{guardName?}', [Lab404\Impersonate\Controllers\ImpersonateController::class, 'take'])->name('impersonate');
+});
+
+// Impersonate: uscita raggiungibile da qualsiasi utente autenticato, dato che
+// durante l'impersonificazione la sessione attiva è quella dell'utente
+// impersonato (che potrebbe non avere il ruolo admin né passare 'status').
+Route::middleware(['auth'])->group(function () {
+    Route::get('/impersonate/leave', [Lab404\Impersonate\Controllers\ImpersonateController::class, 'leave'])->name('impersonate.leave');
 });
 
 /**

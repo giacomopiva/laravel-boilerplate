@@ -74,3 +74,40 @@ function appSectionName($segment = 0): ?string
 {
     return request()->segments()[$segment] ?? request()->segments()[$segment - 1];
 }
+
+/**
+ * Return the validated admin theme (Tabler) settings, ready to be used as
+ * data-bs-* attributes. Any .env value not present in the allowed option
+ * list (config('admin-theme.options')) falls back to the Tabler default.
+ *
+ * @return array<string, string> Keys: mode, primary, base, radius, font.
+ */
+function adminThemeSettings(): array
+{
+    $options = config('admin-theme.options');
+    $defaults = config('admin-theme.defaults');
+
+    $settings = [];
+    foreach ($defaults as $key => $default) {
+        $value = config("admin-theme.{$key}");
+        $settings[$key] = in_array($value, $options[$key] ?? [], true) ? $value : $default;
+    }
+
+    return $settings;
+}
+
+/**
+ * Build the Bunny Fonts (https://fonts.bunny.net) stylesheet URL for the
+ * font family configured via ADMIN_FONT_FAMILY/ADMIN_FONT_WEIGHTS. Bunny
+ * exposes a Google-Fonts-compatible CSS endpoint keyed by a lowercase
+ * hyphenated slug of the family name (e.g. "Plus Jakarta Sans" -> "plus-jakarta-sans").
+ *
+ * @return string The full <link> href for the font stylesheet.
+ */
+function adminBunnyFontCssUrl(): string
+{
+    $slug = Str::slug(config('admin-theme.font_family', 'Inter'));
+    $weights = config('admin-theme.font_weights', '400,500,600,700');
+
+    return "https://fonts.bunny.net/css?family={$slug}:{$weights}";
+}

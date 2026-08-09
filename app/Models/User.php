@@ -6,11 +6,12 @@ use ESolution\DBEncryption\Traits\EncryptedAttribute;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Lab404\Impersonate\Models\Impersonate;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use EncryptedAttribute, HasFactory, HasRoles;
+    use EncryptedAttribute, HasFactory, HasRoles, Impersonate;
 
     /**
      * The attributes that are mass assignable.
@@ -93,6 +94,27 @@ class User extends Authenticatable implements MustVerifyEmail
     public function getRoleName(): string
     {
         return self::$roles[$this->getRoleNames()->first()];
+    }
+
+    /**
+     * Only admins are allowed to start an impersonation session.
+     *
+     * @return bool
+     */
+    public function canImpersonate(): bool
+    {
+        return $this->hasRole('admin');
+    }
+
+    /**
+     * Admins can't be impersonated, to avoid an admin impersonating another
+     * admin (and to prevent nested/self impersonation loops).
+     *
+     * @return bool
+     */
+    public function canBeImpersonated(): bool
+    {
+        return ! $this->hasRole('admin');
     }
 
     /**

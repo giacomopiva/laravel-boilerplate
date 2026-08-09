@@ -7,17 +7,27 @@ Questo è un boilerplate Laravel preconfigurato con vari pacchetti utili per ini
 ### Tema grafico installato area Admin
 
 [Tabler](https://tabler.io/admin-template)  
-[Demo](https://tabler.io/admin-template/preview/)  
+[Demo](https://tabler.io/admin-template/preview/) 
+[Documentation](https://docs.tabler.io/ui) 
+[Source](https://github.com/tabler/tabler) 
 
 ### Tema grafico installato area Frontend
 
+#### Front
+
 [Front](https://themes.getbootstrap.com/product/front-multipurpose-responsive-template)  
 [Demo](https://htmlstream.com/front)  
+
+#### Flex Start
+
 [FlexStart](https://bootstrapmade.com/demo/FlexStart/)  
 
-### Login
+#### Bootstrap 5
 
-[Shape divider](https://www.shapedivider.app/)
+[Bootstrap](https://getbootstrap.com/)  
+
+### Fonts
+[BunnyFont](https://fonts.bunny.net/)
 
 ## Package installati
 
