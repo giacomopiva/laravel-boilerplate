@@ -57,12 +57,19 @@
                     </div>
                 </div>
             </div>*/ ?>
-            <div class="d-none d-lg-block border-top border-white-10 my-2"></div>
 
+            <div class="d-none d-lg-block border-top border-white-10 my-2"></div>
+            
             <ul class="navbar-nav pt-lg-2">
 
                 {{-- Admin menu --}}
                 @role(['admin'])
+                    {{-- Divider --}}
+                    <li class="nav-item mt-2">
+                        <div class="nav-link disabled text-white-50 text-uppercase small fw-bold" style="font-size:0.65rem; letter-spacing:.05em;">
+                            <span class="nav-link-title">Menù</span>
+                        </div>
+                    </li>
 
                     {{-- Home --}}
                     <li class="nav-item">
