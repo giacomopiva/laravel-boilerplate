@@ -98,8 +98,6 @@ class User extends Authenticatable implements MustVerifyEmail
 
     /**
      * Only admins are allowed to start an impersonation session.
-     *
-     * @return bool
      */
     public function canImpersonate(): bool
     {
@@ -109,8 +107,6 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Admins can't be impersonated, to avoid an admin impersonating another
      * admin (and to prevent nested/self impersonation loops).
-     *
-     * @return bool
      */
     public function canBeImpersonated(): bool
     {
@@ -129,27 +125,27 @@ class User extends Authenticatable implements MustVerifyEmail
         parent::boot();
 
         self::creating(function () {
-            //Log::info('User creating');
+            // Log::info('User creating');
         });
 
         self::created(function () {
-            //Log::info('User created');
+            // Log::info('User created');
         });
 
         self::updating(function () {
-            //Log::info('User updating');
+            // Log::info('User updating');
         });
 
         self::updated(function () {
-            //Log::info('User updated');
+            // Log::info('User updated');
         });
 
         self::deleting(function () {
-            //Log::info('User deleting');
+            // Log::info('User deleting');
         });
 
         self::deleted(function () {
-            //Log::info('User deleted');
+            // Log::info('User deleted');
         });
     }
 
@@ -163,6 +159,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return [
             'name' => 'string',
             'email' => 'string',
+            'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'last_login' => 'datetime',
             'status' => 'boolean',
