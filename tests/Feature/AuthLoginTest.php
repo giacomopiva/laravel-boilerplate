@@ -106,3 +106,31 @@ test('logout disconnette l\'utente', function () {
 
     $this->assertGuest();
 });
+
+test('utente senza ruolo non resta autenticato e riceve un errore', function () {
+    User::factory()->create([
+        'email' => 'senzaruolo@example.com',
+        'password' => Hash::make('password'),
+        'status' => true,
+    ]);
+
+    $response = $this->post('/login', [
+        'email' => 'senzaruolo@example.com',
+        'password' => 'password',
+    ]);
+
+    $response->assertRedirect('login');
+    $response->assertSessionHasErrors();
+    $this->assertGuest();
+});
+
+test('homeRoute ritorna la rotta di login per un ospite', function () {
+    expect(homeRoute())->toBe(route('login'));
+});
+
+test('homeRoute non solleva eccezioni per un utente senza ruoli', function () {
+    $user = User::factory()->create();
+    $this->actingAs($user);
+
+    expect(homeRoute())->toBe(route('login'));
+});

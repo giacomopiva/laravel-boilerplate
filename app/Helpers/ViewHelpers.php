@@ -13,24 +13,19 @@ use Illuminate\Support\Str;
 /**
  * Determine and return the appropriate route based on the user's role.
  *
- * @return string The name of the route to redirect to.
+ * @return string The URL to redirect to.
  */
-function homeRoute()
+function homeRoute(): string
 {
     if (! Auth::check()) {
         return route('login');
     }
 
-    $role = Auth::user()->getRoleName();
-
-    if ($role === 'Amministratore') {
-        return route('admin.home');
-    }
-    if ($role === 'Utente') {
-        return route('user.home');
-    }
-
-    return route('admin.home');
+    return match (Auth::user()->getRoleNames()->first()) {
+        'admin' => route('admin.home'),
+        'user' => route('user.home'),
+        default => route('login'),
+    };
 }
 
 /**

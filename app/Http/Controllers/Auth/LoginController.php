@@ -53,11 +53,15 @@ class LoginController extends Controller
         $authenticated = $this->attemptLogin($credentials);
 
         if ($authenticated) {
-            $url = $this->getRedirectUrl();
+            if (Auth::user()->getRoleNames()->isEmpty()) {
+                Auth::logout();
+
+                return redirect('login')->withErrors('Account senza ruolo assegnato: contatta l\'amministratore.');
+            }
 
             $this->updateLastLogin(Auth::user());
 
-            return redirect($url);
+            return redirect(homeRoute());
         }
 
         return redirect('login')->withErrors('Email o password errati.');
@@ -86,25 +90,6 @@ class LoginController extends Controller
     private function attemptLogin(array $credentials): bool
     {
         return Auth::attempt($credentials);
-    }
-
-    /**
-     * Gets the redirection URL based on user's role.
-     *
-     * @return string The redirection URL.
-     */
-    private function getRedirectUrl(): string
-    {
-        $role = Auth::user()->roles()->first()->name ?? '';
-
-        switch ($role) {
-            case 'admin':
-                return '/admin/home';
-            case 'user':
-                return '/user/home';
-            default:
-                return '/home';
-        }
     }
 
     /**
