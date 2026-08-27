@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRegisterRequest;
 use App\Models\User;
 use App\Services\RegisterService;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
@@ -54,6 +55,10 @@ class RegisterController extends Controller
         $validatedData = $request->validated();
         $user = $this->userService->storeUser($validatedData);
         $this->userService->assignRoleToUser($user);
+
+        // Fa partire l'invio dell'email di verifica (via listener SendEmailVerificationNotification,
+        // registrato in AppServiceProvider), dato che User implementa MustVerifyEmail.
+        event(new Registered($user));
 
         return Redirect::route(route: 'login');
     }

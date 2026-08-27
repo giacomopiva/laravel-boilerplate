@@ -1,83 +1,68 @@
 <!DOCTYPE html>
-<html lang="{{ Str::replace('_', '-', app()->getLocale()) }}">
+<html lang="it">
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-
-    <!-- Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <!-- Favicon-->
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet"
-        type="text/css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
-
-    <!-- Bootstrap Core Css -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('plugins/bootstrap/css/bootstrap.css') }}">
-
-    <!-- Waves Effect Css -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('plugins/node-waves/waves.css') }}">
-
-    <!-- Animation Css -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('plugins/animate-css/animate.css') }}">
-
-    <!-- AdminBSB Theme -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/admin/style.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/admin/custom.css') }}">
-
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/admin/custom.css') }}">
-    <style>
-        .email {
-            background-color: #ffffff;
-            margin: 10% auto;
-            max-width: 400px;
-        }
-
-        .logo img {
-            width: 100%;
-            padding: 10px;
-        }
-
-        .logo {
-            box-shadow: 0 2px 10px rgb(0 0 0 / 20%);
-            background-color: #ffffff;
-            text-align: center
-        }
-    </style>
-
-    <!-- Jquery Core Js -->
-    <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
-
-    <!-- Bootstrap Core Js -->
-    <script src="{{ asset('plugins/bootstrap/js/bootstrap.min.js') }}"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reset della password</title>
 </head>
 
-<body class="email">
-    <div class="email-box">
-        <div class="logo">
-            <img src="/images/logo@2x.png" width="220" alt="{{ config('app.name') }}" />
-        </div>
-        <div class="card">
-            <div class="body">
+<body style="margin:0; padding:0; background-color:#f4f6fa; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#f4f6fa; padding:32px 16px;">
+        <tr>
+            <td align="center">
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:480px; background-color:#ffffff; border-radius:8px; overflow:hidden; box-shadow:0 2px 10px rgba(0,0,0,0.08);">
 
-                <div class="wrapper">
-                  <strong style="align-content: center">HAI DIMENTICATO LA PASSWORD ?</strong>
-                  <p>Hai inviato una richiesta per cambiare la tua password!</p>
-                  <br>
-                  <p>Se non hai fatto questa richiesta, ignora questa email. Altrimenti clicca nel bottone qui sotto e cambia la tua password:</p>
-                  <div>
-                    <a href="{{ route('password.reset', $token) }}">
-                        <button type="button" class="btn bg-blue btn-block btn-lg waves-effect">Reset Password</button>
-                    </a>
-                </div>
+                    {{-- Logo --}}
+                    <tr>
+                        <td align="center" style="padding:32px 32px 16px;">
+                            <img src="{{ asset('images/logo@2x.png') }}" width="160" alt="{{ config('app.name') }}" style="display:block; max-width:160px; height:auto;">
+                        </td>
+                    </tr>
 
-            </div>
-        </div>
-    </div>
+                    {{-- Body --}}
+                    <tr>
+                        <td style="padding:0 32px 32px; color:#1a2540;">
+                            <h2 style="margin:0 0 16px; font-size:20px;">Hai dimenticato la password?</h2>
+
+                            <p style="margin:0 0 16px; font-size:15px; line-height:1.5; color:#4a5568;">
+                                Abbiamo ricevuto una richiesta di reset della password per il tuo account su
+                                <strong>{{ config('app.name') }}</strong>.
+                            </p>
+
+                            <p style="margin:0 0 24px; font-size:15px; line-height:1.5; color:#4a5568;">
+                                Clicca sul pulsante qui sotto per impostare una nuova password. Il link è valido per
+                                {{ config('auth.passwords.users.expire', 60) }} minuti.
+                            </p>
+
+                            <table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 auto 24px;">
+                                <tr>
+                                    <td align="center" style="border-radius:6px; background-color:#4154f1;">
+                                        <a href="{{ route('password.reset', $token) }}"
+                                            style="display:inline-block; padding:12px 28px; font-size:15px; font-weight:600; color:#ffffff; text-decoration:none;">
+                                            Reset password
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <p style="margin:0; font-size:13px; line-height:1.5; color:#8a94a6;">
+                                Se non hai richiesto tu il reset, ignora pure questa email: la tua password resterà invariata.
+                            </p>
+                        </td>
+                    </tr>
+
+                    {{-- Footer --}}
+                    <tr>
+                        <td style="padding:20px 32px; background-color:#f4f6fa; text-align:center; font-size:12px; color:#8a94a6;">
+                            &copy; {{ date('Y') }} {{ config('app.name') }}
+                        </td>
+                    </tr>
+
+                </table>
+            </td>
+        </tr>
+    </table>
 </body>
+
 </html>

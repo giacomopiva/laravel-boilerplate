@@ -3,14 +3,15 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ResetPasswordMail;
 use App\Models\User;
 use Carbon\Carbon;
 use DB;
 use ESolution\DBEncryption\Encrypter;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
-use Mail;
 
 class ForgotPasswordController extends Controller
 {
@@ -69,15 +70,14 @@ class ForgotPasswordController extends Controller
             ]);
         }
 
-        $sendedmail = Mail::send('auth.passwords.mail.email', ['token' => $token], function ($message) use ($request) {
-            $message->to($request->email);
-            $message->subject('Reset Password');
-        });
+        try {
+            Mail::to($request->email)->send(new ResetPasswordMail($token));
+        } catch (\Throwable $e) {
+            report($e);
 
-        if ($sendedmail) {
-            return redirect()->back()->with('success', 'Ti abbiamo mandato un email con il link per il reset della password!');
-        } else {
             return redirect()->back()->with('fail', 'Qualcosa è andato storto, non siamo riusciti a inviarti la mail con il link per il reset della password. Riprova più tardi.');
         }
+
+        return redirect()->back()->with('success', 'Ti abbiamo mandato un\'email con il link per il reset della password!');
     }
 }
