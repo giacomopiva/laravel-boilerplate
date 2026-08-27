@@ -31,12 +31,17 @@ Route::get('/blog/articolo', function () {
  * Per abilitare la registrazione di un nuovo utente, impostare il valore 'register' a true
  * Per abilitate la conferma della registrazione, impostare il valore 'confirm' a true ??? 
  * Per abilitare la verifica dell'email, impostare il valore 'verify' a true ??? 
+ * 
+ * I template sono: 
+ * resources/views/admin/user/email/account-confirmation.blade.php
+ * resources/views/emails/verify-email.blade.php
+ * resources/views/emails/reset-password.blade.php
  */
 Auth::routes([
-    'reset'     => true, // lasciare a true
+    'reset'     => true, // lasciare sempre a true 
     'register'  => true, // registrazione 
-    'confirm'   => true, // conferma della registrazione dell'account 
-    'verify'    => true  // verifica dell'email  
+    'confirm'   => true, // conferma registrazione
+    'verify'    => true  // verifica email e attivazione
 ]);
 
 // Rotta personalizzata per il logout

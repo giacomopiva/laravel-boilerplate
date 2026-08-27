@@ -115,6 +115,16 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * Invia la notifica di verifica email usando il template brandizzato del progetto
+     * (App\Notifications\VerifyEmailNotification) al posto di quello generico di Laravel,
+     * per uniformare lo stile a quello dell'email di reset password.
+     */
+    public function sendEmailVerificationNotification(): void
+    {
+        $this->notify(new \App\Notifications\VerifyEmailNotification);
+    }
+
+    /**
      * Boot the User model and set up event listeners for creating, updating, and deleting actions.
      *
      * This method registers event listeners to log activities related to user records, such as creation, updating, and deletion.

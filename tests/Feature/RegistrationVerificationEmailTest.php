@@ -1,8 +1,8 @@
 <?php
 
 use App\Models\User;
+use App\Notifications\VerifyEmailNotification;
 use ESolution\DBEncryption\Encrypter;
-use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Notification;
 use Spatie\Permission\Models\Role;
@@ -32,7 +32,7 @@ test('la registrazione invia l\'email di verifica al nuovo utente', function () 
     expect($user->hasRole('user'))->toBeTrue();
     expect($user->hasVerifiedEmail())->toBeFalse();
 
-    Notification::assertSentTo($user, VerifyEmail::class);
+    Notification::assertSentTo($user, VerifyEmailNotification::class);
 });
 
 test('un utente registrato non verificato non risulta verificato finché non clicca il link', function () {

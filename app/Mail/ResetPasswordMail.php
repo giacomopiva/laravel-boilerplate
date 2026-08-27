@@ -19,7 +19,7 @@ class ResetPasswordMail extends Mailable
     {
         return $this
             ->subject('Reset della password — '.config('app.name'))
-            ->view('auth.passwords.mail.email', [
+            ->view('emails.reset-password', [
                 'token' => $this->token,
             ]);
     }
